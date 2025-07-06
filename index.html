@@ -1,29 +1,14 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="utf-8">
 <title>Weather App</title>
 <link rel="stylesheet" type="text/css" href="main.css">
+
 <body>
 <style>
     
-h1 {
-  color: #FFE4C4;
-  font-size: 48px;
 
-
-} 
-
-body
-{
-    background-image:url('61727_tumb_1200X768.jpeg');
-    background-repeat: no-repeat;
-    text-align: center;
-    
-    background-attachment: fixed;
-    background-size: cover;
-
-}
 
 </style>
 
@@ -32,15 +17,37 @@ body
 
 <p> Welcome to the weather App </p>
 
-<p>Click the button to get the weather</p>
 
-<button onclick="getLocation()">Get your location</button>
+
+<a href="https://www.weatherapi.com/weather/" target="_blank">The weather app </a>
 <br>
+<div id="weather" class="loading">Loading Weather</div>
 
 <script src="main.js"> </script>
+
 <br>
-<a href="https://www.weatherapi.com/weather/" target="_blank">The weather app </a>
-<h2>Weather Information</h2>
+<div style="justify-content: center; align-items: center;">
+  <div class="blue-square">
+    <div class="white-square">
+      <span class="left-arrow">&#8592;</span>
+      <span class="title-text" style="margin-left:8px; text-decoration:underline;">weather app</span>
+      <hr style="width:100%; margin:10px 0;">
+
+      <div>13°C</p>
+      <p>Broken Clouds</p>
+      <div>kathmandu, Nepal</div>
+      
+      <div style="display: flex; justify-content: space-between; width: 100%;">
+        <p style="margin-right: 20px;">	 17°C <br><span style="font-size:12px;">Feels like</span></p>
+        <p>84% <br><span style="font-size:12px;">Humidity</span></p>
+      </div>
+    </div>
+     
+  </div>
+</div>
+
+
+ 
 
 
 </body>

@@ -1,11 +1,13 @@
 
 1.  The user opens the application
 1.  The browser asks for location permission
+1.  The client will send the request every 30 seconds and will update the page accordingly.
+
 **Flow**:
 
 1.  After accepting the application will send an API request to an external API (find a free   weather API, remember you can use temporary emails if needed)
 1.  Display the data as similar as possible to the UI image above.
-1.  The client will send the request every 30 seconds and will update the page accordingly.
+
 
 ## Knowledge questions
 
