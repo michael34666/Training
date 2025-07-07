@@ -26,7 +26,7 @@ function getLocation() {
 
             document.getElementById("Temperature").innerHTML = `${data.current.temp_c} °C`;
             document.getElementById("Condition").innerHTML = `${data.current.condition.text}<br>`;
-            document.getElementById("Location").innerHTML = `${data.location.name}`;
+            document.getElementById("Location").innerHTML = `${data.location.name}, ${data.location.country}`;
             document.getElementById("Humidity").innerHTML = `${data.current.humidity} % <br> Humidity`;
             document.getElementById("FeelsLike").innerHTML = `${data.current.feelslike_c} °C <br> Feels like `;
 
