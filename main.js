@@ -22,11 +22,12 @@ function getLocation() {
         fetch(url)
           .then(res => res.json())
           .then(data => {
-            document.getElementById("weather").innerHTML = `
-              Location: ${data.location.name}<br>
-              Condition:${data.current.condition.text}<br>
-              Temperature: ${data.current.temp_c} °C
-            `;
+
+
+            document.getElementById("Temperature").innerHTML = `${data.current.temp_c} °C`;
+            document.getElementById("Condition").innerHTML = `${data.current.condition.text}<br>`;
+            document.getElementById("Location").innerHTML = `${data.location.name}`;
+            
           })
           .catch(() => {
             document.getElementById("weather").innerText = "Could not load weather.";
