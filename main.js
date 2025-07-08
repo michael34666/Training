@@ -1,5 +1,5 @@
 //location finder
-function getLocation() {
+getLocation=() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(success, error);
   
@@ -12,7 +12,7 @@ function getLocation() {
   }
   
   // Function to handle successful loc finder
-   function success(position) {
+   success=(position) => {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
         const API_KEY = '63bb193d80834d6483c143520250207';
@@ -24,6 +24,7 @@ function getLocation() {
           .then(data => {
 
             
+            document.getElementById("weather").innerHTML = `successfully loaded weather for your location!`;
             document.getElementById("Temperature").innerHTML = `${data.current.temp_c} °C`;
             document.getElementById("Condition").innerHTML = `${data.current.condition.text}<br>`;
             document.getElementById("Location").innerHTML = `${data.location.name}, ${data.location.country}`;
@@ -39,8 +40,8 @@ function getLocation() {
             document.getElementById("weather").innerText = "Could not load weather.";
           });
       }
-  
-      function error() {
+
+       error=() => {
         document.getElementById("weather").innerText = "Location not available.";
       }
   
