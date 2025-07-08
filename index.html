@@ -4,45 +4,55 @@
 <meta charset="utf-8">
 <title>Weather App</title>
 <link rel="stylesheet" type="text/css" href="main.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <body>
-<style>
-    
 
 
-</style>
 
-
-<h1>weather App</h1>
+<h1 style="color: rgb(66, 165, 41);">weather App</h1>
 
 <p> Welcome to the weather App </p>
 
-
-
-<a href="https://www.weatherapi.com/weather/" target="_blank">The weather app </a>
 <br>
-<div id="weather" class="loading">Loading Weather</div>
 
+<a href="https://www.weatherapi.com/weather/" target="_blank">The weather site </a>
+<br>
+<div id="weather" class="loading">Loading Weather...</div>
+<br>
 <script src="main.js"> </script>
 
 <br>
-<div style="justify-content: center; align-items: center;">
-  <div class="blue-square">
-    <div class="white-square">
-      <span class="left-arrow">&#8592;</span>
-      <span class="title-text" style="margin-left:8px; text-decoration:underline;">weather app</span>
-      <hr style="width:100%; margin:10px 0;">
+<!--the huge blue squre-->
+<div class="blue-square">
+    
+<!--the huge white squre-->
+<div class="white-square">
 
-      <div>13°C</p>
-      <p>Broken Clouds</p>
-      <div>kathmandu, Nepal</div>
-      
-      <div style="display: flex; justify-content: space-between; width: 100%;">
-        <p style="margin-right: 20px;">	 17°C <br><span style="font-size:12px;">Feels like</span></p>
-        <p>84% <br><span style="font-size:12px;">Humidity</span></p>
+    <div class="header">
+      <span class="back-arrow">&#8592;</span>
+      <span class="app-title">Weather App</span>
+    </div>
+    <div class="divider"></div>
+  
+    <div class="weather-icon">
+      <img src="https://img.icons8.com/color/96/sun--v1.png" alt="sunny" class="weather-image">
+  </div>
+  
+    <div id="Temperature" class="temperature"></div>
+    <div id="Condition" class="description"></div>
+    <div id="Location" class="location"><i class="fas fa-map-marker-alt"></i> </div>
+  
+    <div class="weather-details">
+      <div class="detail">
+        <i class="fas fa-thermometer-half"></i>
+        <div id="FeelsLike">32°C<br><span class="label">Feels like</span></div>
+      </div>
+      <div class="detail">
+        <i class="fas fa-tint"></i>
+        <div id="Humidity">66%<br><span class="label">Humidity</span></div>
       </div>
     </div>
-     
   </div>
 </div>
 
@@ -52,4 +62,3 @@
 
 </body>
 </html>
-
