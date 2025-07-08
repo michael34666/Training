@@ -1,0 +1,101 @@
+body
+{
+    background-image: url('61727_tumb_1200X768.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+
+
+.blue-square {
+    background-color: rgb(0, 191, 255);
+    width: 400px;
+    height: 400px;
+    font-size: 36px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+.white-square {
+    background-color: white;
+    border-radius: 16px;
+    width: 280px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #00bfff;
+    font-size: 16px;
+  }
+  
+  .back-arrow {
+    margin-right: 8px;
+    font-size: 20px;
+  }
+  
+  .divider {
+    margin: 10px 0;
+    height: 1px;
+    background-color: #ccc;
+  }
+  
+  .weather-icon img {
+    width: 64px;
+    height: 64px;
+    margin: 10px auto;
+  }
+  
+  .temperature {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  .description {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .location {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .weather-details {
+    display: flex;
+    justify-content: space-around;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .detail i {
+    color: #00bfff;
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  
+  .detail {
+    text-align: center;
+  }
+  
+  .label {
+    font-size: 12px;
+    color: #666;
+  }
+  
