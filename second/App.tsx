@@ -12,7 +12,7 @@ export default function App(){
   function handleAdd(props: ToDoProps)
   {
 
-    setTodoList((prevList)=>{
+    setTodoList((prevList: ToDoProps[])=>{
       
       return[...prevList,props];
       
@@ -21,13 +21,13 @@ export default function App(){
 
   function handleDeleteTODO(index:number)
   {
-    setTodoList((prevList)=>prevList.filter((task)=> task.index !== index));
+    setTodoList((prevList: ToDoProps[])=>prevList.filter((task)=> task.index !== index));
   }
   
 return (
   <>
   <div>
-    <button onclick={handleAdd}>Add Task</button>
+    <button onClick={handleAdd}>Add Task</button>
   </div>
     
   </>
