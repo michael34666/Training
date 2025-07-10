@@ -1,26 +1,36 @@
 import React, { useState } from 'react';
 
-
+type ToDoProps = {
+  index: number;
+  task : string;
+  completed:boolean;
+  
+};
 export default function App(){
-  const [ToDoList, setTodoList] = useState<string[]>([]);
+  const [ToDoList, setTodoList] = useState<ToDoProps[]>([]);
 
-  function handleAdd(prop:string)
+  function handleAdd(props: ToDoProps)
   {
 
-    setTodoList(prevList=>{
-      const newTask = prop;
-      if(newTask){
-
-        return[...prevList,newTask]
-      }
+    setTodoList((prevList)=>{
+      
+      return[...prevList,props];
+      
     })
   }
+
+  function handleDeleteTODO(index:number)
+  {
+    setTodoList((prevList)=>prevList.filter((task)=> task.index !== index));
+  }
+  
 return (
+  <>
   <div>
-    <button onClick={handleAdd}>Add Task</button>
+    <button onclick={handleAdd}>Add Task</button>
   </div>
     
-  
+  </>
 );
 
 }
