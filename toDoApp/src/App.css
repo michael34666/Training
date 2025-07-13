@@ -5,12 +5,7 @@
   text-align: center;
 }
 
-body{
-    background-image:url(toDoApp\src\assets\nicrone.jpg);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-}
+
 
 .logo {
   height: 6em;
