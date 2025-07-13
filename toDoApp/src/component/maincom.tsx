@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 
 type ToDoProps = {
   index: number;
@@ -6,6 +6,8 @@ type ToDoProps = {
   completed:boolean;
   
 };
+
+
 export default function App(){
   const [ToDoList, setTodoList] = useState<ToDoProps[]>([]);
 
@@ -27,7 +29,8 @@ export default function App(){
 return (
   <>
   <div>
-    <button onClick={handleAdd}>Add Task</button>
+  <button onClick={()=>handleAdd({index: ToDoList.length, task: 'New Task', completed: false})}>Add New Task</button>
+  <button onClick={()=>handleDeleteTODO(ToDoList.length - 1)}>Delete Task</button>
   </div>
     
   </>
