@@ -8,12 +8,13 @@ import handleDeleteTODO from './component/handleDeleteTODO';
 import handlecompleteToDo from './component/handlecompleteToDo';
 import howmanyneedTODO from './component/howmanyneedTODO';*/
 
-type ToDoProps = {
+interface ToDoProps  {
   index: number;
   task : string;
   completed:boolean;
-  children?: React.ReactNode;
+  
 };
+
 
 
 
