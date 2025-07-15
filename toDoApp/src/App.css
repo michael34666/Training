@@ -3,9 +3,14 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+ 
 }
 
-
+.input-container {
+  display: flex;
+  flex-direction: column;
+  text-align:left
+}
 
 .logo {
   height: 6em;
@@ -16,8 +21,18 @@
 .scroller {
   margin: 0 auto;
   height: 300px;
-  width: 500px;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   overflow: auto;
+}
+.strikethrough {
+  text-decoration: line-through;
+  color: gray;
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
@@ -47,4 +62,10 @@
 
 .read-the-docs {
   color: #888;
+}
+body {
+background-image: url(toDoApp\public\niceone.jpg);
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
 }
