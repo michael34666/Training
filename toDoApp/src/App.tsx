@@ -22,6 +22,7 @@ type ToDoProps = {
 function App() {
   const [ToDoList, setTodoList] = useState<ToDoProps[]>([]);
   const [newTodo, setNewTodo] = useState('');
+  
   function handleAdd()
   {
     if(newTodo.trim() === '') {
