@@ -2,11 +2,6 @@ import {  useState,useEffect } from 'react'
 
 import './App.css'
 
-/*
-import handleAdd from './component/handleAdd';
-import handleDeleteTODO from './component/handleDeleteTODO';
-import handlecompleteToDo from './component/handlecompleteToDo';
-import howmanyneedTODO from './component/howmanyneedTODO';*/
 
 interface ToDoProps  {
   index: number;
