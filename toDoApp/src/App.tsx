@@ -75,11 +75,10 @@ function App() {
   return (
     <>
       <h1>To Do App</h1>
-      
       <div className='white'>You have {howmanyneedTODO()} tasks that are open</div>
       <br></br>
        <button onClick={() => handleAdd()}>Add New Task:</button>
-      <div >
+      <div>
         <input
           type="text"
           value={newTodo}
@@ -89,7 +88,8 @@ function App() {
         <br></br>
         
         <br></br>
-        <div className="scroller input-container">
+        
+        <div className="scroller ">
        
         <ul>
           { ToDoList.map((task: ToDoProps) => (
@@ -100,14 +100,14 @@ function App() {
             <button onClick={() => handlecompleteToDo(task.index)}>
               {task.completed ? 'Undo' : 'Complete'}
             </button>
-            
+
           </li>
-          
         ))}
         
         </ul>
         </div>
       </div>
+  
       
     </>
   )

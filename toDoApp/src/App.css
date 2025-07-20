@@ -6,25 +6,22 @@
  
 }
 
-.input-container {
-  display: flex;
-  flex-direction: column;
-  text-align:left
-}
+
 
 
 .scroller {
-  
+  text-align:left;
+  flex-direction: column;
+  display: flex;
   margin: 0 auto;
   max-width: 600px;
-  border-radius: 20px;
+  border: 10px solid transparent;
   display: flex;
-  overflow-y: scroll;
+  border-radius: 20px;
   overflow-x: hidden;
+  overflow-y: auto;
   height: 300px;
   width: 100%;
-  border: 1px solid black;
-  border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   
