@@ -57,6 +57,7 @@ function App() {
     );
 
   }
+  
    function handleDeleteTODO(index:number)
   {
     setTodoList((ToDoList: ToDoProps[])=>ToDoList.filter((task)=> task.index !== index));
