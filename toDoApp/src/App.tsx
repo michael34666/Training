@@ -57,6 +57,7 @@ function App() {
     );
 
   }
+  
    function handleDeleteTODO(index:number)
   {
     setTodoList((ToDoList: ToDoProps[])=>ToDoList.filter((task)=> task.index !== index));
@@ -80,7 +81,7 @@ function App() {
     <>
       <h1>To Do App</h1>
       
-      <div>You have {howmanyneedTODO()} tasks that are open</div>
+      <div className='white'>You have {howmanyneedTODO()} tasks that are open</div>
       <br></br>
        <button onClick={() => handleAdd()}>Add New Task:</button>
       <div >
