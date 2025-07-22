@@ -10,15 +10,12 @@ interface ToDoProps  {
   
 };
 
-
-
-
-function App() {
-
+const App= () => {
+  const str="LOCAL_STORAGE";
   const [newTodo, setNewTodo] = useState('');
   
-  const [ToDoList, setTodoList] = useState(() => {
-    const toDoString = localStorage.getItem("ToDoList");
+  const [toDoList, setTodoList] = useState(() => {
+    const toDoString = localStorage.getItem(str);
     const storedToDo = toDoString ? JSON.parse(toDoString) : [];
     return storedToDo || [];
   });
@@ -26,45 +23,45 @@ function App() {
 
   //synchroniz the componenets- allow to display data that write in another localhost
   useEffect(() =>{
-    localStorage.setItem('ToDoList',JSON.stringify(ToDoList))}
-  ,[ToDoList]);
+    localStorage.setItem(str,JSON.stringify(toDoList))}
+  ,[toDoList]);
   
  
-  function handleAdd()
+  const handleAdd = () =>
   {
     if(newTodo.trim() === '') {
       alert('Enter a valid task');
       return;
     }
     
-    setTodoList((ToDoList: ToDoProps[])=>{
-      return[...ToDoList,{ index: ToDoList.length, task: newTodo, completed: false }];
+    setTodoList((toDoList: ToDoProps[])=>{
+      return[...toDoList,{ index: toDoList.length, task: newTodo, completed: false }];
     })
     setNewTodo(''); 
   }
 
-   function handlecompleteToDo(index:number)
+   const handlecompleteToDo= (index:number) =>
   {
-    setTodoList((ToDoList: ToDoProps[]) =>
-      ToDoList.map((task) =>
+    setTodoList((toDoList: ToDoProps[]) =>
+      toDoList.map((task) =>
        task.index===index ? { ...task, completed: !task.completed } : task
      )
     );
 
   }
   
-   function handleDeleteTODO(index:number)
+   const handleDeleteTODO = (index:number) =>
   {
-    setTodoList((ToDoList: ToDoProps[])=>ToDoList.filter((task)=> task.index !== index));
+    setTodoList((toDoList: ToDoProps[])=>toDoList.filter((task)=> task.index !== index));
   }
 
-    function howmanyneedTODO()
+   const  howmanyneedTODO = () =>
   {
-    if(ToDoList.length === 0) {
+    if(toDoList.length === 0) {
       return 0;
     }
     let count = 0;
-    ToDoList.forEach((task: ToDoProps) => {
+    toDoList.forEach((task: ToDoProps) => {
       if(!task.completed){
         count++;
       }
@@ -92,7 +89,7 @@ function App() {
         <div className="scroller ">
        
         <ul>
-          { ToDoList.map((task: ToDoProps) => (
+          { toDoList.map((task: ToDoProps) => (
           <li key={task.index}>
             <span className={task.completed ? 'strikethrough' : ''}>{task.task}</span>
             <br></br>
