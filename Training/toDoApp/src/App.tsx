@@ -7,15 +7,14 @@ interface ToDoProps  {
   index: number;
   task : string;
   completed:boolean;
-  
 };
 
 const App= () => {
-  const str="LOCAL_STORAGE";
+  const LOCAL_STORAGE="toDoApp";
   const [newTodo, setNewTodo] = useState('');
   
   const [toDoList, setTodoList] = useState(() => {
-    const toDoString = localStorage.getItem(str);
+    const toDoString = localStorage.getItem(LOCAL_STORAGE);
     const storedToDo = toDoString ? JSON.parse(toDoString) : [];
     return storedToDo || [];
   });
@@ -23,7 +22,7 @@ const App= () => {
 
   //synchroniz the componenets- allow to display data that write in another localhost
   useEffect(() =>{
-    localStorage.setItem(str,JSON.stringify(toDoList))}
+    localStorage.setItem(LOCAL_STORAGE,JSON.stringify(toDoList))}
   ,[toDoList]);
   
  
