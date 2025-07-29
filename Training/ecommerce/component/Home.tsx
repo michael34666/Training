@@ -69,8 +69,6 @@ const APPHome = () => {
 
   return (
     <>
-      <h1>Welcome to Ecommerce App</h1>
-
       <button onClick={() => sortItemsPrice()}>sort by price</button>
       <button onClick={() => sortItemsDate()}>sort by Date</button>
       <br></br>
@@ -82,8 +80,7 @@ const APPHome = () => {
       />
 
       <button onClick={() => filterItemsCatgory(filter)}>
-        {" "}
-        filter the list{" "}
+        filter the list
       </button>
 
       <ul>

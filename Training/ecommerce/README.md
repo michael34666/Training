@@ -27,15 +27,16 @@ In this project you will learn how to use react router, redux and scss, while co
 
 - **Navbar**
 
-  - Name and logo of your shop – return to home screen.
+  - Name – return to home screen. **done**
+  - logo of your shop – return to home screen.
   - Cart icon displaying how many products are selected – cart page.
 
   - The navbar needs to be displayed all the time.-**done**
 
 - **Product page - /product/{id}**
 
-  - Show image and 
-  the data about the products. **done**
+  - Show image and
+    the data about the products. **done**
   - Ability to add/remove product to the cart with amount – if already exists/doesn't exists show corresponding message to the client.
   - Error page if the product id doesn't exist.
 

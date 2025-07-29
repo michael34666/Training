@@ -42,7 +42,8 @@ const ProductPage = () => {
         <ul>
           {items.map((data) => (
             <li key={data}>
-              {data["Product_Name"]}, {data["upload_date"]}, {data['description']} {data["price"]}
+              {data["Product_Name"]}, {data["upload_date"]},{" "}
+              {data["description"]} {data["price"]}
               <br></br>
               {data["category"]},{data["sub_category"]}
               <br></br>
