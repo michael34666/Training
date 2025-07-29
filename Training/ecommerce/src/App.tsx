@@ -1,21 +1,46 @@
 //import { useState ,useEffect} from 'react'
 //import reactLogo from './assets/react.svg'
 //import viteLogo from '/vite.svg'
+ // const [count, setCount] = useState(0)
+  //const navigate = useNavigate();
+
+
 import "./App.css";
 
-function App() {
-  // const [count, setCount] = useState(0)
+import APPHome from "../component/Home.tsx";
+import ProductPage from "../component/ProductPage.tsx";
+import Cart from "../component/Cart.tsx";
+import Layout from "../component/layout.tsx"
+import PageNotFound from "../component/layout.tsx"
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+
+const App = () => {
+ 
 
   return (
-    <>
-      <h1>Ecommerce App</h1>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+        <Route index element={<APPHome />} />
+        <Route path="/Product_page" element={<ProductPage />} />
+        <Route path="/Cart_page" element={<Cart />} />
+        <Route path="*" element={<PageNotFound />} /> 
+      </Route>
+      </Routes>
+      
+    </Router>
   );
-}
+};
 
 export default App;
 /*
  <>
+
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -37,4 +62,25 @@ export default App;
         Click on the Vite and React logos to learn more
       </p>
     </>
+
+
+
+     <Router>
+      <h1>Ecommerce App</h1>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="">Product page</Link>
+          </li>
+          <li>
+            <Link to="">Cart page</Link>
+          </li>
+        </ul>
+      </nav>
+      <Route path="/" element={<APPHome/>}/>
+      
+    </Router>
     */
