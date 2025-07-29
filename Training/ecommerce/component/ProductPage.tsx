@@ -27,12 +27,12 @@ import { useEffect, useState } from "react";
 import { data } from "./MOCK_DATA";
 
 const ProductPage = () => {
-  const [items, setItems] = useState(data);
+  const [items, setItems] = useState([data]);
 
   //const [selectedCfilter, setSelectedFilter] = useState("catgory");
 
   useEffect(() => {
-    setItems(items);
+    setItems(data);
   }, data);
 
   return (

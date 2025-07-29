@@ -25,16 +25,7 @@ const filterByDate = () => {};
 const filterByPriceRange = () => {};
 const sortByPriceOrDate = () => {};
 const AddToCart = () => {};
- case "date":
-        return data.upload_date.sort(
-          (a, b) =>
-            Date.parse(
-              new Date(a.initialRegistration.split("/").reverse().join("-"))
-            ) -
-            Date.parse(
-              new Date(b.initialRegistration.split("/").reverse().join("-"))
-            )
-        );
+
 */
 // const [productslist, setProductList] = useState([]);
 //import DATA from './MOCK_DATA.csv';
@@ -45,7 +36,7 @@ import { data } from "./MOCK_DATA";
 
 const APPHome = () => {
   const [filter, setFilter] = useState("");
-  const [items, setItems] = useState(data);
+  const [items, setItems] = useState([data]);
   //const [selectedCfilter, setSelectedFilter] = useState("catgory");
 
   useEffect(() => {
@@ -53,18 +44,19 @@ const APPHome = () => {
   }, data);
 
   const filterItemsCatgory = (filter: string) => {
-    return items.filter((item) => item["category"] === filter);
+    return items.filter((items) => items["category"] == filter);
   };
 
   const sortItemsPrice = () => {
-    return data.sort((a , b) => a.price - b.price);
+    return data.sort((a: any, b: any) => a.price - b.price);
   };
 
   const sortItemsDate = () => {
-    return data.sort(
-      (a,b)=>
-        a.split("/").reverse().join("") - b.split("/").reverse().join("")
+    const ans = data.sort(
+      (a: any, b: any) =>
+        Number(new Date(a.upload_date)) - Number(new Date(b.upload_date))
     );
+    return ans;
   };
 
   return (
