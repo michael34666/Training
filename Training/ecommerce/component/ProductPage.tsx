@@ -22,10 +22,35 @@ interface order {
 
 const showImg = () => {};
 */
+import { useEffect, useState } from "react";
+
+import { data } from "./MOCK_DATA";
+
 const ProductPage = () => {
+  const [items, setItems] = useState([data]);
+
+  //const [selectedCfilter, setSelectedFilter] = useState("catgory");
+
+  useEffect(() => {
+    setItems(data);
+  }, data);
+
   return (
     <>
       <h1>The Product Page</h1>
+      <ul>
+        <ul>
+          {items.map((data) => (
+            <li key={data}>
+              {data["Product_Name"]}, {data["upload_date"]}, {data['description']} {data["price"]}
+              <br></br>
+              {data["category"]},{data["sub_category"]}
+              <br></br>
+              <img src={data["image_url"]}></img>
+            </li>
+          ))}
+        </ul>
+      </ul>
     </>
   );
 };
