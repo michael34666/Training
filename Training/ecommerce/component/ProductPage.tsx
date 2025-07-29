@@ -27,12 +27,12 @@ import { useEffect, useState } from "react";
 import { data } from "./MOCK_DATA";
 
 const ProductPage = () => {
-  const [items, setItems] = useState([data]);
+  const [items, setItems] = useState(data);
 
   //const [selectedCfilter, setSelectedFilter] = useState("catgory");
 
   useEffect(() => {
-    setItems(data);
+    setItems(items);
   }, data);
 
   return (
@@ -41,7 +41,7 @@ const ProductPage = () => {
       <ul>
         <ul>
           {items.map((data) => (
-            <li key={data}>
+            <li>
               {data["Product_Name"]}, {data["upload_date"]},{" "}
               {data["description"]} {data["price"]}
               <br></br>

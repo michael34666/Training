@@ -45,7 +45,7 @@ import { data } from "./MOCK_DATA";
 
 const APPHome = () => {
   const [filter, setFilter] = useState("");
-  const [items, setItems] = useState([data]);
+  const [items, setItems] = useState(data);
   //const [selectedCfilter, setSelectedFilter] = useState("catgory");
 
   useEffect(() => {
@@ -57,12 +57,12 @@ const APPHome = () => {
   };
 
   const sortItemsPrice = () => {
-    return data.sort((a, b) => a.price - b.price);
+    return data.sort((a , b) => a.price - b.price);
   };
 
   const sortItemsDate = () => {
     return data.sort(
-      (a, b) =>
+      (a,b)=>
         a.split("/").reverse().join("") - b.split("/").reverse().join("")
     );
   };
@@ -86,7 +86,7 @@ const APPHome = () => {
       <ul>
         <ul>
           {items.map((data) => (
-            <li key={data}>
+            <li>
               {data["Product_Name"]} {data["upload_date"]} {data["price"]}
             </li>
           ))}
