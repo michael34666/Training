@@ -33,14 +33,16 @@ const AddToCart = () => {};
 
 import { useEffect, useState } from "react";
 import { data } from "./MOCK_DATA";
+import addToCart from "./CartContext";
 
 const APPHome = () => {
   const [filter, setFilter] = useState("");
   const [prodName, setProdName] = useState("");
   const [items, setItems] = useState([data]);
-  const [minPrice, setMinPrice] = useState(0);
+  const [minPrice, setMinPrice] = useState(-Infinity);
   const [maxPrice, setMaxPrice] = useState(Infinity);
   const [date, setDate] = useState("");
+
   //const [selectedCfilter, setSelectedFilter] = useState("catgory");
 
   useEffect(() => {
@@ -72,6 +74,10 @@ const APPHome = () => {
       alert("min price Have to be <= then max price");
       return;
     }
+    if (minPrice < new Number(0) || maxPrice < new Number(0)) {
+      alert("min and max price need to be positive");
+      return;
+    }
     const filterPrice = items.filter(
       (items) => items["price"] >= minPrice && items["price"] <= maxPrice
     );
@@ -87,13 +93,13 @@ const APPHome = () => {
     setItems(filterDate);
   };
 
+  const showAllProd = () => {
+    setItems(data);
+  };
+
   const sortItemsPrice = () => {
     const sorted = [...data].sort((a: any, b: any) => a.price - b.price);
     setItems(sorted);
-  };
-
-  const showAllProd = () => {
-    setItems(data);
   };
 
   const sortItemsDate = () => {
@@ -119,22 +125,22 @@ const APPHome = () => {
       <button onClick={() => filterItemsCatgory(filter)}>
         filter the list
       </button>
-
       <br></br>
       <input
         type="text"
         value={prodName}
         onChange={(mes) => setProdName(mes.target.value)}
-        placeholder="What product you looking for?  "
+        placeholder="What product you looking for? "
       />
       <button onClick={() => filterItemsName(filter)}>filter the list</button>
       <br></br>
       <input
         type="number"
         value={minPrice}
-        onChange={(mes) => setMinPrice(Number(mes.target.value) || 0)}
+        onChange={(mes) => setMinPrice(Number(mes.target.value))}
         placeholder="set min price to filter "
       />
+      {"  "}
       <input
         type="number"
         value={maxPrice}
@@ -151,14 +157,16 @@ const APPHome = () => {
         onChange={(mes) => setDate(mes.target.value)}
         placeholder="chose date to filter "
       />
-
       <button onClick={() => filterItemsDate(date)}>filter the list</button>
-
       <ul>
-        <ul>
+        <ul className="Ul">
           {items.map((data) => (
-            <li>
-              {data["Product_Name"]}, {data["upload_date"]}, {data["price"]}
+            <li className="Li">
+              Product_Name: {data["Product_Name"]},<br></br>
+              Date: {data["upload_date"]} ,<br></br>
+              Price: {data["price"]}$
+              <br></br>
+              <button onClick={() => addToCart}> Add to Cart</button>
             </li>
           ))}
         </ul>

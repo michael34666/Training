@@ -1,6 +1,4 @@
 /*
-import { useState } from "react";
-
 interface products {
   name: string;
   date: string;
@@ -11,7 +9,6 @@ interface products {
   category: string;
   addInfo: string;
 }
-
 interface category {
   name: string;
 }
@@ -37,17 +34,17 @@ const ProductPage = () => {
 
   return (
     <>
-      <h1>The Product Page</h1>
+      <h1>Product Page</h1>
       <ul>
-        <ul>
+        <ul className="Ul">
           {items.map((data) => (
-            <li>
-              {data["Product_Name"]}, {data["upload_date"]},{" "}
-              {data["description"]} {data["price"]}
+            <li className="Li">
+              Product_Name :{data["Product_Name"]}, Date: {data["upload_date"]},{" "}
+              Description: {data["description"]} Price: {data["price"]}
               <br></br>
               {data["category"]}, {data["sub_category"]}
               <br></br>
-              <img src={data["image_url"]} alt={data["Product_Name"]}></img>
+              <img src={data["image_url"]} alt={data["Product_Name"]} />
             </li>
           ))}
         </ul>

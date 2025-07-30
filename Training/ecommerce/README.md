@@ -18,19 +18,17 @@ In this project you will learn how to use react router, redux and scss, while co
 
   - View all the products.-**done**
   - Be able to sort by price or date. - **done**
+  - Be able to filter by categories.-**done**
+  - Be able to filter by search.**done**
+  - Be able to filter by date and price range.**done**
+  - When changing the size of the window, the site should still look okay.-**done**
 
-
-  - Be able to filter by categories.
-
-  - Be able to filter by search.
-  
-  - Be able to filter by date and price range.
-  - When changing the size of the window, the site should still look okay.
   - Ability to add products to cart.
 
 - **Navbar**
 
   - Name – return to home screen. **done**
+
   - logo of your shop – return to home screen.
   - Cart icon displaying how many products are selected – cart page.
 

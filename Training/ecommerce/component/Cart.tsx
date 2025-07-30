@@ -1,5 +1,5 @@
-/* import { useState } from "react";
-
+import { useState } from "react";
+/*
 interface products {
   name: string;
   date: string;
@@ -18,15 +18,21 @@ interface order {
   orderDate: string;
   listOfProd: products;
 } */
+import { data } from "./MOCK_DATA";
 
 const Cart = () => {
-  const addToCart = () => {};
+  const [cartProd, setCartProd] = useState(data);
+
+  const addToCart = () => {
+    setCartProd(data);
+  };
 
   const removeFromCart = () => {};
-
+  const totalPriceCart = () => {};
   return (
     <>
-      <h1>The Cart page</h1>
+      <h1>Cart page</h1>
+      
       <button
         className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
         onClick={() => {

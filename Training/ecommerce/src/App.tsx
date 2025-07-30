@@ -11,11 +11,13 @@ import ProductPage from "../component/ProductPage.tsx";
 import Cart from "../component/Cart.tsx";
 import Layout from "../component/layout.tsx";
 import PageNotFound from "../component/layout.tsx";
+import {CartProvider} from "../component/CartContext.tsx"
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
   return (
+    <CartProvider>
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -26,6 +28,7 @@ const App = () => {
         </Route>
       </Routes>
     </Router>
+    </CartProvider>
   );
 };
 
