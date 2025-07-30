@@ -33,7 +33,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     setItems(data);
-  }, data);
+  }, []);
 
   return (
     <>
@@ -45,9 +45,9 @@ const ProductPage = () => {
               {data["Product_Name"]}, {data["upload_date"]},{" "}
               {data["description"]} {data["price"]}
               <br></br>
-              {data["category"]},{data["sub_category"]}
+              {data["category"]}, {data["sub_category"]}
               <br></br>
-              <img src={data["image_url"]}></img>
+              <img src={data["image_url"]} alt={data["Product_Name"]}></img>
             </li>
           ))}
         </ul>
