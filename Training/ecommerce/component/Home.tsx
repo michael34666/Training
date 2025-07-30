@@ -19,6 +19,7 @@ interface order {
   listOfProd: products;
 }
  const [productslist, setProductList] = useState([]);
+ const [selectedCfilter, setSelectedFilter] = useState("catgory");
 */
 
 import { useEffect, useState } from "react";
@@ -33,7 +34,7 @@ const APPHome = () => {
   const [maxPrice, setMaxPrice] = useState(Infinity);
   const [date, setDate] = useState("");
 
-  //const [selectedCfilter, setSelectedFilter] = useState("catgory");
+ 
 
   useEffect(() => {
     setItems(data);
