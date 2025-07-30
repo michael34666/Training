@@ -23,7 +23,7 @@ In this project you will learn how to use react router, redux and scss, while co
   - Be able to filter by date and price range.**done**
   - When changing the size of the window, the site should still look okay.-**done**
 
-  - Ability to add products to cart.
+  - Ability to add products to cart. -do button add logic
 
 - **Navbar**
 

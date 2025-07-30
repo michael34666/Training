@@ -20,11 +20,10 @@ interface order {
 const showImg = () => {};
 */
 import { useEffect, useState } from "react";
-
 import { data } from "./MOCK_DATA";
 
 const ProductPage = () => {
-  const [items, setItems] = useState([data]);
+  const [items, setItems] = useState(data);
 
   //const [selectedCfilter, setSelectedFilter] = useState("catgory");
 

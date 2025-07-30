@@ -21,18 +21,17 @@ interface order {
 import { data } from "./MOCK_DATA";
 
 const Cart = () => {
-  const [cartProd, setCartProd] = useState(data);
+  const [cartProd, setCartProd] = useState([]);
 
-  const addToCart = () => {
-    setCartProd(data);
-  };
+  const addToCart = () => {};
 
   const removeFromCart = () => {};
   const totalPriceCart = () => {};
+  const submitOrder = () => {};
   return (
     <>
       <h1>Cart page</h1>
-      
+
       <button
         className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
         onClick={() => {
@@ -50,6 +49,8 @@ const Cart = () => {
       >
         -
       </button>
+      <br></br>
+      <button onClick={() => submitOrder()}>Submit order</button>
     </>
   );
 };

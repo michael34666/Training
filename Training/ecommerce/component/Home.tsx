@@ -18,18 +18,8 @@ interface order {
   orderDate: string;
   listOfProd: products;
 }
-
-const displayProducts = () => {};
-const filter = () => {};
-const filterByDate = () => {};
-const filterByPriceRange = () => {};
-const sortByPriceOrDate = () => {};
-const AddToCart = () => {};
-
+ const [productslist, setProductList] = useState([]);
 */
-// const [productslist, setProductList] = useState([]);
-//import DATA from './MOCK_DATA.csv';
-//<button onClick={() => filterItems()}>filter by catagory</button>
 
 import { useEffect, useState } from "react";
 import { data } from "./MOCK_DATA";
@@ -38,7 +28,7 @@ import addToCart from "./CartContext";
 const APPHome = () => {
   const [filter, setFilter] = useState("");
   const [prodName, setProdName] = useState("");
-  const [items, setItems] = useState([data]);
+  const [items, setItems] = useState(data);
   const [minPrice, setMinPrice] = useState(-Infinity);
   const [maxPrice, setMaxPrice] = useState(Infinity);
   const [date, setDate] = useState("");
@@ -130,7 +120,7 @@ const APPHome = () => {
         type="text"
         value={prodName}
         onChange={(mes) => setProdName(mes.target.value)}
-        placeholder="What product you looking for? "
+        placeholder="Enter the product for search"
       />
       <button onClick={() => filterItemsName(filter)}>filter the list</button>
       <br></br>
@@ -158,19 +148,20 @@ const APPHome = () => {
         placeholder="chose date to filter "
       />
       <button onClick={() => filterItemsDate(date)}>filter the list</button>
-      <ul>
-        <ul className="Ul">
-          {items.map((data) => (
-            <li className="Li">
-              Product_Name: {data["Product_Name"]},<br></br>
-              Date: {data["upload_date"]} ,<br></br>
-              Price: {data["price"]}$
-              <br></br>
-              <button onClick={() => addToCart}> Add to Cart</button>
-            </li>
-          ))}
+      <div>
+        <ul>
+          <ul className="Ul">
+            {items.map((data) => (
+              <li className="Li">
+                Product_Name: {data["Product_Name"]},<br></br>
+                Date: {data["upload_date"]} ,<br></br>
+                Price: {data["price"]}$<br></br>
+                <button onClick={() => addToCart}> Add to Cart</button>
+              </li>
+            ))}
+          </ul>
         </ul>
-      </ul>
+      </div>
     </>
   );
 };
