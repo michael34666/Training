@@ -1,4 +1,3 @@
-import { useState } from "react";
 /*
 interface products {
   name: string;
@@ -18,40 +17,62 @@ interface order {
   orderDate: string;
   listOfProd: products;
 } */
-import { data } from "./MOCK_DATA";
+
+import { useCart } from "./CartContext";
+import { data } from "./MOCK_DATA_IPHONE";
 
 const Cart = () => {
-  const [cartProd, setCartProd] = useState([]);
+  const { cartItems, addToCart, removeFromCart } = useCart();
 
-  const addToCart = () => {};
+  const totalPriceCart = () => {
+    return cartItems.reduce(
+      (total: number, item: any) => total + item["price"] * item["quantity"],
+      0
+    );
+  };
 
-  const removeFromCart = () => {};
-  const totalPriceCart = () => {};
-  const submitOrder = () => {};
+  const submitOrder = () => {
+    alert("Your order submitted");
+    removeFromCart();
+  };
+
   return (
-    <>
-      <h1>Cart page</h1>
+    <div>
+      <h1>Cart Page</h1>
 
-      <button
-        className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
-        onClick={() => {
-          addToCart();
-        }}
-      >
-        +
-      </button>
+      <div>
+        {cartItems.length > 0 ? (
+          cartItems.map((item: any) => (
+            <div key={item["id"]} className="Li">
+              <img src={item["imageUrl"]} alt={item["Product_Name"]} />
+              <h3>{item["Product_Name"]}</h3>
+              <p>Price: $ {item["price"]}</p>
+              <p>Quantity: {item["quantity"]}</p>
+              <button onClick={() => removeFromCart(item["id"])}>
+                {" "}
+                Remove items
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>Your cart is empty</p>
+        )}
+      </div>
 
-      <button
-        className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
-        onClick={() => {
-          removeFromCart();
-        }}
-      >
-        -
-      </button>
-      <br></br>
-      <button onClick={() => submitOrder()}>Submit order</button>
-    </>
+      <div>
+        <h2>Total: ${totalPriceCart()}</h2>
+      </div>
+
+      <div>
+        {data.map((product: any) => (
+          <button key={product["id"]} onClick={() => addToCart(product)}>
+            Add {product["Product_Name"]} to Cart{" "}
+          </button>
+        ))}
+      </div>
+
+      <button onClick={() => submitOrder()}> Submit Order </button>
+    </div>
   );
 };
 

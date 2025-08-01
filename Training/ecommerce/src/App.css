@@ -30,13 +30,13 @@ nav ul {
     list-style: none;
     display: inline-block;
     width: calc(100% / 3);
-    height: 120px;
     margin: 20px;
     height: 300%;
     text-align: center;
     border-radius: 20px;
     border:solid black;
 }
+
   
 nav li {
     margin: 0 10px;

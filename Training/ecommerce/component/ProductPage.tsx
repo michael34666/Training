@@ -19,13 +19,14 @@ interface order {
 
 const showImg = () => {};
 */
+
 import { useEffect, useState } from "react";
-import { data } from "./MOCK_DATA";
+import { data } from "./MOCK_DATA_IPHONE";
+import { useCart } from "./CartContext";
 
 const ProductPage = () => {
   const [items, setItems] = useState(data);
-
-  //const [selectedCfilter, setSelectedFilter] = useState("catgory");
+  const { addToCart } = useCart();
 
   useEffect(() => {
     setItems(data);
@@ -34,19 +35,21 @@ const ProductPage = () => {
   return (
     <>
       <h1>Product Page</h1>
-      <ul>
-        <ul className="Ul">
-          {items.map((data) => (
-            <li className="Li">
-              Product_Name :{data["Product_Name"]}, Date: {data["upload_date"]},{" "}
-              Description: {data["description"]} Price: {data["price"]}
-              <br></br>
-              {data["category"]}, {data["sub_category"]}
-              <br></br>
-              <img src={data["image_url"]} alt={data["Product_Name"]} />
-            </li>
-          ))}
-        </ul>
+      <ul className="Ul">
+        
+        {items.map((item :any ) => (
+          
+          <li key={item['id']} className="Li">
+            <h2>{item['Product_Name']}</h2>
+            <img src={item['image_url']} alt={item['Product_Name']} />
+            <p>Date: {item['upload_date']}</p>
+            <p>Description: {item['description']}</p>
+            <p>Price: {item['price']}$ </p>
+            <p>Category: {item['category']}</p>
+            <br></br>
+            <button onClick={() => addToCart(item)}> Add to Cart</button>
+          </li>
+        ))}
       </ul>
     </>
   );

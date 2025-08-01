@@ -14,16 +14,14 @@ In this project you will learn how to use react router, redux and scss, while co
 
 ### Pages
 
-- **Home page**
-
+- **Home page**- **done**
   - View all the products.-**done**
   - Be able to sort by price or date. - **done**
   - Be able to filter by categories.-**done**
   - Be able to filter by search.**done**
   - Be able to filter by date and price range.**done**
   - When changing the size of the window, the site should still look okay.-**done**
-
-  - Ability to add products to cart. -do button add logic
+  - Ability to add products to cart. -**done**
 
 - **Navbar**
 
@@ -45,8 +43,8 @@ In this project you will learn how to use react router, redux and scss, while co
   - Show all the products in the cart.
   - Ability to remove products from the cart.
   - Change the amount of any product.
-  - Show total cart value.
-  - Button to submit the order.
+  - Show total cart value.- **done**
+  - Button to submit the order.- **done**
 
 ### Entities
 

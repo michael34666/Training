@@ -1,4 +1,3 @@
-//import { useState } from "react";
 /*
 interface products {
   name: string;
@@ -23,8 +22,9 @@ interface order {
 */
 
 import { useEffect, useState } from "react";
-import { data } from "./MOCK_DATA";
-import addToCart from "./CartContext";
+import { data } from "./MOCK_DATA_IPHONE.js";
+
+import { useCart } from "./CartContext";
 
 const APPHome = () => {
   const [filter, setFilter] = useState("");
@@ -33,7 +33,9 @@ const APPHome = () => {
   const [minPrice, setMinPrice] = useState(-Infinity);
   const [maxPrice, setMaxPrice] = useState(Infinity);
   const [date, setDate] = useState("");
+  const { addToCart } = useCart();
 
+  
  
 
   useEffect(() => {
@@ -45,7 +47,7 @@ const APPHome = () => {
       alert("Enter a valid category");
       return;
     }
-    const filterList = items.filter((items) => items["category"] == filter);
+    const filterList = items.filter((items :any) => items["category"] == filter);
     setItems(filterList);
   };
 
@@ -55,7 +57,7 @@ const APPHome = () => {
       return;
     }
     const filterList = items.filter(
-      (items) => items["Product_Name"] == prodName
+      (items: any) => items["Product_Name"] == prodName
     );
     setItems(filterList);
   };
@@ -70,17 +72,17 @@ const APPHome = () => {
       return;
     }
     const filterPrice = items.filter(
-      (items) => items["price"] >= minPrice && items["price"] <= maxPrice
+      (items: any) => items["price"] >= minPrice && items["price"] <= maxPrice
     );
     setItems(filterPrice);
   };
 
   const filterItemsDate = (date: string) => {
     if (date.trim() === "" || date.includes("-")) {
-      alert("Enter a valid date- in formet of MM/DD/YYYY");
+      alert("Enter a valid date- in formet of YYYY-MM-DD");
       return;
     }
-    const filterDate = items.filter((items) => items["upload_date"] === date);
+    const filterDate = items.filter((items: any) => items["upload_date"] === date);
     setItems(filterDate);
   };
 
@@ -152,12 +154,12 @@ const APPHome = () => {
       <div>
         <ul>
           <ul className="Ul">
-            {items.map((data) => (
+            {items.map((data: any) => (
               <li className="Li">
-                Product_Name: {data["Product_Name"]},<br></br>
+                Name of product: {data["Product_Name"]},<br></br>
                 Date: {data["upload_date"]} ,<br></br>
                 Price: {data["price"]}$<br></br>
-                <button onClick={() => addToCart}> Add to Cart</button>
+                <button onClick={() => addToCart(data)}> Add to Cart</button>
               </li>
             ))}
           </ul>

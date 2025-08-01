@@ -1,19 +1,39 @@
 import { createContext, useContext, useState } from "react";
-import { data } from "./MOCK_DATA";
 
-const CartContext = createContext();
+const CartContext = createContext(null);
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState(data);
+  const [cartItems, setCartItems] = useState([]);
 
-  const addToCart = (current) => {
-    setCartItems((data) => [...data, current]);
+  const addToCart = (product: any, amount: number = 1) => {
+    setCartItems((prevItems: any) => {
+      const existItem = prevItems.find(
+        (item: any) => item["id"] === product["id"]
+      );
+
+      if (existItem) {
+        return prevItems.map((item: any) =>
+          item["id"] === product["id"]
+            ? { ...item, quantity: item["quantity"] + 1 }
+            : item
+        );
+      } else {
+        return [...prevItems, { ...product, quantity: 1 }];
+      }
+    });
   };
 
-  const removeFromCart = (itemId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+  const removeFromCart = (itemId: any) => {
+    if (itemId) {
+      setCartItems((prevItems) =>
+        prevItems.filter((item) => item["id"] !== itemId)
+      );
+    } else {
+      setCartItems([]);
+    }
   };
 
+  // Clear Cart
   const clearCart = () => {
     setCartItems([]);
   };
