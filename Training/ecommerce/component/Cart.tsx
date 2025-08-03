@@ -18,15 +18,25 @@ interface order {
   listOfProd: products;
 } */
 
+import { useState } from "react";
 import { useCart } from "./CartContext";
 import { data } from "./MOCK_DATA_IPHONE";
 
 const Cart = () => {
-  const { cartItems, addToCart, removeFromCart } = useCart();
+  const { cartItems, addToCart, removeFromCart, changeAmount } = useCart();
+  const [amount, setAmount] = useState(-Infinity);
 
   const totalPriceCart = () => {
     return cartItems.reduce(
       (total: number, item: any) => total + item["price"] * item["quantity"],
+      0
+    );
+  };
+
+  const howManyItems=()=>
+  {
+    return cartItems.reduce(
+      (total: number, item: any) => total + item["quantity"],
       0
     );
   };
@@ -39,18 +49,31 @@ const Cart = () => {
   return (
     <div>
       <h1>Cart Page</h1>
-
+      
       <div>
         {cartItems.length > 0 ? (
           cartItems.map((item: any) => (
             <div key={item["id"]} className="Li">
-              <img src={item["imageUrl"]} alt={item["Product_Name"]} />
               <h3>{item["Product_Name"]}</h3>
-              <p>Price: $ {item["price"]}</p>
+              <p>Price: {item["price"]} $</p>
               <p>Quantity: {item["quantity"]}</p>
               <button onClick={() => removeFromCart(item["id"])}>
                 {" "}
                 Remove items
+              </button>
+              <br></br>
+
+              <input
+                type="number"
+                value={amount}
+                onChange={(mes) =>
+                  setAmount(Number(mes.target.value) || Infinity)
+                }
+                placeholder="amount to chane "
+              />
+
+              <button onClick={() => changeAmount(item, amount)}>
+                Change Amount
               </button>
             </div>
           ))
@@ -70,8 +93,10 @@ const Cart = () => {
           </button>
         ))}
       </div>
+      <div></div>
 
       <button onClick={() => submitOrder()}> Submit Order </button>
+      <h2>have {howManyItems()} product in card</h2>
     </div>
   );
 };

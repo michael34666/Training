@@ -27,6 +27,8 @@ import { useCart } from "./CartContext";
 const ProductPage = () => {
   const [items, setItems] = useState(data);
   const { addToCart } = useCart();
+  const [amountToADD, setamountToADD] = useState(-Infinity);
+  //const[amountToRemove,setAmountToRemove]=useState(-Infinity);
 
   useEffect(() => {
     setItems(data);
@@ -36,18 +38,33 @@ const ProductPage = () => {
     <>
       <h1>Product Page</h1>
       <ul className="Ul">
-        
-        {items.map((item :any ) => (
-          
-          <li key={item['id']} className="Li">
-            <h2>{item['Product_Name']}</h2>
-            <img src={item['image_url']} alt={item['Product_Name']} />
-            <p>Date: {item['upload_date']}</p>
-            <p>Description: {item['description']}</p>
-            <p>Price: {item['price']}$ </p>
-            <p>Category: {item['category']}</p>
+        {items.map((item: any) => (
+          <li key={item["id"]} className="Li">
+            <h2>{item["Product_Name"]}</h2>
+            <img
+              src={item["image_url"]}
+              alt={item["Product_Name"]}
+              width={200}
+            />
+            <p>Date:<br></br> {item["upload_date"]}</p>
+            <p>Description:<br></br> {item["description"]}</p>
+            <p>Price: {item["price"]}$ </p>
+            <p>Category: {item["category"]}</p>
             <br></br>
-            <button onClick={() => addToCart(item)}> Add to Cart</button>
+
+            <input
+              type="number"
+              value={amountToADD}
+              onChange={(mes) =>
+                setamountToADD(Number(mes.target.value) || Infinity)
+              }
+              placeholder="amount you want to add "
+            />
+            <button onClick={() => addToCart(item, amountToADD)}>
+              {" "}
+              Add to Cart
+            </button>
+            <br></br>
           </li>
         ))}
       </ul>
@@ -56,3 +73,12 @@ const ProductPage = () => {
 };
 
 export default ProductPage;
+
+/*<input
+              type="number"
+              value={amountToRemove}
+              onChange={(mes) => setAmountToRemove(Number(mes.target.value) || Infinity)}
+              placeholder="amount to remove "
+              />
+            <button onClick={() => removeAmount(item,amountToRemove)}> Remove from Cart</button>
+            <br></br>*/

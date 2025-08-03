@@ -6,7 +6,7 @@ export const data=[
     description: "The iPhone 13 Pro Max is the ultimate device for power users.",
     price: 1099,
     seller_name: "yossi",
-    image_url: "Training\ecommerce\public\iPhone-13-Pro-Pro-Max-5.jpg",
+    image_url: "/iPhone-13-Pro-Pro-Max-5.jpg",
     category: "electronics",
     additionalInfo: {
       cpu: "A15",
@@ -22,7 +22,7 @@ export const data=[
     description: "Perfect for those who love smaller devices.",
     price: 699,
     seller_name: "ali",
-    image_url: "Training\ecommerce\public\iPhone-13-Pro-Pro-Max-5.jpg",
+    image_url: "/iphone12_mini.webp",
     category: "electronics",
     additionalInfo: {
       cpu: "A14",
@@ -38,7 +38,7 @@ export const data=[
     description: "A great choice for those who want power without breaking the bank.",
     price: 399,
     seller_name: "roi",
-    image_url: "Training\ecommerce\component\iPhone-13-Pro-Pro-Max-5.jpg",
+    image_url: "/iphone-se-2020.jpg",
     category: "electronics",
     additionalInfo: {
       cpu: "A13",
@@ -54,7 +54,7 @@ export const data=[
     description: "The ultimate phone for creators and professionals.",
     price: 1099,
     seller_name: "Apple Store",
-    image_url: "Training\ecommerce\public\iPhone-13-Pro-Pro-Max-5.jpg",
+    image_url: "/iphone14.webp",
     category: "electronics",
     additionalInfo: {
       cpu: "A16",

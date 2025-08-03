@@ -52,7 +52,7 @@ const APPHome = () => {
   };
 
   const filterItemsName = (prodName: string) => {
-    if (prodName.trim() === "") {
+    if (prodName.trim() == "") {
       alert("Enter a valid product name");
       return;
     }
@@ -78,7 +78,7 @@ const APPHome = () => {
   };
 
   const filterItemsDate = (date: string) => {
-    if (date.trim() === "" || date.includes("-")) {
+    if (date.trim() === "" || date.includes("/")) {
       alert("Enter a valid date- in formet of YYYY-MM-DD");
       return;
     }
@@ -125,7 +125,7 @@ const APPHome = () => {
         onChange={(mes) => setProdName(mes.target.value)}
         placeholder="Enter the product for search"
       />
-      <button onClick={() => filterItemsName(filter)}>filter the list</button>
+      <button onClick={() => filterItemsName(prodName)}>filter the list</button>
       <br></br>
       <input
         type="number"
@@ -148,7 +148,7 @@ const APPHome = () => {
         type="text"
         value={date}
         onChange={(mes) => setDate(mes.target.value)}
-        placeholder="chose date to filter "
+        placeholder="choose date to filter "
       />
       <button onClick={() => filterItemsDate(date)}>filter the list</button>
       <div>

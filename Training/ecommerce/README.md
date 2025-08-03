@@ -22,30 +22,33 @@ In this project you will learn how to use react router, redux and scss, while co
   - Be able to filter by date and price range.**done**
   - When changing the size of the window, the site should still look okay.-**done**
   - Ability to add products to cart. -**done**
-
-- **Navbar**
-
+- **Navbar**- **done**
   - Name – return to home screen. **done**
-
-  - logo of your shop – return to home screen.
-  - Cart icon displaying how many products are selected – cart page.
-
+  - logo of your shop – return to home screen. **done**
+  - Cart icon displaying how many products are selected – cart page.- **done**
   - The navbar needs to be displayed all the time.-**done**
+
 
 - **Product page - /product/{id}**
 
-  - Show image and
+  - Show image and - **done** 
     the data about the products. **done**
-  - Ability to add/remove product to the cart with amount – if already exists/doesn't exists show corresponding message to the client.
+  - Ability to add-**done**
+  /remove product to the cart with amount – 
+  -if already exists- **done** 
+  doesn't exists show corresponding message to the client.-
   - Error page if the product id doesn't exist.
 
-- **Cart page - /cart**
-  - Show all the products in the cart.
-  - Ability to remove products from the cart.
-  - Change the amount of any product.
+
+- **Cart page - /cart**-**done**
+  - Show all the products in the cart.- **done**
+  - Ability to remove products from the cart.- **done**
+  - Change the amount of any product.- **done**
   - Show total cart value.- **done**
   - Button to submit the order.- **done**
 
+-overflow to x-preventing- **done**
+ui-fixed.
 ### Entities
 
 - **Product** - Name - Uploaded date - Description - Price - Seller name - Image url - Category – home/sport/clothing/etc… - Additional info according to the product, Examples:
