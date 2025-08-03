@@ -1,29 +1,5 @@
-/*
-interface products {
-  name: string;
-  date: string;
-  Description: string;
-  price: number;
-  sellerName: string;
-  imageUrl: string;
-  category: string;
-  addInfo: string;
-}
-
-interface category {
-  name: string;
-}
-interface order {
-  orderDate: string;
-  listOfProd: products;
-}
- const [productslist, setProductList] = useState([]);
- const [selectedCfilter, setSelectedFilter] = useState("catgory");
-*/
-
 import { useEffect, useState } from "react";
-import { data } from "./MOCK_DATA_IPHONE.js";
-
+import { data } from "./mockDataIphone.ts";
 import { useCart } from "./CartContext";
 
 const APPHome = () => {
@@ -35,9 +11,6 @@ const APPHome = () => {
   const [date, setDate] = useState("");
   const { addToCart } = useCart();
 
-  
- 
-
   useEffect(() => {
     setItems(data);
   }, []);
@@ -47,7 +20,9 @@ const APPHome = () => {
       alert("Enter a valid category");
       return;
     }
-    const filterList = items.filter((items :any) => items["category"] == filter);
+    const filterList = items.filter(
+      (items: any) => items["category"] == filter
+    );
     setItems(filterList);
   };
 
@@ -82,7 +57,9 @@ const APPHome = () => {
       alert("Enter a valid date- in formet of YYYY-MM-DD");
       return;
     }
-    const filterDate = items.filter((items: any) => items["upload_date"] === date);
+    const filterDate = items.filter(
+      (items: any) => items["upload_date"] === date
+    );
     setItems(filterDate);
   };
 

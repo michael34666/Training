@@ -1,27 +1,5 @@
-/*
-interface products {
-  name: string;
-  date: string;
-  Description: string;
-  price: number;
-  sellerName: string;
-  imageUrl: string;
-  category: string;
-  addInfo: string;
-}
-interface category {
-  name: string;
-}
-interface order {
-  orderDate: string;
-  listOfProd: products;
-}
-
-const showImg = () => {};
-*/
-
 import { useEffect, useState } from "react";
-import { data } from "./MOCK_DATA_IPHONE";
+import { data } from "./mockDataIphone";
 import { useCart } from "./CartContext";
 
 const ProductPage = () => {
@@ -46,8 +24,12 @@ const ProductPage = () => {
               alt={item["Product_Name"]}
               width={200}
             />
-            <p>Date:<br></br> {item["upload_date"]}</p>
-            <p>Description:<br></br> {item["description"]}</p>
+            <p>
+              Date:<br></br> {item["upload_date"]}
+            </p>
+            <p>
+              Description:<br></br> {item["description"]}
+            </p>
             <p>Price: {item["price"]}$ </p>
             <p>Category: {item["category"]}</p>
             <br></br>

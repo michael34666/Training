@@ -1,29 +1,9 @@
-/*
-interface products {
-  name: string;
-  date: string;
-  Description: string;
-  price: number;
-  sellerName: string;
-  imageUrl: string;
-  category: string;
-  addInfo: string;
-}
-
-interface category {
-  name: string;
-}
-interface order {
-  orderDate: string;
-  listOfProd: products;
-} */
-
 import { useState } from "react";
 import { useCart } from "./CartContext";
-import { data } from "./MOCK_DATA_IPHONE";
+import { data } from "./mockDataIphone.ts";
 
 const Cart = () => {
-  const { cartItems, addToCart, removeFromCart, changeAmount } = useCart();
+  const { cartItems , addToCart, removeFromCart, changeAmount } = useCart();
   const [amount, setAmount] = useState(-Infinity);
 
   const totalPriceCart = () => {
@@ -33,8 +13,7 @@ const Cart = () => {
     );
   };
 
-  const howManyItems=()=>
-  {
+  const howManyItems = () => {
     return cartItems.reduce(
       (total: number, item: any) => total + item["quantity"],
       0
@@ -49,7 +28,7 @@ const Cart = () => {
   return (
     <div>
       <h1>Cart Page</h1>
-      
+
       <div>
         {cartItems.length > 0 ? (
           cartItems.map((item: any) => (
@@ -83,7 +62,7 @@ const Cart = () => {
       </div>
 
       <div>
-        <h2>Total: ${totalPriceCart()}</h2>
+        <h2>Total: {totalPriceCart()}$</h2>
       </div>
 
       <div>

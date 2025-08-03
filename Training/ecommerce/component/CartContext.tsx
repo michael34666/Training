@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import PageNotFound from "./NotFound";
 
 const CartContext = createContext(null);
 
