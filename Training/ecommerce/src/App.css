@@ -8,20 +8,27 @@ nav ul {
     display: flex;
     justify-content: center;
     list-style: none;
-    padding: 10;
-    margin:20px;
+    padding: 0;
+    margin:20px 0;
     font-family:italic;
-    font-size: 20px; ;
+    font-size: 20px; 
+}
+
+nav li
+{
+  margin:0 15px;
 }
 
 .Ul {
+    margin: 0 auto;
     display: flex;
     text-align: center;
     flex-direction: row;
     flex-wrap: wrap;
     width: 500;
     height: 500;
-  
+    padding:0;
+    max-width: px;
 }
 
 .Li {
@@ -38,43 +45,10 @@ nav ul {
 
 }
 
-  
-nav li {
-    margin: 0 10px;
-}
 
 nav a {
     text-decoration: none;
     color: #333;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
 }
 
 .card {

@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 const CartContext = createContext(null);
 
-export const CartProvider = ({ children }) => {
+export const CartProvider = ({ children }: { children: any }) => {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (product: any, amount: number = 1) => {
@@ -38,7 +38,7 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const changeAmount = (product: any, amount: number = 1) => {
+  const changeAmount = (product: any, amount: number) => {
     if (amount > 0) {
       setCartItems((prevItems: any) => {
         const existItem = prevItems.find(
@@ -76,28 +76,34 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  /* const removeAmount =(product: any, amount: number = 0)=>{
-    if (amount < 0 && (Math.abs(amount) <= product["quantity"])) {
-      setCartItems((prevItems: any) => {
-        const existItem = prevItems.find(
-          (item: any) => item["id"] === product["id"]
-        );
+  const removeAmount = (product: any, amount: number) => {
+    if (amount < 0) {
+      alert("Please enter a positive number to remove.");
+      return;
+    }
 
-        if (existItem) {
-          return prevItems.map((item: any) =>
-            item["id"] === product["id"]
-              ? { ...item, quantity: item["quantity"] + amount }
-              : item
-          );
-        } else {
-          return [...prevItems, { ...product, quantity: amount }];
-        }
-      });
+    setCartItems((prevItems: any) => {
+      const existItem = prevItems.find(
+        (item: any) => item["id"] === product["id"]
+      );
 
-  } else{
-    alert("please write amount <0 to remove");
-  }
-};*/
+      if (!existItem) {
+        alert("Item not found in the cart.");
+        return prevItems;
+      }
+
+      if (amount > existItem["quantity"]) {
+        alert("Please remove less than the available quantity.");
+        return prevItems;
+      }
+
+      return prevItems.map((item: any) =>
+        item["id"] === product["id"]
+          ? { ...item, quantity: item["quantity"] - amount }
+          : item
+      );
+    });
+  };
 
   const clearCart = () => {
     setCartItems([]);
@@ -105,7 +111,14 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, clearCart, changeAmount }}
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        changeAmount,
+        removeAmount,
+      }}
     >
       {children}
     </CartContext.Provider>

@@ -3,7 +3,7 @@ import { useCart } from "./CartContext";
 import { data } from "./mockDataIphone.ts";
 
 const Cart = () => {
-  const { cartItems , addToCart, removeFromCart, changeAmount } = useCart();
+  const { cartItems, addToCart, removeFromCart, changeAmount } = useCart();
   const [amount, setAmount] = useState(-Infinity);
 
   const totalPriceCart = () => {
@@ -48,7 +48,7 @@ const Cart = () => {
                 onChange={(mes) =>
                   setAmount(Number(mes.target.value) || Infinity)
                 }
-                placeholder="amount to chane "
+                placeholder="amount to add/remove "
               />
 
               <button onClick={() => changeAmount(item, amount)}>

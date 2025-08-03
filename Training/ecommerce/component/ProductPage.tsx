@@ -4,9 +4,9 @@ import { useCart } from "./CartContext";
 
 const ProductPage = () => {
   const [items, setItems] = useState(data);
-  const { addToCart } = useCart();
+  const { addToCart,removeAmount} = useCart();
   const [amountToADD, setamountToADD] = useState(-Infinity);
-  //const[amountToRemove,setAmountToRemove]=useState(-Infinity);
+  const[amountToRemove,setAmountToRemove]=useState(-Infinity);
 
   useEffect(() => {
     setItems(data);
@@ -40,12 +40,20 @@ const ProductPage = () => {
               onChange={(mes) =>
                 setamountToADD(Number(mes.target.value) || Infinity)
               }
-              placeholder="amount you want to add "
+              placeholder="amount you want to add"
             />
             <button onClick={() => addToCart(item, amountToADD)}>
-              {" "}
-              Add to Cart
+              Add Amount
             </button>
+            <br></br>
+            
+            <input
+              type="number"
+              value={amountToRemove}
+              onChange={(mes) => setAmountToRemove(Number(mes.target.value) || Infinity)}
+              placeholder="amount to remove "
+              />
+            <button onClick={() => removeAmount(item,amountToRemove)}> Remove from Cart</button>
             <br></br>
           </li>
         ))}
