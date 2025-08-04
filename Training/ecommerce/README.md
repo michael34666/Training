@@ -34,10 +34,10 @@ In this project you will learn how to use react router, redux and scss, while co
   - Show image and - **done**
     the data about the products. **done**
   - Ability to add-**done**
-    /remove product to the cart with amount –
+    /remove product to the cart with amount –**done**
     -if already exists- **done**
-    doesn't exists show corresponding message to the client.-
-  - Error page if the product id doesn't exist.
+    doesn't exists show corresponding message to the client.-**done**
+  - Error page if the product id doesn't exist.-**done**
 
 - **Cart page - /cart**-**done**
   - Show all the products in the cart.- **done**

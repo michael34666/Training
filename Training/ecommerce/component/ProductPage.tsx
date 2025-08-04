@@ -4,9 +4,9 @@ import { useCart } from "./CartContext";
 
 const ProductPage = () => {
   const [items, setItems] = useState(data);
-  const { addToCart,removeAmount} = useCart();
-  const [amountToADD, setamountToADD] = useState(-Infinity);
-  const[amountToRemove,setAmountToRemove]=useState(-Infinity);
+  const { addToCart, removeAmount } = useCart();
+  const [amountToADD, setamountToADD] = useState({});
+  const [amountToRemove, setAmountToRemove] = useState({});
 
   useEffect(() => {
     setItems(data);
@@ -36,24 +36,40 @@ const ProductPage = () => {
 
             <input
               type="number"
-              value={amountToADD}
+              value={amountToADD[item["id"]]}
               onChange={(mes) =>
-                setamountToADD(Number(mes.target.value) || Infinity)
+                setamountToADD({
+                  ...amountToADD,
+                  [item["id"]]: Number(mes.target.value),
+                })
               }
               placeholder="amount you want to add"
             />
-            <button onClick={() => addToCart(item, amountToADD)}>
+
+            <button onClick={() => addToCart(item, amountToADD[item["id"]])}>
               Add Amount
             </button>
+
+            <br />
             <br></br>
-            
+
             <input
               type="number"
-              value={amountToRemove}
-              onChange={(mes) => setAmountToRemove(Number(mes.target.value) || Infinity)}
+              value={setAmountToRemove[item["id"]]}
+              onChange={(mes) =>
+                setamountToADD({
+                  ...amountToRemove,
+                  [item["id"]]: Number(mes.target.value),
+                })
+              }
               placeholder="amount to remove "
-              />
-            <button onClick={() => removeAmount(item,amountToRemove)}> Remove from Cart</button>
+            />
+            <button
+              onClick={() => removeAmount(item, amountToRemove[item["id"]])}
+            >
+              {" "}
+              Remove from Cart
+            </button>
             <br></br>
           </li>
         ))}
@@ -63,12 +79,3 @@ const ProductPage = () => {
 };
 
 export default ProductPage;
-
-/*<input
-              type="number"
-              value={amountToRemove}
-              onChange={(mes) => setAmountToRemove(Number(mes.target.value) || Infinity)}
-              placeholder="amount to remove "
-              />
-            <button onClick={() => removeAmount(item,amountToRemove)}> Remove from Cart</button>
-            <br></br>*/

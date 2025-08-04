@@ -38,44 +38,6 @@ export const CartProvider = ({ children }: { children: any }) => {
     }
   };
 
-  const changeAmount = (product: any, amount: number) => {
-    if (amount > 0) {
-      setCartItems((prevItems: any) => {
-        const existItem = prevItems.find(
-          (item: any) => item["id"] === product["id"]
-        );
-
-        if (existItem) {
-          return prevItems.map((item: any) =>
-            item["id"] === product["id"]
-              ? { ...item, quantity: item["quantity"] + amount }
-              : item
-          );
-        } else {
-          return [...prevItems, { ...product, quantity: amount }];
-        }
-      });
-    } else if (Math.abs(amount) <= product["quantity"]) {
-      setCartItems((prevItems: any) => {
-        const existItem = prevItems.find(
-          (item: any) => item["id"] === product["id"]
-        );
-
-        if (existItem) {
-          return prevItems.map((item: any) =>
-            item["id"] === product["id"]
-              ? { ...item, quantity: item["quantity"] + amount }
-              : item
-          );
-        } else {
-          return [...prevItems, { ...product, quantity: amount }];
-        }
-      });
-    } else {
-      alert("Please provide correct amount");
-    }
-  };
-
   const removeAmount = (product: any, amount: number) => {
     if (amount < 0) {
       alert("Please enter a positive number to remove.");
@@ -116,7 +78,6 @@ export const CartProvider = ({ children }: { children: any }) => {
         addToCart,
         removeFromCart,
         clearCart,
-        changeAmount,
         removeAmount,
       }}
     >

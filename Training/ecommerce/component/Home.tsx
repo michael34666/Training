@@ -136,7 +136,8 @@ const APPHome = () => {
                 Product Name: {data["Product_Name"]} <br></br>
                 Date: {data["upload_date"]} <br></br>
                 Price: {data["price"]}$<br></br>
-                Category:{data["category"]}<br></br>
+                Category:{data["category"]}
+                <br></br>
                 <button onClick={() => addToCart(data)}> Add to Cart</button>
               </li>
             ))}
