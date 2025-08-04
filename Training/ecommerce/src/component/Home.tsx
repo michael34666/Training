@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { data } from "./mockDataIphone.ts";
-import { useCart } from "./CartContext";
+import { useCart } from "./CartContext.tsx";
 
 const APPHome = () => {
   const [filter, setFilter] = useState("");
