@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { data } from "../../components/mockDataIphone.ts";
-import style from "./Home.module.scss";
 import type { Product } from "../../utils/types/products.ts";
 import Button from "../../components/Button/Button.tsx";
-import Products from "../../components/Product.tsx";
+import Products from "../../components/Products.tsx";
 import Input from "../../components/Input/Input.tsx";
 
 const APPHome = () => {
@@ -94,6 +93,7 @@ const APPHome = () => {
       <Products items={items}>
         <br></br>
       </Products>
+
       <Button onClick={() => sortItemsPrice()}>sort by price</Button>
       <Button onClick={() => sortItemsDate()}>sort by Date</Button>
       <Button onClick={() => showAllProd()}>Show all product</Button>

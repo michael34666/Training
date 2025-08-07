@@ -1,9 +1,9 @@
 import { useState, type FC, type JSX, type ReactNode } from "react";
-import type { Product } from "../utils/types/products";
+import type { Product } from "../utils/types/products.ts";
 import style from "../pages/Product/Product.module.scss";
 import { useCartContext } from "../context/CartContext/CartContext.tsx";
 import Button from "./Button/Button.tsx";
-
+import { Link } from "react-router-dom";
 export interface ProductProp {
   children: ReactNode;
   items: Product[];
@@ -11,16 +11,20 @@ export interface ProductProp {
 const Products: FC<ProductProp> = ({ children, items }): JSX.Element => {
   const { addToCart, removeAmount, removeFromCart } = useCartContext();
   const [amountToADD, setamountToADD] = useState<{ [key: number]: number }>({});
+
   const [amountToRemove, setAmountToRemove] = useState<{
     [key: number]: number;
   }>({});
   return (
     <>
       {children}
+
       <ul className={style.ProductUl}>
         {items.map((item: Product) => (
           <li key={item.id} className={style.ProductLi}>
-            <h2>{item.name}</h2>
+            <Link to={`/product/${item.id}`}>
+              <h2>{item.name} </h2>
+            </Link>
             <img
               src={item.imageUrl}
               alt={item.name}

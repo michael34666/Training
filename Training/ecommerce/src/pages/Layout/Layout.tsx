@@ -15,9 +15,6 @@ const Layout = () => {
             </Link>
           </li>
           <li className={style.navLi}>
-            <Link to="/product/{id}">Product page</Link>
-          </li>
-          <li className={style.navLi}>
             <Link to="/cart">
               Cart page{" "}
               <svg

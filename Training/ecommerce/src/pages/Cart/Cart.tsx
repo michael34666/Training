@@ -1,19 +1,14 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useCartContext } from "../../context/CartContext/CartContext.tsx";
 import { data } from "../../components/mockDataIphone.ts";
 import style from "./Cart.module.scss";
 import type { Product } from "../../utils/types/products.ts";
 import Button from "../../components/Button/Button.tsx";
-import ProductPage from "../Product/ProductPage.tsx";
-import Products from "../../components/Product.tsx";
+
+import Products from "../../components/Products.tsx";
 
 const Cart = () => {
-  const { cartItems, addToCart, removeFromCart, removeAmount, clearCart } =
-    useCartContext();
-  const [amountToAdd, setAmountToAdd] = useState<{ [key: number]: number }>({});
-  const [amountToRemove, setAmountToRemove] = useState<{
-    [key: number]: number;
-  }>({});
+  const { cartItems, addToCart, clearCart } = useCartContext();
 
   const totalPriceCart = () => {
     return cartItems.reduce(
