@@ -27,7 +27,7 @@ body {
   margin: 0;
   
   place-items: center;
-  min-width: 320px;
+  min-width: 20rem;
   min-height: 100vh;
   background-color:rgb(113, 144, 112);
 }
@@ -38,9 +38,9 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  margin: 10px;
+  border-radius: 0.5px;
+  border: 0.0625rem solid transparent;
+  margin: 0.625rem ;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -54,7 +54,7 @@ button:hover {
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 0.25rem auto -webkit-focus-ring-color;
 }
 
 @media (prefers-color-scheme: light) {

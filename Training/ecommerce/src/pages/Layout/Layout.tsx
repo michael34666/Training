@@ -1,22 +1,23 @@
 import { Outlet, Link } from "react-router-dom";
+import style from "./Layout.module.scss";
 
 const Layout = () => {
   return (
     <>
       <nav>
-        <ul>
+        <ul className={style.navUl}>
           <Link to="/">
             <img src="/logo.jpg" width={20} />
           </Link>
-          <li>
+          <li className={style.navLi}>
             <Link to="/">
               <div>Michael SHOP</div>
             </Link>
           </li>
-          <li>
+          <li className={style.navLi}>
             <Link to="/product/{id}">Product page</Link>
           </li>
-          <li>
+          <li className={style.navLi}>
             <Link to="/cart">
               Cart page{" "}
               <svg

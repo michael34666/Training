@@ -1,13 +1,15 @@
-export const data=[
+
+export const  data =[
   {
     id: 1,
-    Product_Name: "iPhone 13 Pro Max",
-    upload_date: "2025-02-01",
+    name: "iPhone 13 Pro Max",
+    uploadDate: "2023-05-10",
     description: "The iPhone 13 Pro Max is the ultimate device for power users.",
     price: 1099,
-    seller_name: "yossi",
-    image_url: "/iPhone-13-Pro-Pro-Max-5.jpg",
+    sellerName: "yossi",
+    imageUrl: "/iPhone-13-Pro-Max-5.jpg",
     category: "electronics",
+    quantity:0,
     additionalInfo: {
       cpu: "A15",
       camera: "Triple Cameras",
@@ -17,13 +19,14 @@ export const data=[
   },
   {
     id: 2,
-    Product_Name: "iPhone 12 Mini",
-    upload_date: "2025-01-15",
+    name: "iPhone 12 Mini",
+    uploadDate: "2025-01-15",
     description: "Perfect for those who love smaller devices.",
     price: 699,
-    seller_name: "ali",
-    image_url: "/iphone12_mini.webp",
+    sellerName: "ali",
+    imageUrl: "/iphone-12-Mini.webp",
     category: "electronics",
+    quantity:0,
     additionalInfo: {
       cpu: "A14",
       camera: "Dual 12MP Wide and Ultra-Wide Cameras",
@@ -33,13 +36,14 @@ export const data=[
   },
   {
     id: 3,
-    Product_Name: "iPhone SE (2020)",
-    upload_date: "2025-03-10",
+    name: "iPhone SE (2020)",
+    uploadDate: "2025-07-15",
     description: "A great choice for those who want power without breaking the bank.",
     price: 399,
-    seller_name: "roi",
-    image_url: "/iphone-se-2020.jpg",
+    sellerName: "roi",
+    imageUrl: "/iphone-Se-2020.jpg",
     category: "electronics",
+    quantity:0,
     additionalInfo: {
       cpu: "A13",
       camera: "Single Camera",
@@ -49,13 +53,14 @@ export const data=[
   },
   {
     id: 4,
-    Product_Name: "iPhone 14 Pro",
-    upload_date: "2025-04-01",
+    name: "iPhone 14 Pro",
+    uploadDate: "2024-01-11",
     description: "The ultimate phone for creators and professionals.",
     price: 1099,
-    seller_name: "Apple Store",
-    image_url: "/iphone14.webp",
+    sellerName: "Apple Store",
+    imageUrl: "/iphone-14.webp",
     category: "electronics",
+    quantity:0,
     additionalInfo: {
       cpu: "A16",
       camera: "Triple Cameras",
