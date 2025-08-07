@@ -1,0 +1,23 @@
+.HomePage {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4rem;
+  max-width: 1000px;
+  padding-top: 4rem;
+  font-family:'Assistent' , 'Arial', sans-serif;
+}
+
+.HomeLi {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  min-width: 250px;
+  height: auto;
+  padding-top: 3rem;
+  margin: 1rem;
+}
+
