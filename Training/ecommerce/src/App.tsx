@@ -1,11 +1,20 @@
 import "./App.css";
 
+<<<<<<< HEAD
 import APPHome from "./pages/Home/Home.tsx";
 import ProductPage from "./pages/Product/ProductPage.tsx";
 import Cart from "./pages/Cart/Cart.tsx";
 import Layout from "./pages/Layout/Layout.tsx";
 import PageNotFound from "./pages/NotFound/NotFound.tsx";
 import { CartProvider } from "./context/CartContext/CartContextProvider.tsx";
+=======
+import APPHome from "./component/Home.tsx";
+import ProductPage from "./component/ProductPage.tsx";
+import Cart from "./component/Cart.tsx";
+import Layout from "./component/layout.tsx";
+import PageNotFound from "./component/layout.tsx";
+import { CartProvider } from "./component/CartContext.tsx";
+>>>>>>> d48518740405ff1f863b28650cc37b4431f8ab1b
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
