@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { useCartContext } from "../../context/CartContext/CartContext.tsx";
 import { data } from "../../components/mockDataIphone.ts";
-import style from "./Cart.module.scss";
 import type { Product } from "../../utils/types/products.ts";
 import Button from "../../components/Button/Button.tsx";
 
