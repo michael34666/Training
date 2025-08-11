@@ -36,19 +36,15 @@ const Cart = () => {
     <div>
       <h1>Cart Page</h1>
 
-      <div className={style.cart}>
-        {cartItems.length > 0 ? (
-          <Products items={cartItems}>
-            <p></p>
-          </Products>
-        ) : (
-          <p>Your cart is empty</p>
-        )}
-      </div>
+      {cartItems.filter((item) => item.quantity > 0).length > 0 ? (
+        <Products items={cartItems.filter((item) => item.quantity > 0)}>
+          <h2>have {clacCountItems} product in card</h2>
+          <h2>Total: {calcTotalPrice}$</h2>
+        </Products>
+      ) : (
+        <p>Your cart is empty</p>
+      )}
 
-      <div>
-        <h2>Total: {calcTotalPrice}$</h2>
-      </div>
 
       <div>
         {data.map((item: Product) => (
@@ -60,7 +56,7 @@ const Cart = () => {
       <div></div>
 
       <Button onClick={() => submitOrder()}> Submit Order </Button>
-      <h2>have {clacCountItems} product in card</h2>
+      
     </div>
   );
 };

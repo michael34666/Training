@@ -40,12 +40,17 @@ const Products: FC<ProductProp> = ({ children, items }): JSX.Element => {
 
             <div>
               {item.quantity > 0 ? (
-                <div> Quantity: {item.quantity}</div>
+                <div>
+                  {" "}
+                  Quantity: {item.quantity}
+                  <br></br>
+                  Price: {item.price}${" "}
+                </div>
               ) : (
                 <br></br>
               )}
             </div>
-            <p>Price: {item.price}$ </p>
+
             <p>Category: {item.category}</p>
 
             <Button onClick={() => addToCart(item)}>
