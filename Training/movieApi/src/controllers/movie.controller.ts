@@ -4,10 +4,11 @@ import { MovieService } from "../services/movie.service.js";
 export class MovieController {
   private movieService: MovieService;
 
-  constructor(movieService: MovieService) {
-    this.movieService = movieService;
+  constructor() {
+    this.movieService = new MovieService();
   }
-  getMovie(req: Request, res: Response) {
+
+  getMovie(req: Request, res: Response): void {
     const movieId = parseInt(req.params.id ?? "");
     try {
       const movie = this.movieService.getMovieById(movieId);
@@ -17,7 +18,7 @@ export class MovieController {
     }
   }
 
-  showAllMovies(req: Request, res: Response) {
+  showAllMovies(req: Request, res: Response): void {
     try {
       const movies = this.movieService.getAllMovies();
       res.status(200).json(movies);
@@ -25,6 +26,7 @@ export class MovieController {
       res.status(404).json({ error: "Movie not found" });
     }
   }
+
   insertNewMovie(req: Request, res: Response): void {
     try {
       const movies = this.movieService.getAllMovies();
@@ -40,12 +42,13 @@ export class MovieController {
     const movieId = parseInt(req.params.id ?? " ");
     try {
       const movies = this.movieService.getAllMovies();
-      const deletedMovie = movies.splice(movieId-1, 1);
+      const deletedMovie = movies.splice(movieId - 1, 1);
       res.status(200).json(deletedMovie);
     } catch (error) {
       res.status(404).json({ error: "Movie not found" });
     }
   }
+
   editMovie(req: Request, res: Response): void {
     const movieId = parseInt(req.params.id ?? "");
     try {

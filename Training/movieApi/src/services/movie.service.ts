@@ -4,8 +4,8 @@ import type { Movie } from "../interfaces/movie.interface.js";
 export class MovieService {
   private movieRepository: MovieRepository;
 
-  constructor(movieRepository: MovieRepository) {
-    this.movieRepository = movieRepository;
+  constructor() {
+    this.movieRepository = new MovieRepository();
   }
 
   getMovieById(id: number): Movie {
@@ -13,9 +13,10 @@ export class MovieService {
     if (!movie) {
       throw new Error("Movie not found");
     }
+
     return movie;
   }
-  
+
   getAllMovies(): Movie[] {
     return this.movieRepository.showAllMovieBy();
   }
