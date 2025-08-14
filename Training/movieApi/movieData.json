@@ -1,5 +1,42 @@
-[{"id":1,"title":"Lupin the 3rd","overView":"Occlusion of Small Intestine, Via Opening","directorName":"Ulrika","genre":"Action|Adventure|Comedy","releaseDate":2018},
-{"id":2,"title":"Highlander III: The Sorcerer (a.k.a. Highlander: The Final Dimension)","overView":"Removal of Int Fix from L Ulna, Extern Approach","directorName":"Michele","genre":"Action|Fantasy","releaseDate":2011},
-{"id":3,"title":"Bad Girl","overView":"Removal of Nonaut Sub from R Hip Jt, Perc Approach","directorName":"Celestine","genre":"Drama","releaseDate":2019},
-{"id":4,"title":"Between Miracles","overView":"Measurement of POC, Nervous Electr Activity, Via Opening","directorName":"Isidor","genre":"Comedy","releaseDate":2014},
-{"id":5,"title":"Jerusalem","overView":"Resection of Pulmonary Valve, Percutaneous Approach","directorName":"Arne","genre":"Drama","releaseDate":2010}]
+[
+  {
+    "id": 1,
+    "title": "Lupin the 3rd",
+    "overView": "Occlusion of Small Intestine, Via Opening",
+    "directorName": "Ulrika",
+    "genres": "Action|Adventure|Comedy",
+    "releaseDate": 2018
+  },
+  {
+    "id": 2,
+    "title": "Highlander III: The Sorcerer (a.k.a. Highlander: The Final Dimension)",
+    "overView": "Removal of Int Fix from L Ulna, Extern Approach",
+    "directorName": "Michele",
+    "genres": "Action|Fantasy",
+    "releaseDate": 2011
+  },
+  {
+    "id": 3,
+    "title": "Bad Girl",
+    "overView": "Removal of Nonaut Sub from R Hip Jt, Perc Approach",
+    "directorName": "Celestine",
+    "genres": "Drama",
+    "releaseDate": 2019
+  },
+  {
+    "id": 4,
+    "title": "Between Miracles",
+    "overView": "Measurement of POC, Nervous Electr Activity, Via Opening",
+    "directorName": "Isidor",
+    "genres": "Comedy",
+    "releaseDate": 2014
+  },
+  {
+    "id": 5,
+    "title": "Jerusalem",
+    "overView": "Resection of Pulmonary Valve, Percutaneous Approach",
+    "directorName": "Arne",
+    "genres": "Drama",
+    "releaseDate": 2010
+  }
+]

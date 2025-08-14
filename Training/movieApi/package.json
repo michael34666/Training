@@ -4,14 +4,15 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "npx tsx --env-file=.env --watch  src/index.ts"
+    "start": "npx tsx --env-file=.env --watch  src/app.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "typeorm": "^0.3.25"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.6",
