@@ -1,7 +1,4 @@
 {
-  "name": "movieapi",
-  "version": "1.0.0",
-  "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "npx tsx --env-file=.env --watch  src/app.ts"
@@ -12,7 +9,7 @@
   "description": "",
   "dependencies": {
     "express": "^5.1.0",
-    "typeorm": "^0.3.25"
+    "http-status": "^2.1.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.6",

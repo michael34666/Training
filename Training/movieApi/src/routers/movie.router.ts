@@ -1,5 +1,5 @@
 import express from "express";
-import { MovieController } from "../controllers/movie.controller.js";
+import { MovieController } from "../controllers/movie.controller";
 
 const movieController = new MovieController();
 

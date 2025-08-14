@@ -1,5 +1,7 @@
 import type { Request, Response } from "express";
-import { MovieService } from "../services/movie.service.js";
+import { MovieService } from "../services/movie.service";
+import type { Movie } from "../interfaces/movie.interface";
+import status from "http-status";
 
 export class MovieController {
   private movieService: MovieService;
@@ -9,21 +11,23 @@ export class MovieController {
   }
 
   getMovie = (req: Request, res: Response): void => {
-    const movieId = parseInt(req.params.id ?? "");
     try {
-      const movie = this.movieService.getMovieById(movieId);
-      res.status(200).json(movie);
+      if (!req.params.id) {
+        throw new Error("Id not found");
+      }
+      const movie = this.movieService.getMovieById(+req.params.id);
+      res.status(status.OK).json(movie);
     } catch (error) {
-      res.status(404).json({ error: "Movie not found" });
+      res.status(status.NOT_FOUND).json({ error: "Movie not found" });
     }
   };
 
   showAllMovies = (_: Request, res: Response): void => {
     try {
       const movies = this.movieService.getAllMovies();
-      res.status(200).json(movies);
+      res.status(status.OK).json(movies);
     } catch (error) {
-      res.status(404).json({ error: "Movie not found" });
+      res.status(status.NOT_FOUND).json({ error: "Movie not found" });
     }
   };
 
@@ -32,27 +36,28 @@ export class MovieController {
       const movies = this.movieService.getAllMovies();
       const newMovie = { id: movies.length + 1, ...req.body };
       movies.push(newMovie);
-      res.status(201).json(newMovie);
+      res.status(status.OK).json(newMovie);
     } catch (error) {
-      res.status(404).json({ error: "Movie not found" });
+      res.status(status.NOT_FOUND).json({ error: "Movie not found" });
     }
   };
 
   deleteMovie = (req: Request, res: Response): void => {
-    const movieId = parseInt(req.params.id ?? " ");
     try {
       const movies = this.movieService.getAllMovies();
-      const deletedMovie = movies.splice(movieId - 1, 1);
-      res.status(200).json(deletedMovie);
+      if (!req.params.id) {
+        throw new Error("Id not found");
+      }
+      const deletedMovie = movies.splice(+req.params.id - 1, 1);
+      res.status(status.OK).json(deletedMovie);
     } catch (error) {
-      res.status(404).json({ error: "Movie not found" });
+      res.status(status.NOT_FOUND).json({ error: "Movie not found" });
     }
   };
 
   editMovie = (req: Request, res: Response): void => {
-    const movieId = parseInt(req.params.id ?? "");
     try {
-      const movie = this.movieService.getMovieById(movieId);
+      const movie = this.movieService.getMovieById(+req.params.id);
       if (!movie) {
         res.status(404).json({ error: "Movie not found" });
       }
@@ -61,9 +66,9 @@ export class MovieController {
       movie.directorName = req.body.directorName;
       movie.genres = req.body.genre;
       movie.releaseDate = req.body.releaseDate;
-      res.status(200).json(movie);
+      res.status(status.OK).json(movie);
     } catch (error) {
-      res.status(404).json({ error: "Movie not found" });
+      res.status(status.NOT_FOUND).json({ error });
     }
   };
 }

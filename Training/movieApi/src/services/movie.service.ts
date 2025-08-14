@@ -1,5 +1,5 @@
-import { MovieRepository } from "../repositories/movie.repository.js";
-import type { Movie } from "../interfaces/movie.interface.js";
+import { MovieRepository } from "../repositories/movie.repository";
+import type { Movie } from "../interfaces/movie.interface";
 
 export class MovieService {
   private movieRepository: MovieRepository;
