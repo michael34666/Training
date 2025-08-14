@@ -8,7 +8,7 @@ export class MovieController {
     this.movieService = new MovieService();
   }
 
-  getMovie(req: Request, res: Response): void {
+  getMovie = (req: Request, res: Response): void => {
     const movieId = parseInt(req.params.id ?? "");
     try {
       const movie = this.movieService.getMovieById(movieId);
@@ -16,18 +16,18 @@ export class MovieController {
     } catch (error) {
       res.status(404).json({ error: "Movie not found" });
     }
-  }
+  };
 
-  showAllMovies(req: Request, res: Response): void {
+  showAllMovies = (_: Request, res: Response): void => {
     try {
       const movies = this.movieService.getAllMovies();
       res.status(200).json(movies);
     } catch (error) {
       res.status(404).json({ error: "Movie not found" });
     }
-  }
+  };
 
-  insertNewMovie(req: Request, res: Response): void {
+  insertNewMovie = (req: Request, res: Response): void => {
     try {
       const movies = this.movieService.getAllMovies();
       const newMovie = { id: movies.length + 1, ...req.body };
@@ -36,9 +36,9 @@ export class MovieController {
     } catch (error) {
       res.status(404).json({ error: "Movie not found" });
     }
-  }
+  };
 
-  deleteMovie(req: Request, res: Response): void {
+  deleteMovie = (req: Request, res: Response): void => {
     const movieId = parseInt(req.params.id ?? " ");
     try {
       const movies = this.movieService.getAllMovies();
@@ -47,9 +47,9 @@ export class MovieController {
     } catch (error) {
       res.status(404).json({ error: "Movie not found" });
     }
-  }
+  };
 
-  editMovie(req: Request, res: Response): void {
+  editMovie = (req: Request, res: Response): void => {
     const movieId = parseInt(req.params.id ?? "");
     try {
       const movie = this.movieService.getMovieById(movieId);
@@ -65,5 +65,5 @@ export class MovieController {
     } catch (error) {
       res.status(404).json({ error: "Movie not found" });
     }
-  }
+  };
 }
