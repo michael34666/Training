@@ -1,0 +1,63 @@
+import { useMemo } from "react";
+import { useCartContext } from "../../context/CartContext/CartContext.tsx";
+import { data } from "../../components/mockDataIphone.ts";
+import type { Product } from "../../utils/types/products.ts";
+import Button from "../../components/Button/Button.tsx";
+
+import Products from "../../components/Products.tsx";
+
+const Cart = () => {
+  const { cartItems, addToCart, clearCart } = useCartContext();
+
+  const totalPriceCart = () => {
+    return cartItems.reduce(
+      (total: number, item: Product) => total + item.price * item.quantity,
+      0
+    );
+  };
+
+  const calcTotalPrice = useMemo(() => totalPriceCart(), [cartItems]);
+  const countItems = () => {
+    return cartItems.reduce(
+      (total: number, item: Product) => total + item.quantity,
+      0
+    );
+  };
+
+  const clacCountItems = useMemo(() => countItems(), [cartItems]);
+
+  const submitOrder = () => {
+    alert("Your order submitted");
+    clearCart();
+  };
+
+  return (
+    <div>
+      <h1>Cart Page</h1>
+
+      {cartItems.filter((item) => item.quantity > 0).length > 0 ? (
+        <Products items={cartItems.filter((item) => item.quantity > 0)}>
+          <h2>have {clacCountItems} product in card</h2>
+          <h2>Total: {calcTotalPrice}$</h2>
+        </Products>
+      ) : (
+        <p>Your cart is empty</p>
+      )}
+
+
+      <div>
+        {data.map((item: Product) => (
+          <Button key={item.id} onClick={() => addToCart(item)}>
+            Add {item.name} to Cart
+          </Button>
+        ))}
+      </div>
+      <div></div>
+
+      <Button onClick={() => submitOrder()}> Submit Order </Button>
+      
+    </div>
+  );
+};
+
+export default Cart;
