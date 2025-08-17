@@ -1,4 +1,4 @@
-import type { Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 import { MovieService } from "../services/movie.service";
 import type { Movie } from "../interfaces/movie.interface";
 import status from "http-status";
@@ -22,12 +22,12 @@ export class MovieController {
     }
   };
 
-  showAllMovies = (_: Request, res: Response): void => {
+  showAllMovies = (_: Request, res: Response, next: NextFunction): void => {
     try {
       const movies = this.movieService.getAllMovies();
       res.status(status.OK).json(movies);
     } catch (error) {
-      res.status(status.NOT_FOUND).json({ error: "Movie not found" });
+      next(error);
     }
   };
 
@@ -58,9 +58,7 @@ export class MovieController {
   editMovie = (req: Request, res: Response): void => {
     try {
       const movie = this.movieService.getMovieById(+req.params.id);
-      if (!movie) {
-        res.status(404).json({ error: "Movie not found" });
-      }
+     
       movie.title = req.body.title;
       movie.overView = req.body.overView;
       movie.directorName = req.body.directorName;
