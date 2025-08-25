@@ -4,11 +4,7 @@ import { CategoryRepository } from './category.repository';
 @Injectable()
 export class CategoryService {
   constructor(private readonly repository: CategoryRepository) {}
-  async findAll(): Promise<Category[] | null> {
-    const category = await this.repository.findAll();
-    if (!category) {
-      throw new Error('Category dont found');
-    }
-    return category;
+  async findAll(): Promise<Category[]> {
+    return this.repository.findAll();
   }
 }

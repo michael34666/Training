@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { Product } from './product.entity';
-import type { Status } from './product.entity';
+import { Status } from '../utils/enums/productStatus.utils';
 
 @Injectable()
 export class ProductRepository {
@@ -12,50 +12,50 @@ export class ProductRepository {
   ) {}
 
   async findOneBy(where: FindOptionsWhere<Product>): Promise<Product | null> {
-    const product = await this.dataSourceRepo.findOne({ where });
+    const product = this.dataSourceRepo.findOne({ where });
     if (product === null) {
-      throw new Error('product not found');
+      throw new NotFoundException('product not found');
     }
     return product;
   }
 
-  async findAllActive(): Promise<Product[] | null> {
-    return await this.dataSourceRepo.find({
+  async findAllActive(): Promise<Product[]> {
+    return this.dataSourceRepo.find({
       relations: {
         categories: true,
       },
-      where: { product_status: 'ACTIVE' },
+      where: { productStatus: Status.ACTIVE },
     });
   }
 
   async countIfExist(where: FindOptionsWhere<Product>): Promise<number> {
-    return await this.dataSourceRepo.countBy(where);
+    return this.dataSourceRepo.countBy(where);
   }
 
   async updateByPrice(
     updateProduct: Product,
-    productPrice: JSON,
-  ): Promise<Product | null> {
+    productPrice: number,
+  ): Promise<Product> {
     const productUpdate = await this.dataSourceRepo.findOne({
       where: { id: updateProduct.id },
     });
 
     if (productUpdate === null) {
-      throw new Error('product not found');
+      throw new NotFoundException('product not found');
     }
-    productUpdate.price = productPrice['price'];
-    return await this.dataSourceRepo.save(productUpdate);
+    productUpdate.price = productPrice;
+    return this.dataSourceRepo.save(productUpdate);
   }
-  async updateByStatus(updateProduct: Product): Promise<Product | null> {
+  async updateByStatus(updateProduct: Product): Promise<Product> {
     const productUpdate = await this.dataSourceRepo.findOne({
       where: { id: updateProduct.id },
     });
 
     if (productUpdate === null) {
-      throw new Error('product not found');
+      throw new NotFoundException('product not found');
     }
-    productUpdate.product_status = 'DISABLED';
-    return await this.dataSourceRepo.save(productUpdate);
+    productUpdate.productStatus = Status.DISABLED;
+    return this.dataSourceRepo.save(productUpdate);
   }
 
   async removeProduct(
@@ -67,6 +67,6 @@ export class ProductRepository {
       throw new NotFoundException('Product not found');
     }
 
-    return await this.dataSourceRepo.remove(productToDelete);
+    return this.dataSourceRepo.remove(productToDelete);
   }
 }

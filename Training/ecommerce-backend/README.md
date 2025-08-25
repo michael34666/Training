@@ -50,14 +50,14 @@ After creating the DB and all tables and meta data, populate the DB with:
 - Export the data with Graphql
     - Product_service
         - Queries:
-            - Return all the active products with their categories.-**Done**
-            - Return products by ids.-**Done**
-            - Do products ids exist -**Done**
-            - Return all categories -**Done**
+            - Return all the active products with their categories.-GET http://localhost:3000/products/
+            - Return products by ids.-get http://localhost:3000/products/{PRODUCTS_id}
+            - Do products ids exist -get http://localhost:3000/products/{PRODUCTS_id}/is-exist
+            - Return all categories -get(http://localhost:3000/categories)
         - Mutations:
-            - Update product price
-            - Delete product-**done**
-            - Update product to status disabled
+            - Update product price :patch http://localhost:3000/products/{PRODUCTS_id}/change-price and in body:{"InPrice":1555411}
+            - Delete product-delete http://localhost:3000/products/{PRODUCTS_id}
+            - Update product to status disabled- patch http://localhost:3000/products/{PRODUCTS_id}/change-status
 
 
 !!! Note "Important Notes"

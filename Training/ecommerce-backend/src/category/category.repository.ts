@@ -10,7 +10,7 @@ export class CategoryRepository {
     private readonly dataSourceRepo: Repository<Category>,
   ) {}
 
-  async findAll(): Promise<Category[] | null> {
-    return await this.dataSourceRepo.find();
+  async findAll(): Promise<Category[]> {
+    return this.dataSourceRepo.find();
   }
 }

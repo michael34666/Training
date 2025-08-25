@@ -5,7 +5,7 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-export type Status = 'ACTIVE' | 'DISABLED';
+import {Status} from "../utils/enums/productStatus.utils"
 import { Category } from '../category/category.entity';
 
 @Entity({
@@ -17,13 +17,13 @@ export class Product {
   id: number;
 
   @Column()
-  product_name: string;
+  productName: string;
 
   @Column()
   uploadDate: string;
 
   @Column()
-  product_description: string;
+  productDescription: string;
 
   @Column()
   price: number;
@@ -35,7 +35,7 @@ export class Product {
   imageUrl: string;
 
   @Column()
-  product_status: Status;
+  productStatus: Status;
 
   @ManyToMany(() => Category)
   @JoinTable({

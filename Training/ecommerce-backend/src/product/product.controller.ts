@@ -4,12 +4,12 @@ import {
   Body,
   Param,
   Delete,
-  Put,
   NotFoundException,
+  Patch,
 } from '@nestjs/common';
 import { Product } from './product.entity';
 import { ProductService } from './product.service';
-import { NOTFOUND } from 'dns';
+import type { priceInput } from '../utils/types/input.type';
 
 @Controller('/products')
 export class ProductController {
@@ -19,58 +19,34 @@ export class ProductController {
   async findProduct(
     @Param('id') productId: Product['id'],
   ): Promise<Product | null> {
-    try {
-      return await this.productService.findOne(productId);
-    } catch (e) {
-      throw new NotFoundException('Product not Found');
-    }
+    return this.productService.findOne(productId);
   }
 
   @Get()
   async getAllProduct(): Promise<Product[] | null> {
-    try {
-      return await this.productService.findAll();
-    } catch (e) {
-      throw new Error('Product not Found');
-    }
+    return this.productService.findAll();
   }
 
-  @Get(':id/isExist')
+  @Get(':id/is-exist')
   async isExist(@Param('id') productId: Product['id']): Promise<Boolean> {
-    try {
-      return await this.productService.isExists(productId);
-    } catch (e) {
-      throw new Error('Product not Found');
-    }
+    return this.productService.isExists(productId);
   }
 
-  @Put(':id/changePrice')
+  @Patch(':id/change-price')
   async updateByPrice(
     @Param('id') productId: Product['id'],
-    @Body() updatePrice: JSON,
+    @Body() updatePrice: priceInput,
   ) {
-    try {
-      return await this.productService.updateByPrice(productId, updatePrice);
-    } catch (e) {
-      throw new Error('Product not Found');
-    }
+    return this.productService.updateByPrice(productId, updatePrice);
   }
 
-  @Put(':id/changeStatus')
+  @Patch(':id/change-status')
   async updateByStatus(@Param('id') productId: Product['id']) {
-    try {
-      return await this.productService.updateByStatus(productId);
-    } catch (e) {
-      throw new Error('Product not Found');
-    }
+    return this.productService.updateByStatus(productId);
   }
   @Delete(':id')
   async remove(@Param('id') productId: Product['id']) {
-    try {
-      const deletedProduct = this.productService.removeProduct(productId);
-      return await this.productService.findOne(productId);
-    } catch (e) {
-      throw new Error('Product not Found');
-    }
+    const deletedProduct = this.productService.removeProduct(productId);
+    return this.productService.findOne(productId);
   }
 }
