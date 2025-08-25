@@ -6,14 +6,13 @@ export const createDatasource = (
   configService: ConfigService,
 ): TypeOrmModuleOptions => ({
   type: 'postgres',
-  host: configService.get<string>('DB_HOST'),
-  port: Number(configService.get<string>('DB_PORT')),
-  username: configService.get<string>('DB_USERNAME'),
-  password: configService.get<string>('DB_PASSWORD'),
-  database: configService.get<string>('DB_NAME'),
+  host: configService.getOrThrow<string>('DB_HOST'),
+  port: Number(configService.getOrThrow<string>('DB_PORT')),
+  username: configService.getOrThrow<string>('DB_USERNAME'),
+  password: configService.getOrThrow<string>('DB_PASSWORD'),
+  database: configService.getOrThrow<string>('DB_NAME'),
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  schema: configService.getOrThrow<string>('DB_SCHEMA'),
   autoLoadEntities: true,
   namingStrategy: new SnakeNamingStrategy(),
 });
-
-// QUESTION: explain to me what is each of property here

@@ -7,38 +7,37 @@ CREATE TYPE products.status AS ENUM ('ACTIVE' , 'DISABLED' );
 
 -- Create Product table
 CREATE TABLE products.products (
-    id int,
-    product_name varchar(255),
-    upload_date varchar(255),
-    product_description varchar(255),
-    price int,
-    seller_name varchar(255),
-    image_url  varchar(255),
-    prodct_status products.status, 
+    id INT NOT NULL,
+    product_name VARCHAR(255),
+    upload_date VARCHAR(255),
+    product_description VARCHAR(255),
+    price INT CHECK(price > 0),
+    seller_name VARCHAR(255),
+    image_url  VARCHAR(255),
+    product_status products.status, 
 	PRIMARY KEY (id)
 );
 
--- TODO: all sql types should be upper case (INT, VARCHAR)
--- TODO: Add basic constraints (For example: price > 0)
+
 
 -- Create Category table
 CREATE TABLE products.categories (
-    id int,
-    catgory_name varchar(255),
+    id INT NOT NULL,
+    category_name VARCHAR(255),
 	PRIMARY KEY (id)
 );
 
 -- Create Product-Category table
 CREATE TABLE products.products_categories (
-    product_id int,
-    catgory_id int,
+    product_id INT NOT NULL,
+    category_id INT NOT NULL,
 	FOREIGN KEY (product_id) REFERENCES products.products(id),
-	FOREIGN KEY (catgory_id) REFERENCES products.categories(id)
+	FOREIGN KEY (category_id) REFERENCES products.categories(id)
 );
 
 
 -- DML
-INSERT INTO products.products(id,product_name,upload_date,product_description,price,seller_name,image_url,prodct_status)
+INSERT INTO products.products(id,product_name,upload_date,product_description,price,seller_name,image_url,product_status)
 VALUES (1 ,'iPhone 13 Pro Max','05/10/2023', 'The iPhone 13 Pro Max is the ultimate device for power users.',1099,'yossi','iPhone-13-pro-max-5.jpg', 'ACTIVE'),
     (2,'iPhone 12 Mini','01/15/2025','Perfect for those who love smaller devices.',699,'ali','iphone-12-mini.webp', 'DISABLED'),
     (3,'iPhone SE (2020)', '07/15/2025', 'A great choice for those who want power without breaking the bank.', 399,'roi', 'iphone-se-2020.jpg','ACTIVE'),
@@ -51,24 +50,26 @@ VALUES (1 ,'iPhone 13 Pro Max','05/10/2023', 'The iPhone 13 Pro Max is the ultim
 
 
 
-INSERT INTO products.categories(id, catgory_name)
+INSERT INTO products.categories(id, category_name)
 VALUES(1, 'Electronics'),
     (2, 'Kitchen products'),
     (3, 'Food'),
     (4, 'Calendar'),
-    (5, 'Towel');
+    (5, 'Towel'),
+    (6,'Computers'),
+    (7,'New iphone');
 
--- TODO: Add more categories
+
  
-INSERT INTO products.products_categories(product_id, catgory_id)
+INSERT INTO products.products_categories(product_id, category_id)
 VALUES( 1,1),
+    (1,7),
     (2,1),
     (3,1),
     (4,1),
+    (4,7),
     (5,2),
     (6,3),
     (7,4),
     (8,5),
     (9,3);
- 
--- TODO: Add to some products multiple categories

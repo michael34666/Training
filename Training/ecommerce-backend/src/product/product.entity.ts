@@ -6,21 +6,24 @@ import {
   JoinTable,
 } from 'typeorm';
 export type Status = 'ACTIVE' | 'DISABLED';
-import { Category } from './category.entity';
+import { Category } from '../category/category.entity';
 
-@Entity()
+@Entity({
+  name: 'products',
+  synchronize: false,
+})
 export class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
+  product_name: string;
 
   @Column()
   uploadDate: string;
 
   @Column()
-  description: string;
+  product_description: string;
 
   @Column()
   price: number;
@@ -32,9 +35,19 @@ export class Product {
   imageUrl: string;
 
   @Column()
-  status: Status;
+  product_status: Status;
 
   @ManyToMany(() => Category)
-  @JoinTable()
+  @JoinTable({
+    name: 'products_categories',
+    joinColumn: {
+      name: 'product_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'category_id',
+      referencedColumnName: 'id',
+    },
+  })
   categories: Category[];
 }

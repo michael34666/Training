@@ -50,13 +50,13 @@ After creating the DB and all tables and meta data, populate the DB with:
 - Export the data with Graphql
     - Product_service
         - Queries:
-            - Return all the active products with their categories. 
-            - Return products by ids.
-            - Do products ids exist 
-            - Return all categories
+            - Return all the active products with their categories.-**Done**
+            - Return products by ids.-**Done**
+            - Do products ids exist -**Done**
+            - Return all categories -**Done**
         - Mutations:
             - Update product price
-            - Delete product
+            - Delete product-**done**
             - Update product to status disabled
 
 

@@ -3,10 +3,12 @@ import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './product.entity';
+import { ProductRepository } from '../product/product.repository';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Product])], // QUESTION: Explain to me what is it
+  imports: [TypeOrmModule.forFeature([Product])],
   controllers: [ProductController],
-  providers: [ProductService],
-}) // TODO: Add here the needed providers and export the needed, import here modules if needed
+  providers: [ProductService, ProductRepository],
+  exports: [ProductService],
+})
 export class ProductModule {}
