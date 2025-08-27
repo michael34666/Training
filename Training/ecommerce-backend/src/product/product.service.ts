@@ -8,9 +8,7 @@ export class ProductService {
   constructor(private readonly repository: ProductRepository) {}
 
   async findAll(): Promise<Product[]> {
-    const products = await this.repository.findAllActive();
-
-    return products;
+    return this.repository.findAllActive();
   }
 
   async findOne(productId: Product['id']): Promise<Product> {
