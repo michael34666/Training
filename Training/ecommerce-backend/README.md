@@ -55,7 +55,7 @@ After creating the DB and all tables and meta data, populate the DB with:
             - Do products ids exist -get http://localhost:3000/products/{PRODUCTS_id}/is-exist
             - Return all categories -get(http://localhost:3000/categories)
         - Mutations:
-            - Update product price :patch http://localhost:3000/products/{PRODUCTS_id}/change-price and in body:{"InPrice":1555411}
+            - Update product price :patch http://localhost:3000/products/{PRODUCTS_id}/change-price and in body:{"changePrice":1555411}
             - Delete product-delete http://localhost:3000/products/{PRODUCTS_id}
             - Update product to status disabled- patch http://localhost:3000/products/{PRODUCTS_id}/change-status
 

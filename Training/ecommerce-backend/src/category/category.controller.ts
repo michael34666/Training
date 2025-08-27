@@ -4,10 +4,10 @@ import { CategoryService } from './category.service';
 
 @Controller('/categories')
 export class CategoryController {
-  constructor(private readonly productService: CategoryService) {}
+  constructor(private readonly categoryService: CategoryService) {}
 
   @Get()
-  async getAllProduct(): Promise<Category[]> {
-    return this.productService.findAll();
+  async getAllCategories(): Promise<Category[]> {
+    return this.categoryService.findAll();
   }
 }

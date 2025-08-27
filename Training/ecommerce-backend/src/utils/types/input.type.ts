@@ -1,3 +1,3 @@
-export type priceInput={
-    InPrice: number;
+export type PriceInput={
+    changePrice: number;
 }

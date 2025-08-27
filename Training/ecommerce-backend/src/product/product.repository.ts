@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { Product } from './product.entity';
-import { Status } from '../utils/enums/productStatus.utils';
+import { Status } from '../utils/enums/productStatus.enum';
 
 @Injectable()
 export class ProductRepository {
@@ -12,11 +12,7 @@ export class ProductRepository {
   ) {}
 
   async findOneBy(where: FindOptionsWhere<Product>): Promise<Product | null> {
-    const product = this.dataSourceRepo.findOne({ where });
-    if (product === null) {
-      throw new NotFoundException('product not found');
-    }
-    return product;
+    return await this.dataSourceRepo.findOne({ where });
   }
 
   async findAllActive(): Promise<Product[]> {
@@ -28,8 +24,8 @@ export class ProductRepository {
     });
   }
 
-  async countIfExist(where: FindOptionsWhere<Product>): Promise<number> {
-    return this.dataSourceRepo.countBy(where);
+  async countIfExist(where: FindOptionsWhere<Product>): Promise<Boolean> {
+    return this.dataSourceRepo.exists({ where });
   }
 
   async updateByPrice(
@@ -58,9 +54,7 @@ export class ProductRepository {
     return this.dataSourceRepo.save(productUpdate);
   }
 
-  async removeProduct(
-    where: FindOptionsWhere<Product>,
-  ): Promise<Product | null> {
+  async removeProduct(where: FindOptionsWhere<Product>): Promise<Product> {
     const productToDelete = await this.dataSourceRepo.findOne({ where });
 
     if (!productToDelete) {

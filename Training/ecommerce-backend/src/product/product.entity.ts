@@ -5,13 +5,10 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import {Status} from "../utils/enums/productStatus.utils"
+import { Status } from '../utils/enums/productStatus.enum';
 import { Category } from '../category/category.entity';
 
-@Entity({
-  name: 'products',
-  synchronize: false,
-})
+@Entity('products')
 export class Product {
   @PrimaryGeneratedColumn()
   id: number;
