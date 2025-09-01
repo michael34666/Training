@@ -1,0 +1,27 @@
+{
+  "name": "ecommerce-backend-part2",
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "lint-dry": "turbo run lint-dry"
+  },
+  "packageManager": "npm@10.9.2",
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "turbo": "^2.5.3"
+  },
+  "dependencies": {
+    "@nestjs/microservices": "^11.1.6",
+    "orders": "^0.0.1",
+    "products": "^0.0.1"
+  }
+}
