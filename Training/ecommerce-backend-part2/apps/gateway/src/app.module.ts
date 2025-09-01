@@ -6,7 +6,6 @@ import { OrderController } from './orders/orders.controller';
 
 @Module({
   imports: [
-    
     ClientsModule.registerAsync([
       {
         imports: [ConfigModule],
@@ -36,7 +35,7 @@ import { OrderController } from './orders/orders.controller';
       },
     ]),
   ],
-  controllers: [ProductController,OrderController],
+  controllers: [ProductController, OrderController],
   providers: [],
 })
 export class AppModule {}
