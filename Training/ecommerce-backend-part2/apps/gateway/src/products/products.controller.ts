@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
-import type { PriceInput } from '../../../products/src/utils/types/input.type';
+
 
 @Controller('products')
 export class ProductController {
@@ -43,18 +43,7 @@ export class ProductController {
     );
   }
 
-  @Patch(':id/change-price')
-  async updateByPrice(
-    @Param('id') productId: number,
-    @Body() updatePrice: PriceInput,
-  ) {
-    return firstValueFrom(
-      this.productClient.send(
-        { cmd: 'change_product_price' },
-        { productId, updatePrice },
-      ),
-    );
-  }
+  
 
   @Patch('/:id/change-status')
   async updateByStatus(@Param('id') productId: number) {
