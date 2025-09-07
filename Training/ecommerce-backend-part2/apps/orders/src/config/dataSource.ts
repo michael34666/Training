@@ -10,9 +10,10 @@ export const createDatasource = (
   port: +(configService.getOrThrow<string>('DB_PORT')),
   username: configService.getOrThrow<string>('DB_USERNAME'),
   password: configService.getOrThrow<string>('DB_PASSWORD'),
-  database: configService.getOrThrow<string>('DB_NAME'),
+  database: configService.getOrThrow<string>('DB_ORDERS_NAME'),
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   schema: configService.getOrThrow<string>('DB_ORDERS_SCHEMA'),
   autoLoadEntities: true,
   namingStrategy: new SnakeNamingStrategy(),
+
 });

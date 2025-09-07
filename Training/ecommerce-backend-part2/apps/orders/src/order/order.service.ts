@@ -1,11 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Order } from '../order/order.entity';
-import { OrderRepository } from '../order/order.repository';
-
+import { Order } from './order.entity';
+import { OrderRepository } from './order.repository';
+import { ProductOrderDto } from '../utils/types/product_order_dto.type';
+import { CreateOrderDTO } from '../utils/interface/create-order-dto.intrface';
+import { ProductsOrderService } from '../products-order/products-order.service';
 
 @Injectable()
 export class OrderService {
-  constructor(private readonly repository: OrderRepository) {}
+
+  constructor(private readonly repository: OrderRepository,private readonly productOrderService:ProductsOrderService) {}
 
   async findAll(): Promise<Order[]> {
     return this.repository.findAll();
@@ -30,13 +33,30 @@ export class OrderService {
     return true;
   }
 
-  
-
-  async removeProduct(productId: Order['id']): Promise<Order> {
-    const product = await this.repository.removeProduct({ id: productId });
-    if (!product) {
-      throw new NotFoundException('Product not found');
+  async removeOrder(orderId: Order['id']): Promise<Order> {
+    const order = await this.repository.removeOrder({ id: orderId });
+    if (!order) {
+      throw new NotFoundException('Order not found');
     }
-    return product;
+    return order;
+  }
+
+  async addNewOrder(newOrder: CreateOrderDTO): Promise<CreateOrderDTO> {
+    const order = await this.repository.addProductOrder(newOrder);
+    order.products = newOrder.products;
+    console.log('one', newOrder);
+    console.log('aaaa', newOrder.products);
+    console.log('two', order);
+    
+    const productOrder = await this.productOrderService.addNewProductOrder(
+      order.products,
+     
+    );
+    console.log(order);
+    return order;
+  }
+
+  async addProductOrder(newOrder: CreateOrderDTO): Promise<CreateOrderDTO> {
+    return this.repository.addProductOrder(newOrder);
   }
 }

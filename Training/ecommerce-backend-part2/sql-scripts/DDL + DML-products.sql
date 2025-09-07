@@ -7,24 +7,24 @@ CREATE TYPE products.status AS ENUM ('ACTIVE' , 'DISABLED' );
 
 -- Create Product table
 CREATE TABLE products.products (
-    id INT NOT NULL,
+    id SERIAL PRIMARY KEY,
     product_name VARCHAR(255),
     upload_date VARCHAR(255),
     product_description VARCHAR(255),
     price INT CHECK(price > 0),
     seller_name VARCHAR(255),
     image_url  VARCHAR(255),
-    product_status products.status, 
-	PRIMARY KEY (id)
+    product_status products.status
+
 );
 
 
 
 -- Create Category table
 CREATE TABLE products.categories (
-    id INT NOT NULL,
-    category_name VARCHAR(255),
-	PRIMARY KEY (id)
+    id SERIAL PRIMARY KEY,
+    category_name VARCHAR(255)
+
 );
 
 -- Create Product-Category table

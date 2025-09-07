@@ -63,4 +63,12 @@ export class ProductRepository {
 
     return this.dataSourceRepo.remove(productToDelete);
   }
+
+  async findProductsByIds(where: FindOptionsWhere<Product>): Promise<Product[]> {
+    return this.dataSourceRepo.find({
+      where: where,
+      relations: ['category'], 
+    });
+  }
+  
 }
