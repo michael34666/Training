@@ -3,8 +3,6 @@ import { Order } from './order.entity';
 import { OrderRepository } from './order.repository';
 import { CreateOrderDTO } from '../utils/interface/create-order-dto.intrface';
 import { ProductsOrderService } from '../products-order/products-order.service';
-import { firstValueFrom } from 'rxjs';
-import { ProductsOrder } from 'src/products-order/products-order.entity';
 
 @Injectable()
 export class OrderService {
