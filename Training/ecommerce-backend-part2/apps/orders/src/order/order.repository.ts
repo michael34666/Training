@@ -11,7 +11,6 @@ export class OrderRepository {
     private readonly dataSourceRepo: Repository<Order>,
   ) {}
 
-
   async findAll(): Promise<Order[]> {
     return this.dataSourceRepo.find();
   }

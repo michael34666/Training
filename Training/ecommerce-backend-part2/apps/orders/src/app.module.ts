@@ -4,11 +4,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { OrderModule } from './order/order.module';
 import { createDatasource } from './config/dataSource';
 import { ProductsOrdersModule } from './products-order/products-order.module';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
-    
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -17,8 +15,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     }),
     OrderModule,
     ProductsOrdersModule,
-   
   ],
-
 })
 export class AppModule {}

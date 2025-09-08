@@ -14,8 +14,8 @@ async function bootstrap() {
   const DEFAULT_PORT = 3000;
 
   const app = await NestFactory.create(AppModule);
-   const config = new DocumentBuilder()
-    .setTitle('ECOMMERCE')
+  const config = new DocumentBuilder()
+    .setTitle('ECOMMERCE APP')
     .setDescription('The ECOMMERCE API description')
     .setVersion('1.0')
     .addTag('gateway')

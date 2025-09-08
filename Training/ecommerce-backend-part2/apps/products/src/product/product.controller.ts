@@ -4,7 +4,6 @@ import { ProductService } from './product.service';
 import type { PriceInput } from '../utils/types/input.type';
 import { MessagePattern } from '@nestjs/microservices';
 
-
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -59,5 +58,4 @@ export class ProductController {
   async findProductsByIds(productIds: number[]): Promise<Product[]> {
     return this.productService.findProductsByIds(productIds);
   }
-
 }

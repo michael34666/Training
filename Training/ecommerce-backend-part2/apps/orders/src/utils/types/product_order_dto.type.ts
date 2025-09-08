@@ -1,4 +1,4 @@
-export type ProductOrderDto={
-    id:number;
-    amount:number
-}
+export type ProductOrderDto = {
+  id: number;
+  amount: number;
+};

@@ -1,3 +1,3 @@
-export type AmountInput={
-    changeAmount: number;
-}
+export type AmountInput = {
+  changeAmount: number;
+};

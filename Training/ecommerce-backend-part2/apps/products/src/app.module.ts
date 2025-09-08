@@ -5,7 +5,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { createDatasource } from './config/dataSource';
 
-
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -16,9 +15,6 @@ import { createDatasource } from './config/dataSource';
     }),
     ProductModule,
     CategoryModule,
-
-   
   ],
 })
 export class AppModule {}
-

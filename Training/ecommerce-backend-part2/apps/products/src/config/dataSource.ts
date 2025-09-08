@@ -7,7 +7,7 @@ export const createDatasource = (
 ): TypeOrmModuleOptions => ({
   type: 'postgres',
   host: configService.getOrThrow<string>('DB_HOST'),
-  port: +(configService.getOrThrow<string>('DB_PORT')),
+  port: +configService.getOrThrow<string>('DB_PORT'),
   username: configService.getOrThrow<string>('DB_USERNAME'),
   password: configService.getOrThrow<string>('DB_PASSWORD'),
   database: configService.getOrThrow<string>('DB_NAME'),
