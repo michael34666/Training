@@ -35,15 +35,30 @@ export class ProductsOrderRepository {
     return this.dataSourceRepo.save(orderUpdate);
   }
 
-  async addNewProductOrder(
-    newProductOrder: ProductOrderDto[],
+  async addNewProduct(
+    items: ProductOrderDto[],
+    order: Order,
   ): Promise<ProductsOrder[]> {
-    const orders = newProductOrder?.map((i) =>
+    const entities = items.map((i) =>
       this.dataSourceRepo.create({
         productId: i.id,
         amount: i.amount,
+        order,
       }),
     );
-    return await this.dataSourceRepo.save(orders);
+
+    return this.dataSourceRepo.save(entities);
+  }
+
+  async findAll(): Promise<ProductsOrder[]> {
+    return this.dataSourceRepo.find();
+  }
+
+  async findByOrderId(orderId: number): Promise<ProductsOrder[]> {
+    return this.dataSourceRepo.find({
+      where: {
+        order: { id: orderId },
+      },
+    });
   }
 }

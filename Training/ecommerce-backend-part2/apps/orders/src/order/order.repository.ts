@@ -2,9 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { Order } from './order.entity';
-import { ProductOrderDto } from '../utils/types/product_order_dto.type';
 import { CreateOrderDTO } from '../utils/interface/create-order-dto.intrface';
-import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class OrderRepository {
@@ -13,9 +11,6 @@ export class OrderRepository {
     private readonly dataSourceRepo: Repository<Order>,
   ) {}
 
-  async findOneBy(where: FindOptionsWhere<Order>): Promise<Order | null> {
-    return await this.dataSourceRepo.findOne({ where, relations: ['id'] });
-  }
 
   async findAll(): Promise<Order[]> {
     return this.dataSourceRepo.find();
@@ -43,11 +38,15 @@ export class OrderRepository {
     return newOne;
   }
 
-  async addProductOrder(newOrders: CreateOrderDTO): Promise<CreateOrderDTO> {
+  async saveNewOrder(newOrders: CreateOrderDTO): Promise<Order> {
     const newOrder = this.dataSourceRepo.create({
       uploadDate: newOrders.uploadDate,
     });
 
     return await this.dataSourceRepo.save(newOrder);
+  }
+
+  async findOrdersProducts(): Promise<Order[]> {
+    return this.dataSourceRepo.find();
   }
 }

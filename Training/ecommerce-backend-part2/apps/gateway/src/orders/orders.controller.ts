@@ -28,13 +28,12 @@ export class OrderController {
   }
 
   @Patch('/:id/change-amount')
-  async changeAmount(@Param('id') orderId: number, @Body() updateAmount) {
-  
- 
+  async changeAmount(@Param('id') orderId, @Body() updateAmount) {
+    const id = +orderId;
     return firstValueFrom(
       this.orderClient.send(
         { cmd: 'change_amount_by_id' },
-        { orderId, updateAmount },
+        { orderId: id, updateAmount },
       ),
     );
   }
@@ -46,16 +45,13 @@ export class OrderController {
     );
   }
 
-  @Get('/product-order-category')
-  async showOrderProduct() {
+  @Get('/with-products-and-category')
+  async getOrdersWithProductsAndCategory() {
     return firstValueFrom(
-      this.orderClient.send({ cmd: 'show_order_product' }, {}),
-    );
-  }
-  @Get('/category/:category')
-  async getOrdersByCategory(@Param('category') category: string) {
-    return firstValueFrom(
-      this.orderClient.send({ cmd: 'show_order_by_category' }, { category }),
+      this.orderClient.send(
+        { cmd: 'find_orders_with_products_and_category' },
+        {},
+      ),
     );
   }
 }

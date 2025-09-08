@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Product } from './product.entity';
 import { ProductRepository } from './product.repository';
 import type { PriceInput } from '../utils/types/input.type';
-import { FindOptionsWhere, In } from 'typeorm';
 
 @Injectable()
 export class ProductService {
@@ -58,8 +57,7 @@ export class ProductService {
     return product;
   }
 
-   async findProductsByIds(productIds: number[]): Promise<Product[]> {
-    const where: FindOptionsWhere<Product> = { id: In(productIds) };
-    return this.repository.findProductsByIds(where);
+  async findProductsByIds(productIds: number[]): Promise<Product[]> {
+    return this.repository.findProductsByIds(productIds);
   }
 }

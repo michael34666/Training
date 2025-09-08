@@ -4,7 +4,6 @@ import { MessagePattern } from '@nestjs/microservices';
 import { ProductsOrder } from './products-order.entity';
 import { AmountInput } from '../utils/types/input.type';
 
-
 @Controller('orders')
 export class ProductsOrderController {
   constructor(private readonly productsOrderService: ProductsOrderService) {}
@@ -14,11 +13,9 @@ export class ProductsOrderController {
     orderId: ProductsOrder['id'];
     updateAmount: AmountInput;
   }): Promise<ProductsOrder> {
-    
     return this.productsOrderService.updateByAmount(
       payload.orderId,
       payload.updateAmount,
     );
   }
 }
-

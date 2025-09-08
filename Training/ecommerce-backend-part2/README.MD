@@ -1,4 +1,5 @@
 -RETURN ALL THE ORDERS WITH PRODUCTS WITH THIR CATEGORIES
+Get http://localhost:3000/orders/with-products-and-category
 
 -return orders by category
 

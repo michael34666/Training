@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindOptionsWhere, Repository } from 'typeorm';
+import { FindOptionsWhere, In, Repository } from 'typeorm';
 import { Product } from './product.entity';
 import { Status } from '../utils/enums/productStatus.enum';
 
@@ -64,11 +64,13 @@ export class ProductRepository {
     return this.dataSourceRepo.remove(productToDelete);
   }
 
-  async findProductsByIds(where: FindOptionsWhere<Product>): Promise<Product[]> {
+  async findProductsByIds(productIds: number[]): Promise<Product[]> {
+    const where: FindOptionsWhere<Product> = { id: In(productIds) };
     return this.dataSourceRepo.find({
-      where: where,
-      relations: ['category'], 
+      where,
+      relations: {
+        categories: true,
+      },
     });
   }
-  
 }

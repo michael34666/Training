@@ -3,7 +3,7 @@ import { Product } from './product.entity';
 import { ProductService } from './product.service';
 import type { PriceInput } from '../utils/types/input.type';
 import { MessagePattern } from '@nestjs/microservices';
-import { existsSync } from 'fs';
+
 
 @Controller('products')
 export class ProductController {
@@ -55,8 +55,9 @@ export class ProductController {
     return !productExist.some((exist) => !exist);
   }
 
- @MessagePattern({ cmd: 'find_products_by_ids' })
+  @MessagePattern({ cmd: 'find_products_by_ids' })
   async findProductsByIds(productIds: number[]): Promise<Product[]> {
     return this.productService.findProductsByIds(productIds);
   }
+
 }

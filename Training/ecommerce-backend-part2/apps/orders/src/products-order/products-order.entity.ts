@@ -11,11 +11,12 @@ import { Order } from '../order/order.entity';
 export class ProductsOrder {
   @PrimaryGeneratedColumn()
   id: number;
-  
-  @ManyToOne(() => Order, (order) => order.id, {
+
+  @ManyToOne(() => Order, (order) => order.products, {
     onDelete: 'CASCADE',
+    nullable: false,
   })
-  
+  @JoinColumn({ name: 'order_id' })
   order: Order;
 
   @Column()

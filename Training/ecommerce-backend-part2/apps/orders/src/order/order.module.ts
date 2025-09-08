@@ -5,7 +5,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Order } from './order.entity';
 import { OrderRepository } from './order.repository';
 import { ProductsOrder } from '../products-order/products-order.entity';
-import { ProductsOrderService } from 'src/products-order/products-order.service';
 import { ProductsOrdersModule } from '../products-order//products-order.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
