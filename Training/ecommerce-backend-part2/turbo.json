@@ -1,0 +1,36 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**"]
+    },
+    "coverage": {
+      "dependsOn": ["^build"],
+      "outputs": ["test-results.xml", "coverage/**"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "lint-dry": {
+      "dependsOn": ["^build", "^lint-dry"]
+    },
+    "lint-report": {
+      "dependsOn": ["^build"],
+      "outputs": ["eslint_report.xml"]
+    },
+    "check-types": {
+      "dependsOn": ["^check-types"]
+    },
+    "dev": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true
+    },
+    "test": {
+      "dependsOn": ["^build"]
+    }
+  }
+}
