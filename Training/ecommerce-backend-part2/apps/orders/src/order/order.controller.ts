@@ -3,8 +3,7 @@ import { Order } from './order.entity';
 import { OrderService } from './order.service';
 import { ClientProxy, MessagePattern } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
-import { ProductsOrderService } from '../products-order/products-order.service';
-import type { CreateOrderDTO } from '../utils/interface/create-order-dto.intrface';
+import type { CreateOrderDTO } from '../utils/class/create-order-dto.class';
 
 @Controller('orders')
 export class OrderController {
@@ -14,45 +13,44 @@ export class OrderController {
 
   constructor(
     private readonly orderService: OrderService,
-    private readonly productOrderService: ProductsOrderService,
     @Inject('PRODUCTS_SERVICE') private productClient: ClientProxy,
   ) {}
 
-  @MessagePattern({ cmd: 'get_all_order' })
-  async getAllOrder(): Promise<Order[]> {
+  @MessagePattern({ cmd: 'get_all_orders' })
+  async getAll(): Promise<Order[]> {
     return this.orderService.findAll();
   }
 
   @MessagePattern({ cmd: 'remove_order_by_id' })
   async remove(payload: { orderId: Order['id'] }): Promise<Order> {
-    return this.orderService.removeOrder(payload.orderId);
+    return this.orderService.remove(payload.orderId);
   }
 
   @MessagePattern({ cmd: 'add_new_order' })
-  async addNewOrder(payload: CreateOrderDTO): Promise<CreateOrderDTO> {
+  async addNew(payload: CreateOrderDTO): Promise<Order> {
     const productIds = payload.products.map((productOrder) => productOrder.id);
 
-    if (!(await this.isExsit(productIds))) {
+    const productsExist = this.isExsit(productIds);
+    if (!productsExist) {
       this.logger.error('Products not found');
       throw new NotFoundException('Product not found');
     }
 
-    return this.orderService.addNewOrder(payload);
+    return this.orderService.addNew(payload);
   }
 
-  async isExsit(productsIds: number[]): Promise<Boolean> {
+  private async isExsit(productsIds: number[]): Promise<Boolean> {
     return firstValueFrom(
       this.productClient.send({ cmd: 'is_products_exist' }, { productsIds }),
     );
   }
 
-  @MessagePattern({ cmd: 'find_orders_with_products_and_category' })
-  async findOrdersProductsCategory(): Promise<any> {
+  @MessagePattern({ cmd: 'find_orders_with_products_and_categories' })
+  async findsOrdersProductsCategory(): Promise<any> {
     const orders = await this.orderService.findAll();
 
     for (const order of orders) {
-      const productsOrder = await this.productOrderService.findAll(order.id);
-      const productIds = productsOrder.map((po) => po.productId);
+      const productIds = order.productsOrder.map((po) => po.productId);
 
       let products: any[] = [];
       if (productIds.length !== 0) {
@@ -61,7 +59,7 @@ export class OrderController {
         );
       }
 
-      order.products = productsOrder.map((prod) => ({
+      order.productsOrder = order.productsOrder.map((prod) => ({
         ...prod,
         product: products.find((p) => p.id === prod.productId),
       }));

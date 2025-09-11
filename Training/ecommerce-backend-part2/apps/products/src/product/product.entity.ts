@@ -5,11 +5,12 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import { Status } from '../utils/enums/productStatus.enum';
+import { Status } from '../utils/class/productStatus.enum';
 import { Category } from '../category/category.entity';
+import { IProduct } from '@ecommerce/types';
 
 @Entity('products')
-export class Product {
+export class Product implements IProduct {
   @PrimaryGeneratedColumn()
   id: number;
 

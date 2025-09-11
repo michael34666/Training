@@ -1,30 +1,29 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ProductsOrder } from './products-order.entity';
+import { ProductOrder } from './products-order.entity';
 import { FindOptionsWhere, Repository } from 'typeorm';
-import { ProductOrderDto } from '../utils/types/product_order_dto.type';
+import { ProductOrderDTO } from '../utils/class/product_order_dto.class';
 import { Order } from 'src/order/order.entity';
 
 @Injectable()
 export class ProductsOrderRepository {
   constructor(
-    @InjectRepository(ProductsOrder)
-    private readonly dataSourceRepo: Repository<ProductsOrder>,
+    @InjectRepository(ProductOrder)
+    private readonly dataSourceRepo: Repository<ProductOrder>,
   ) {}
 
   async findOneBy(
-    where: FindOptionsWhere<ProductsOrder>,
-  ): Promise<ProductsOrder | null> {
+    where: FindOptionsWhere<ProductOrder>,
+  ): Promise<ProductOrder | null> {
     return await this.dataSourceRepo.findOne({ where });
   }
 
-  async updateByAmount(
-    updateOrder: ProductsOrder,
+  async updateAmount(
+    updateOrder: ProductOrder,
     productAmount: number,
-  ): Promise<ProductsOrder> {
+  ): Promise<ProductOrder> {
     const orderUpdate = await this.dataSourceRepo.findOne({
       where: { id: updateOrder.id },
-      relations: ['order'],
     });
 
     if (orderUpdate === null) {
@@ -35,10 +34,10 @@ export class ProductsOrderRepository {
     return this.dataSourceRepo.save(orderUpdate);
   }
 
-  async addNewProduct(
-    items: ProductOrderDto[],
+  async addNew(
+    items: ProductOrderDTO[],
     order: Order,
-  ): Promise<ProductsOrder[]> {
+  ): Promise<ProductOrder[]> {
     const entities = items.map((i) =>
       this.dataSourceRepo.create({
         productId: i.id,
@@ -50,11 +49,11 @@ export class ProductsOrderRepository {
     return this.dataSourceRepo.save(entities);
   }
 
-  async findAll(): Promise<ProductsOrder[]> {
+  async findAll(): Promise<ProductOrder[]> {
     return this.dataSourceRepo.find();
   }
 
-  async findByOrderId(orderId: number): Promise<ProductsOrder[]> {
+  async findByOrderId(orderId: number): Promise<ProductOrder[]> {
     return this.dataSourceRepo.find({
       where: {
         order: { id: orderId },

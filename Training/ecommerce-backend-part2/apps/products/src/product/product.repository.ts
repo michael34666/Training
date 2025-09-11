@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, In, Repository } from 'typeorm';
 import { Product } from './product.entity';
-import { Status } from '../utils/enums/productStatus.enum';
+import { Status } from '../utils/class/productStatus.enum';
 
 @Injectable()
 export class ProductRepository {
@@ -28,7 +28,7 @@ export class ProductRepository {
     return this.dataSourceRepo.exists({ where });
   }
 
-  async updateByPrice(
+  async updatePrice(
     updateProduct: Product,
     productPrice: number,
   ): Promise<Product> {
@@ -42,7 +42,7 @@ export class ProductRepository {
     productUpdate.price = productPrice;
     return this.dataSourceRepo.save(productUpdate);
   }
-  async updateByStatus(updateProduct: Product): Promise<Product> {
+  async updateStatus(updateProduct: Product): Promise<Product> {
     const productUpdate = await this.dataSourceRepo.findOne({
       where: { id: updateProduct.id },
     });
@@ -54,7 +54,7 @@ export class ProductRepository {
     return this.dataSourceRepo.save(productUpdate);
   }
 
-  async removeProduct(where: FindOptionsWhere<Product>): Promise<Product> {
+  async remove(where: FindOptionsWhere<Product>): Promise<Product> {
     const productToDelete = await this.dataSourceRepo.findOne({ where });
 
     if (!productToDelete) {
@@ -64,7 +64,7 @@ export class ProductRepository {
     return this.dataSourceRepo.remove(productToDelete);
   }
 
-  async findProductsByIds(productIds: number[]): Promise<Product[]> {
+  async findByIds(productIds: number[]): Promise<Product[]> {
     const where: FindOptionsWhere<Product> = { id: In(productIds) };
     return this.dataSourceRepo.find({
       where,

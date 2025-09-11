@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Order } from './order.entity';
 import { OrderRepository } from './order.repository';
-import { CreateOrderDTO } from '../utils/interface/create-order-dto.intrface';
+import { CreateOrderDTO } from '../utils/class/create-order-dto.class';
 import { ProductsOrderService } from '../products-order/products-order.service';
 
 @Injectable()
@@ -26,21 +26,21 @@ export class OrderService {
     return true;
   }
 
-  async removeOrder(orderId: Order['id']): Promise<Order> {
-    const order = await this.repository.removeOrder({ id: orderId });
+  async remove(orderId: Order['id']): Promise<Order> {
+    const order = await this.repository.remove({ id: orderId });
     if (!order) {
       throw new NotFoundException('Order not found');
     }
     return order;
   }
 
-  async addNewOrder(newOrder: CreateOrderDTO): Promise<Order> {
-    const savedOrder = await this.repository.saveNewOrder(newOrder);
+  async addNew(createOrderDTO: CreateOrderDTO): Promise<Order> {
+    const savedOrder = await this.repository.saveNew(createOrderDTO);
     const savedProducts = await this.productOrderService.addNewProduct(
-      newOrder.products,
+      createOrderDTO.products,
       savedOrder,
     );
-    savedOrder.products = savedProducts;
+    savedOrder.productsOrder = savedProducts;
     return savedOrder;
   }
 }

@@ -6,13 +6,14 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Order } from '../order/order.entity';
+import { IProductOrder } from '@ecommerce/types';
 
-@Entity('products_order')
-export class ProductsOrder {
+@Entity('product_order')
+export class ProductOrder implements IProductOrder {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Order, (order) => order.products, {
+  @ManyToOne(() => Order, (order) => order.productsOrder, {
     onDelete: 'CASCADE',
     nullable: false,
   })
