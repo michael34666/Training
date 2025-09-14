@@ -1,43 +1,40 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ProductsOrderRepository } from './products-order.repository';
-import { AmountInput } from '../utils/types/input.type';
-import { ProductsOrder } from './products-order.entity';
-import { ProductOrderDto } from '../utils/types/product_order_dto.type';
-import { Order } from 'src/order/order.entity';
+import { AmountInput } from '@ecommerce/types';
+import { ProductOrder } from './products-order.entity';
+import { ProductOrderDTO } from '@ecommerce/types';
+import { Order } from '../order/order.entity';
 
 @Injectable()
 export class ProductsOrderService {
   constructor(private readonly repository: ProductsOrderRepository) {}
 
-  async findOne(orderId: ProductsOrder['id']): Promise<ProductsOrder> {
-    const order = await this.repository.findOneBy({ id: orderId });
+  async findOne(orderId: ProductOrder['id']): Promise<ProductOrder> {
+    const productOrder = await this.repository.findOneBy({ id: orderId });
 
-    if (!order) {
+    if (!productOrder) {
       throw new NotFoundException('order not found');
     }
 
-    return order;
+    return productOrder;
   }
 
-  async findAll(orderId: number): Promise<ProductsOrder[]> {
+  async findAll(orderId: number): Promise<ProductOrder[]> {
     return this.repository.findByOrderId(orderId);
   }
 
-  async updateByAmount(
-    orderId: ProductsOrder['id'],
+  async updateAmount(
+    orderId: ProductOrder['id'],
     amount: AmountInput,
-  ): Promise<ProductsOrder> {
-    const order = await this.findOne(orderId);
-    if (order === null) {
-      throw new NotFoundException('product not found');
-    }
-    return this.repository.updateByAmount(order, amount.changeAmount);
+  ): Promise<ProductOrder[]> {
+    const productOrder = await this.findOne(orderId);
+    return this.repository.updateAmount(productOrder, amount.changeAmount);
   }
 
-  async addNewProduct(
-    items: ProductOrderDto[],
+  async addProducts(
+    items: ProductOrderDTO[],
     order: Order,
-  ): Promise<ProductsOrder[]> {
-    return this.repository.addNewProduct(items, order);
+  ): Promise<ProductOrder[]> {
+    return this.repository.addProducts(items, order);
   }
 }

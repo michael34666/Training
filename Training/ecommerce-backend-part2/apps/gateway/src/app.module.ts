@@ -13,7 +13,7 @@ import { OrderController } from './orders/orders.controller';
         useFactory: async (configService: ConfigService) => ({
           transport: Transport.TCP,
           options: {
-            host: 'localhost',
+            host: configService.getOrThrow<string>('PRODUCTS_SERVICE_HOST'),
             port: configService.getOrThrow<number>('PRODUCTS_SERVICE_PORT'),
           },
         }),
@@ -27,7 +27,7 @@ import { OrderController } from './orders/orders.controller';
         useFactory: async (configService: ConfigService) => ({
           transport: Transport.TCP,
           options: {
-            host: 'localhost',
+            host: configService.getOrThrow<string>('ORDER_SERVICE_HOST'),
             port: configService.getOrThrow<number>('ORDER_SERVICE_PORT'),
           },
         }),

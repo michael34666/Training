@@ -1,19 +1,19 @@
 import { Controller, Get } from '@nestjs/common';
 import { ProductsOrderService } from './products-order.service';
 import { MessagePattern } from '@nestjs/microservices';
-import { ProductsOrder } from './products-order.entity';
-import { AmountInput } from '../utils/types/input.type';
+import { ProductOrder } from './products-order.entity';
+import { AmountInput } from '@ecommerce/types';
 
 @Controller('orders')
 export class ProductsOrderController {
   constructor(private readonly productsOrderService: ProductsOrderService) {}
 
-  @MessagePattern({ cmd: 'change_amount_by_id' })
-  async updateByAmount(payload: {
-    orderId: ProductsOrder['id'];
+  @MessagePattern({ cmd: 'update_amount_by_id' })
+  async updateAmount(payload: {
+    orderId: ProductOrder['id'];
     updateAmount: AmountInput;
-  }): Promise<ProductsOrder> {
-    return this.productsOrderService.updateByAmount(
+  }): Promise<ProductOrder[]> {
+    return this.productsOrderService.updateAmount(
       payload.orderId,
       payload.updateAmount,
     );

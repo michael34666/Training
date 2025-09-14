@@ -12,7 +12,7 @@ CREATE TABLE orders.orders (
 
 
 -- Create Category table
-CREATE TABLE orders.products_order (
+CREATE TABLE orders.products_orders (
     id SERIAL PRIMARY KEY,
     order_id INT NOT NULL,
 	product_id INT NOT NULL,

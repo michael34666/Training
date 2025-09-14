@@ -12,13 +12,13 @@ configDotenv({
 
 async function bootstrap() {
   const DEFAULT_PORT = 3002;
-
+  const DEFAULT_HOST = 'localhost';
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
       transport: Transport.TCP,
       options: {
-        host: '0.0.0.0',
+        host: process.env.PRODUCTS_SERVICE_HOST ?? DEFAULT_HOST,
         port: +(process.env.PRODUCTS_SERVICE_PORT ?? DEFAULT_PORT),
       },
     },
@@ -26,7 +26,7 @@ async function bootstrap() {
 
   await app.listen().then(() => {
     Logger.log(
-      `Products service is running on localhost:${process.env.PRODUCTS_SERVICE_PORT ?? DEFAULT_PORT}`,
+      `Products service is running on ${process.env.PRODUCTS_SERVICE_HOST ?? DEFAULT_HOST}:${process.env.PRODUCTS_SERVICE_PORT ?? DEFAULT_PORT}`,
     );
   });
 }

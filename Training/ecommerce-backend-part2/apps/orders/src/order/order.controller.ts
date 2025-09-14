@@ -3,8 +3,8 @@ import { Order } from './order.entity';
 import { OrderService } from './order.service';
 import { ClientProxy, MessagePattern } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
-import { ProductsOrderService } from '../products-order/products-order.service';
-import type { CreateOrderDTO } from '../utils/interface/create-order-dto.intrface';
+import type { CreateOrderDTO } from '@ecommerce/types';
+import { ProductOrder } from '../products-order/products-order.entity';
 
 @Controller('orders')
 export class OrderController {
@@ -14,54 +14,54 @@ export class OrderController {
 
   constructor(
     private readonly orderService: OrderService,
-    private readonly productOrderService: ProductsOrderService,
     @Inject('PRODUCTS_SERVICE') private productClient: ClientProxy,
   ) {}
 
-  @MessagePattern({ cmd: 'get_all_order' })
-  async getAllOrder(): Promise<Order[]> {
+  @MessagePattern({ cmd: 'get_all_orders' })
+  async getAll(): Promise<Order[]> {
     return this.orderService.findAll();
   }
 
   @MessagePattern({ cmd: 'remove_order_by_id' })
   async remove(payload: { orderId: Order['id'] }): Promise<Order> {
-    return this.orderService.removeOrder(payload.orderId);
+    return this.orderService.remove(payload.orderId);
   }
 
   @MessagePattern({ cmd: 'add_new_order' })
-  async addNewOrder(payload: CreateOrderDTO): Promise<CreateOrderDTO> {
+  async addNew(payload: CreateOrderDTO): Promise<Order> {
     const productIds = payload.products.map((productOrder) => productOrder.id);
 
-    if (!(await this.isExsit(productIds))) {
-      this.logger.error('Products not found');
-      throw new NotFoundException('Product not found');
+    const productsExist = await this.isProductsExsits(productIds);
+    if (!productsExist) {
+      const productsNotFound = 'Not all of the products found in the order';
+      this.logger.error(productsNotFound);
+      throw new NotFoundException(productsNotFound);
     }
 
-    return this.orderService.addNewOrder(payload);
+    return this.orderService.addNew(payload);
   }
 
-  async isExsit(productsIds: number[]): Promise<Boolean> {
+  private async isProductsExsits(productsIds: number[]): Promise<Boolean> {
     return firstValueFrom(
       this.productClient.send({ cmd: 'is_products_exist' }, { productsIds }),
     );
   }
 
-  @MessagePattern({ cmd: 'find_orders_with_products_and_category' })
-  async findOrdersProductsCategory(): Promise<any> {
+  @MessagePattern({ cmd: 'find_orders_with_products_and_categories' })
+  async findsOrdersProductsCategories(): Promise<Order[]> {
     const orders = await this.orderService.findAll();
 
     for (const order of orders) {
-      const productsOrder = await this.productOrderService.findAll(order.id);
-      const productIds = productsOrder.map((po) => po.productId);
+      const productIds = order.productsOrder.map((po) => po.productId);
 
-      let products: any[] = [];
+      let products: ProductOrder[] = [];
       if (productIds.length !== 0) {
         products = await firstValueFrom(
           this.productClient.send({ cmd: 'find_products_by_ids' }, productIds),
         );
       }
 
-      order.products = productsOrder.map((prod) => ({
+      order.productsOrder = order.productsOrder.map((prod) => ({
         ...prod,
         product: products.find((p) => p.id === prod.productId),
       }));

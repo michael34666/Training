@@ -12,7 +12,7 @@ configDotenv({
 
 async function bootstrap() {
   const DEFAULT_PORT = 3000;
-
+  const DEFAULT_HOST = 'localhost';
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
     .setTitle('ECOMMERCE APP')
@@ -27,7 +27,7 @@ async function bootstrap() {
     .listen(process.env.GATEWAY_SERVICE_PORT ?? DEFAULT_PORT)
     .then(() => {
       Logger.log(
-        `Gateway service is running on http://localhost:${process.env.GATEWAY_SERVICE_PORT ?? DEFAULT_PORT}`,
+        `Gateway service is running on http://${process.env.GATEWAY_SERVICE_HOST ?? DEFAULT_HOST}:${process.env.GATEWAY_SERVICE_PORT ?? DEFAULT_PORT}`,
       );
     });
 }
