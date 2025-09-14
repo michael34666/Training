@@ -28,11 +28,9 @@ export class OrderRepository {
   }
 
   async save(createOrderDTO: CreateOrderDTO): Promise<Order> {
-    const order = this.dataSourceRepo.save({
+    return this.dataSourceRepo.save({
       uploadDate: createOrderDTO.uploadDate,
     });
-
-    return order;
   }
 
   async findOrdersProducts(): Promise<Order[]> {

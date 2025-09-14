@@ -3,7 +3,7 @@ import { ProductsOrderRepository } from './products-order.repository';
 import { AmountInput } from '@ecommerce/types';
 import { ProductOrder } from './products-order.entity';
 import { ProductOrderDTO } from '@ecommerce/types';
-import { Order } from 'src/order/order.entity';
+import { Order } from '../order/order.entity';
 
 @Injectable()
 export class ProductsOrderService {

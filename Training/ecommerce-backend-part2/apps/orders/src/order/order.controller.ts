@@ -29,11 +29,11 @@ export class OrderController {
 
   @MessagePattern({ cmd: 'add_new_order' })
   async addNew(payload: CreateOrderDTO): Promise<Order> {
-    const productsNotFound = 'Not all of the products found in the order';
     const productIds = payload.products.map((productOrder) => productOrder.id);
 
-    const productsExist = await this.isExsit(productIds);
+    const productsExist = await this.isProductsExsits(productIds);
     if (!productsExist) {
+      const productsNotFound = 'Not all of the products found in the order';
       this.logger.error(productsNotFound);
       throw new NotFoundException(productsNotFound);
     }
@@ -41,7 +41,7 @@ export class OrderController {
     return this.orderService.addNew(payload);
   }
 
-  private async isExsit(productsIds: number[]): Promise<Boolean> {
+  private async isProductsExsits(productsIds: number[]): Promise<Boolean> {
     return firstValueFrom(
       this.productClient.send({ cmd: 'is_products_exist' }, { productsIds }),
     );
