@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, In, Repository } from 'typeorm';
 import { Product } from './product.entity';
-import { Status } from '../utils/class/productStatus.enum';
+import { Status } from '@ecommerce/types';
 
 @Injectable()
 export class ProductRepository {

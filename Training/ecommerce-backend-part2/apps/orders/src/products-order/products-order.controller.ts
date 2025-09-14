@@ -2,7 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { ProductsOrderService } from './products-order.service';
 import { MessagePattern } from '@nestjs/microservices';
 import { ProductOrder } from './products-order.entity';
-import { AmountInput } from '../utils/class/input.class';
+import { AmountInput } from '@ecommerce/types';
 
 @Controller('orders')
 export class ProductsOrderController {
@@ -12,7 +12,7 @@ export class ProductsOrderController {
   async updateAmount(payload: {
     orderId: ProductOrder['id'];
     updateAmount: AmountInput;
-  }): Promise<ProductOrder> {
+  }): Promise<ProductOrder[]> {
     return this.productsOrderService.updateAmount(
       payload.orderId,
       payload.updateAmount,

@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ProductsOrderRepository } from './products-order.repository';
-import { AmountInput } from '../utils/class/input.class';
+import { AmountInput } from '@ecommerce/types';
 import { ProductOrder } from './products-order.entity';
-import { ProductOrderDTO } from '../utils/class/product_order_dto.class';
+import { ProductOrderDTO } from '@ecommerce/types';
 import { Order } from 'src/order/order.entity';
 
 @Injectable()
@@ -10,13 +10,13 @@ export class ProductsOrderService {
   constructor(private readonly repository: ProductsOrderRepository) {}
 
   async findOne(orderId: ProductOrder['id']): Promise<ProductOrder> {
-    const order = await this.repository.findOneBy({ id: orderId });
+    const productOrder = await this.repository.findOneBy({ id: orderId });
 
-    if (!order) {
+    if (!productOrder) {
       throw new NotFoundException('order not found');
     }
 
-    return order;
+    return productOrder;
   }
 
   async findAll(orderId: number): Promise<ProductOrder[]> {
@@ -26,18 +26,15 @@ export class ProductsOrderService {
   async updateAmount(
     orderId: ProductOrder['id'],
     amount: AmountInput,
-  ): Promise<ProductOrder> {
-    const order = await this.findOne(orderId);
-    if (order === null) {
-      throw new NotFoundException('product not found');
-    }
-    return this.repository.updateAmount(order, amount.changeAmount);
+  ): Promise<ProductOrder[]> {
+    const productOrder = await this.findOne(orderId);
+    return this.repository.updateAmount(productOrder, amount.changeAmount);
   }
 
-  async addNewProduct(
+  async addProducts(
     items: ProductOrderDTO[],
     order: Order,
   ): Promise<ProductOrder[]> {
-    return this.repository.addNew(items, order);
+    return this.repository.addProducts(items, order);
   }
 }

@@ -8,7 +8,7 @@ import {
 import { Order } from '../order/order.entity';
 import { IProductOrder } from '@ecommerce/types';
 
-@Entity('product_order')
+@Entity('products_orders')
 export class ProductOrder implements IProductOrder {
   @PrimaryGeneratedColumn()
   id: number;

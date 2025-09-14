@@ -5,9 +5,9 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import { Status } from '../utils/class/productStatus.enum';
 import { Category } from '../category/category.entity';
 import { IProduct } from '@ecommerce/types';
+import { Status } from '@ecommerce/types';
 
 @Entity('products')
 export class Product implements IProduct {

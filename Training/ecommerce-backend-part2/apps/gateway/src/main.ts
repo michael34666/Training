@@ -27,7 +27,7 @@ async function bootstrap() {
     .listen(process.env.GATEWAY_SERVICE_PORT ?? DEFAULT_PORT)
     .then(() => {
       Logger.log(
-        `Gateway service is running on http://${process.env.HOST ?? DEFAULT_HOST}:${process.env.GATEWAY_SERVICE_PORT ?? DEFAULT_PORT}`,
+        `Gateway service is running on http://${process.env.GATEWAY_SERVICE_HOST ?? DEFAULT_HOST}:${process.env.GATEWAY_SERVICE_PORT ?? DEFAULT_PORT}`,
       );
     });
 }

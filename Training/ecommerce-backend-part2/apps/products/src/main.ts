@@ -13,13 +13,12 @@ configDotenv({
 async function bootstrap() {
   const DEFAULT_PORT = 3002;
   const DEFAULT_HOST = 'localhost';
-  const DEFAULT_ADDRES = '0.0.0.0';
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
       transport: Transport.TCP,
       options: {
-        host: process.env.ADDRES ?? DEFAULT_ADDRES,
+        host: process.env.PRODUCTS_SERVICE_HOST ?? DEFAULT_HOST,
         port: +(process.env.PRODUCTS_SERVICE_PORT ?? DEFAULT_PORT),
       },
     },

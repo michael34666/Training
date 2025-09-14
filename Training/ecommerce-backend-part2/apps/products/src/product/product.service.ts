@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Product } from './product.entity';
 import { ProductRepository } from './product.repository';
-import type { PriceInput } from '../utils/class/input.class';
+import type { PriceInput } from '@ecommerce/types';
 
 @Injectable()
 export class ProductService {
@@ -11,7 +11,7 @@ export class ProductService {
     return this.repository.findAllActive();
   }
 
-  async findsOne(productId: Product['id']): Promise<Product> {
+  async getById(productId: Product['id']): Promise<Product> {
     const product = await this.repository.findOneBy({ id: productId });
     if (!product) {
       throw new NotFoundException('product not found');
@@ -34,22 +34,34 @@ export class ProductService {
     productId: Product['id'],
     price: PriceInput,
   ): Promise<Product> {
-    const product = await this.findsOne(productId);
+    const product = await this.getById(productId);
+    if (product === null) {
+      throw new NotFoundException('product not found');
+    }
     return this.repository.updatePrice(product, price.changePrice);
   }
 
   async updateStatus(productId: Product['id']): Promise<Product> {
-    const product = await this.findsOne(productId);
+    const product = await this.getById(productId);
+    if (product === null) {
+      throw new NotFoundException('product not found');
+    }
     return this.repository.updateStatus(product);
   }
 
   async remove(productId: Product['id']): Promise<Product> {
-    const ProductById = await this.findsOne(productId);
+    const productById = await this.getById(productId);
+    if (productById === null) {
+      throw new NotFoundException('product not found');
+    }
     const product = await this.repository.remove({ id: productId });
     return product;
   }
 
   async findByIds(productIds: number[]): Promise<Product[]> {
+    if (productIds === null) {
+      throw new NotFoundException('product not found');
+    }
     return this.repository.findByIds(productIds);
   }
 }

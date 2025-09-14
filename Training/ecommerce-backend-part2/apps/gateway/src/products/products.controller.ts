@@ -10,7 +10,7 @@ import {
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
 import { IProduct } from '@ecommerce/types';
-import { IPriceInput } from '@ecommerce/types';
+import { PriceInput } from '@ecommerce/types';
 import { ApiOkResponse } from '@nestjs/swagger';
 
 @Controller('products')
@@ -53,7 +53,7 @@ export class ProductController {
   @ApiOkResponse({ type: IProduct })
   async updatePrice(
     @Param('id') productId: number,
-    @Body() updatePrice: IPriceInput,
+    @Body() updatePrice: PriceInput,
   ): Promise<IProduct> {
     return firstValueFrom(
       this.productClient.send(

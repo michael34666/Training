@@ -1,2 +1,2 @@
 export * from './order.model';
-export * from './product_order_dto.model';
+export * from './product_order_dto.dto';

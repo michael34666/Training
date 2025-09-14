@@ -10,8 +10,8 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
-import { ICreateOrderDTO } from '@ecommerce/types';
-import { IAmountInput } from '@ecommerce/types';
+import { CreateOrderDTO } from '@ecommerce/types';
+import { AmountInput } from '@ecommerce/types';
 import { IOrder } from '@ecommerce/types';
 import { IProductOrder } from '@ecommerce/types';
 import { ApiBody, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
@@ -38,7 +38,7 @@ export class OrderController {
   @ApiOkResponse({ type: IProductOrder })
   async updateProductOrderAmount(
     @Param('id') orderId: number,
-    @Body() updateAmount: IAmountInput,
+    @Body() updateAmount: AmountInput,
   ): Promise<IProductOrder> {
     return firstValueFrom(
       this.orderClient.send(
@@ -49,11 +49,12 @@ export class OrderController {
   }
 
   @Post()
-  @ApiBody({ type: ICreateOrderDTO })
+  @ApiBody({ type: CreateOrderDTO })
   @ApiCreatedResponse({
     description: 'The order has been successfully created.',
+    type: IProductOrder,
   })
-  async addNew(@Body() newOrder: ICreateOrderDTO): Promise<IProductOrder> {
+  async addNew(@Body() newOrder: CreateOrderDTO): Promise<IProductOrder> {
     return firstValueFrom(
       this.orderClient.send({ cmd: 'add_new_order' }, newOrder),
     );

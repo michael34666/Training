@@ -1,7 +1,7 @@
 import { Controller, Get, Body, Param, Delete, Patch } from '@nestjs/common';
 import { Product } from './product.entity';
 import { ProductService } from './product.service';
-import type { PriceInput } from '../utils/class/input.class';
+import type { PriceInput } from '@ecommerce/types';
 import { MessagePattern } from '@nestjs/microservices';
 
 @Controller('products')
@@ -9,8 +9,8 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @MessagePattern({ cmd: 'get_by_id' })
-  async findsOne(payload: { id: number }): Promise<Product> {
-    return this.productService.findsOne(payload.id);
+  async getById(payload: { id: number }): Promise<Product> {
+    return this.productService.getById(payload.id);
   }
 
   @MessagePattern({ cmd: 'get_all_product' })
@@ -24,7 +24,7 @@ export class ProductController {
   }
 
   @MessagePattern({ cmd: 'remove_product_by_id' })
-  async removes(payload: { productId: Product['id'] }): Promise<Product> {
+  async remove(payload: { productId: Product['id'] }): Promise<Product> {
     return this.productService.remove(payload.productId);
   }
 
@@ -53,7 +53,7 @@ export class ProductController {
   }
 
   @MessagePattern({ cmd: 'find_products_by_ids' })
-  async findsByIds(productIds: number[]): Promise<Product[]> {
+  async findByIds(productIds: number[]): Promise<Product[]> {
     return this.productService.findByIds(productIds);
   }
 }

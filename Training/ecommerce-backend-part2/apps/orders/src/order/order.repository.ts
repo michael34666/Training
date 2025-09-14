@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { Order } from './order.entity';
-import { CreateOrderDTO } from '../utils/class/create-order-dto.class';
+import { CreateOrderDTO } from '@ecommerce/types';
 
 @Injectable()
 export class OrderRepository {
@@ -18,31 +18,21 @@ export class OrderRepository {
   async countIfExist(where: FindOptionsWhere<Order>): Promise<Boolean> {
     return this.dataSourceRepo.exists({ where });
   }
-
-  async remove(where: FindOptionsWhere<Order>): Promise<Order> {
-    const orderToDelete = await this.dataSourceRepo.findOne({ where });
-
-    if (!orderToDelete) {
-      throw new NotFoundException('Product not found');
-    }
-    const deletedOrder = { ...orderToDelete };
-    await this.dataSourceRepo.remove(orderToDelete);
-    return deletedOrder;
-  }
-  async addsNew(newOrder: Order) {
-    const newOne = this.dataSourceRepo.create({
-      id: newOrder.id,
-      uploadDate: newOrder.uploadDate,
-    });
-    return newOne;
+  async findOneBy(where: FindOptionsWhere<Order>): Promise<Order | null> {
+    return await this.dataSourceRepo.findOne({ where });
   }
 
-  async saveNew(createOrderDTO: CreateOrderDTO): Promise<Order> {
-    const order = this.dataSourceRepo.create({
+  async remove(order: Order): Promise<Order> {
+    await this.dataSourceRepo.remove(order);
+    return order;
+  }
+
+  async save(createOrderDTO: CreateOrderDTO): Promise<Order> {
+    const order = this.dataSourceRepo.save({
       uploadDate: createOrderDTO.uploadDate,
     });
 
-    return await this.dataSourceRepo.save(order);
+    return order;
   }
 
   async findOrdersProducts(): Promise<Order[]> {

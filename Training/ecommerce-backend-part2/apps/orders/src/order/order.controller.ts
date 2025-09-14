@@ -3,7 +3,8 @@ import { Order } from './order.entity';
 import { OrderService } from './order.service';
 import { ClientProxy, MessagePattern } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
-import type { CreateOrderDTO } from '../utils/class/create-order-dto.class';
+import type { CreateOrderDTO } from '@ecommerce/types';
+import { ProductOrder } from '../products-order/products-order.entity';
 
 @Controller('orders')
 export class OrderController {
@@ -28,12 +29,13 @@ export class OrderController {
 
   @MessagePattern({ cmd: 'add_new_order' })
   async addNew(payload: CreateOrderDTO): Promise<Order> {
+    const productsNotFound = 'Not all of the products found in the order';
     const productIds = payload.products.map((productOrder) => productOrder.id);
 
-    const productsExist = this.isExsit(productIds);
+    const productsExist = await this.isExsit(productIds);
     if (!productsExist) {
-      this.logger.error('Products not found');
-      throw new NotFoundException('Product not found');
+      this.logger.error(productsNotFound);
+      throw new NotFoundException(productsNotFound);
     }
 
     return this.orderService.addNew(payload);
@@ -46,13 +48,13 @@ export class OrderController {
   }
 
   @MessagePattern({ cmd: 'find_orders_with_products_and_categories' })
-  async findsOrdersProductsCategory(): Promise<any> {
+  async findsOrdersProductsCategories(): Promise<Order[]> {
     const orders = await this.orderService.findAll();
 
     for (const order of orders) {
       const productIds = order.productsOrder.map((po) => po.productId);
 
-      let products: any[] = [];
+      let products: ProductOrder[] = [];
       if (productIds.length !== 0) {
         products = await firstValueFrom(
           this.productClient.send({ cmd: 'find_products_by_ids' }, productIds),
