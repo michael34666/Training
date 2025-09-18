@@ -8,6 +8,6 @@ export class ICategory {
   @ApiProperty({ type: String })
   categoryName: string;
 
-  @ApiProperty({ type: [IProduct] })
+  @ApiProperty({ type: () => [IProduct] })
   products: IProduct[];
 }

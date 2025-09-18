@@ -1,6 +1,10 @@
 import { type FC, type JSX, type ReactNode, useState } from "react";
-import type { Product } from "../../utils/types/products";
-import { CartContext } from "./CartContext";
+import { CartContext } from "./cartContext";
+import type {
+  IProductOrder,
+  IProduct,
+  IOrder,
+} from "../../api/generated/model";
 
 export interface CartProviderProps {
   children: ReactNode;
@@ -9,64 +13,105 @@ export interface CartProviderProps {
 export const CartProvider: FC<CartProviderProps> = ({
   children,
 }): JSX.Element => {
-  const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [cartItems, setCartItems] = useState<IProductOrder[]>([]);
 
-  const addToCart = (product: Product, amount: number = 1) => {
-    if (amount < 0) {
+  const addToCart = (product: IProduct, amount: number = 1) => {
+    let count = 0;
+    if (amount <= 0) {
       alert("Enter a valid amount of product to add");
       return;
     }
-    setCartItems((prevItems: Product[]) => {
-      const existItem = prevItems.find(
-        (item: Product) => item.id === product.id
+
+    setCartItems((prevOrders) => {
+      const existOrder = prevOrders.find(
+        (order) => order.productId === product.id
       );
 
-      if (existItem) {
-        return prevItems.map((item: Product) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + amount }
-            : item
+      if (existOrder) {
+        return prevOrders.map((order) =>
+          order.productId === product.id
+            ? { ...order, amount: order.amount + amount }
+            : order
         );
       } else {
-        return [...prevItems, { ...product, quantity: amount }];
+        const newOrder: IProductOrder = {
+          id: count++,
+          order: {} as IOrder,
+          productId: product.id,
+          amount,
+        };
+        return [...prevOrders, newOrder];
       }
     });
   };
 
-  const removeFromCart = (itemId: number) => {
-    if (itemId) {
-      setCartItems((prevItems) =>
-        prevItems.filter((item: Product) => item.id !== itemId)
-      );
+  const removeFromCart = (productId: number) => {
+    const existProduct = cartItems.find(
+      (order) => order.productId === productId
+    );
+    if (!existProduct) {
+      alert("Product not in the cart");
     }
+    setCartItems((prevOrders) =>
+      prevOrders.filter((order) => order.productId !== productId)
+    );
   };
 
-  const removeAmount = (itemToRemove: Product, amount: number) => {
-    if (amount < 0) {
+  const removeAmount = (productId: number, amount: number = 1) => {
+    if (amount <= 0) {
       alert("Please enter a positive number to remove.");
       return;
     }
 
-    setCartItems((prevItems: Product[]) => {
-      const existItem = prevItems.find(
-        (item: Product) => itemToRemove.id === item.id
+    setCartItems((prevOrders) => {
+      const existOrder = prevOrders.find(
+        (order) => order.productId === productId
       );
 
-      if (!existItem) {
+      if (!existOrder) {
         alert("Item not found in the cart.");
-        return prevItems;
+        return prevOrders;
       }
 
-      if (amount > existItem.quantity) {
-        alert("Please remove less than the available quantity.");
-        return prevItems;
+      if (amount > existOrder.amount) {
+        alert("Please remove less than or equal to the available quantity.");
+        return prevOrders;
       }
 
-      return prevItems.map((items: Product) =>
-        items.id === itemToRemove.id
-          ? { ...items, quantity: items.quantity - amount }
-          : items
+      return prevOrders
+        .map((order) =>
+          order.productId === productId
+            ? { ...order, amount: order.amount - amount }
+            : order
+        )
+        .filter((order) => order.amount > 0);
+    });
+  };
+
+  const changeAmount = (productId: number, amount: number) => {
+    let count = 0;
+    if (amount <= 0) {
+      alert("Enter a valid amount of product to add");
+      return;
+    }
+    setCartItems((prevOrders) => {
+      const existOrder = prevOrders.find(
+        (order) => order.productId === productId
       );
+
+      if (existOrder) {
+        return prevOrders.map((order) =>
+          order.productId === productId ? { ...order, amount: amount } : order
+        );
+      } else {
+        const newOrder: IProductOrder = {
+          id: count++,
+          order: {} as IOrder,
+          productId: productId,
+          amount,
+        };
+        return [...prevOrders, newOrder];
+      }
     });
   };
 
@@ -77,6 +122,7 @@ export const CartProvider: FC<CartProviderProps> = ({
   return (
     <CartContext.Provider
       value={{
+        changeAmount,
         cartItems,
         addToCart,
         removeFromCart,

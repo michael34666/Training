@@ -1,12 +1,14 @@
 import { createContext, useContext } from "react";
-import type { Product } from "../../utils/types/products";
+import type { IProduct } from "../../api/generated/model/iProduct";
+import type { IProductOrder } from "../../api/generated/model";
 
 export interface CartContextType {
-  cartItems: Product[];
-  addToCart: (product: Product, amount?: number) => void;
-  removeFromCart: (itemId: number) => void;
+  cartItems: IProductOrder[];
+  addToCart: (product: IProduct, amount?: number) => void;
+  removeFromCart: (productId: number) => void;
   clearCart: () => void;
-  removeAmount: (itemToRemove: Product, amount: number) => void;
+  removeAmount: (productId: number, amount: number) => void;
+  changeAmount: (productId: number, amount: number) => void;
 }
 
 export const CartContext = createContext<CartContextType | null>(null);
@@ -15,7 +17,7 @@ export const useCartContext = (): CartContextType => {
   const cartContext = useContext(CartContext);
 
   if (cartContext === null) {
-    throw Error("You must useCartContent witin the CartContextProvider");
+    throw Error("You must useCartContext within the CartProvider");
   }
 
   return cartContext;

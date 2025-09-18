@@ -1,25 +1,16 @@
-.ProductUl {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 4rem;
- 
-  
-}
-
 .ProductLi {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 18.75rem;
+ display:inline-flex;
+  flex-direction: row;
+  align-items:flex-start;
+  text-align: left;
+  width: auto;
   height: auto;
-  padding: 3rem;
+  padding: 2rem;
   margin: 1rem;
+  margin-top:1rem;
   border: 0.125rem solid wheat;
   border-radius: 0.8rem;
-  background-color: #e9e1e1;
+  background-color: #e1e6e9;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
@@ -27,5 +18,11 @@
   max-width: 100%;
   height: auto;
   border-radius: 1rem;
-  margin-bottom: px;
+  
+}
+.inCart{
+  color:green;
+}
+.notInCart{
+   color:red;
 }
