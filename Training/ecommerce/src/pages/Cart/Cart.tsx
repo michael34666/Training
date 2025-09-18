@@ -50,7 +50,6 @@ const Cart = () => {
   return (
     <>
       <h1>Cart Page</h1>
-
       <div className={style.cart}>
         {orderItems.length > 0 ? (
           <>
