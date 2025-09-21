@@ -10,7 +10,7 @@ export interface ProductProps {
 const Product: FC<ProductProps> = ({ item, amount }): JSX.Element => {
   return (
     <div>
-      <Link to={`/product/${item.id}`}>
+      <Link to={`/products/${item.id}`}>
         <h2>{item.productName}</h2>
       </Link>
       <img

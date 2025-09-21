@@ -1,23 +1,53 @@
-import { useMemo, useState } from "react";
-import { useCartContext } from "../../context/CartContext/cartContext.tsx";
+import { useMemo } from "react";
+import {
+  useCartContext,
+  type CartProduct,
+} from "../../context/CartContext/cartContext.tsx";
 import style from "../Cart/cart.module.scss";
 import type { IProduct } from "../../api/generated/model/iProduct.ts";
 import Button from "../../components/Button/Button.tsx";
-import Product from "../../components/Products/Products.tsx";
-import { useProductControllerGetAllProduct } from "../../api/generated/generated.ts";
-import type { IProductOrder } from "../../api/generated/model/iProductOrder.ts";
+import Product from "../../components/Product/Product.tsx";
+import {
+  useOrderControllerAddNew,
+  useProductControllerGetAllProduct,
+} from "../../api/generated/generated.ts";
 import Input from "../../components/Input/Input.tsx";
+import type { CreateOrderDTO } from "../../api/generated/model/createOrderDTO.ts";
 
 const Cart = () => {
-  const { cartItems, removeFromCart, clearCart, changeAmount } =
-    useCartContext();
+  const {
+    amounts,
+    cartItems,
+    handleAmountChange,
+    removeFromCart,
+    clearCart,
+    changeAmount,
+  } = useCartContext();
   const { data: products } = useProductControllerGetAllProduct();
+  const { mutate: mutationFn } = useOrderControllerAddNew();
 
-  const [amounts, setAmounts] = useState<Record<number, number>>({});
+  const date = new Date();
+  const uploadDate = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
+  const poductOrderDTO = cartItems.map((item) => ({
+    id: item.productId,
+    amount: item.amount,
+  }));
+
+  const newOrder: CreateOrderDTO = { uploadDate, products: poductOrderDTO };
+
+  const addOrder = () => {
+    mutationFn({ data: newOrder });
+    console.log(newOrder);
+  };
 
   const orderItems = useMemo(() => {
     if (!products) return [];
-    return cartItems.map((order: IProductOrder) => {
+    return cartItems.map((order: CartProduct) => {
       const product = products.find((p: IProduct) => p.id === order.productId);
       return { ...order, product };
     });
@@ -35,16 +65,13 @@ const Cart = () => {
   }, [orderItems]);
 
   const submitOrder = () => {
-    if (totalCount != 0) {
+    if (totalCount !== 0) {
       alert("Your order submitted");
+      addOrder();
       clearCart();
     } else {
       alert("Cart is empty");
     }
-  };
-
-  const handleAmountChange = (productId: number, value: number) => {
-    setAmounts((prev) => ({ ...prev, [productId]: value }));
   };
 
   return (
@@ -67,7 +94,6 @@ const Cart = () => {
                     }
                     placeholder="Amount"
                   />
-
                   <Button
                     onClick={() =>
                       changeAmount(

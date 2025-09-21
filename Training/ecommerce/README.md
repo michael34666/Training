@@ -55,7 +55,7 @@ In this project you will learn how to use react router, redux and scss, while co
 
 
 
-
+-if i waana add im home more then 1 
 ---------------------------------------------------
 - **Navbar**- **done**
   - Name – return to home screen. **done**

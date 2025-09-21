@@ -1,6 +1,6 @@
-.ProductLi {
- display:inline-flex;
-  flex-direction: row;
+.productLi {
+  display:inline-flex;
+  flex-flow: row;
   align-items:flex-start;
   text-align: left;
   width: auto;
@@ -14,15 +14,10 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-.Img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 1rem;
-  
-}
 .inCart{
   color:green;
 }
+
 .notInCart{
    color:red;
 }

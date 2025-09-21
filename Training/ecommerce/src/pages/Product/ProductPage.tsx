@@ -1,35 +1,33 @@
 import { useProductControllerFindProduct } from "../../api/generated/generated.ts";
-import Product from "../../components/Products/Products.tsx";
+import Product from "../../components/Product/Product.tsx";
 import { useParams } from "react-router-dom";
 import PageNotFound from "../NotFound/notFound.tsx";
 import { useCartContext } from "../../context/CartContext/cartContext.tsx";
 import Button from "../../components/Button/Button.tsx";
-import { useState } from "react";
+
 import Input from "../../components/Input/Input.tsx";
 import style from "./product.module.scss";
 
 const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { cartItems, addToCart, removeFromCart, changeAmount } =
-    useCartContext();
-  const [amounts, setAmounts] = useState<Record<number, number>>({});
-  const handleAmountChange = (productId: number, value: number) => {
-    setAmounts((prev) => ({ ...prev, [productId]: value }));
-  };
-  if (id === undefined) {
-    return <PageNotFound />;
-  }
-  const numberId = +id;
-  const { data: product, isLoading } =
-    useProductControllerFindProduct(numberId);
+  const {
+    cartItems,
+    amounts,
+    handleAmountChange,
+    addToCart,
+    removeFromCart,
+    changeAmount,
+  } = useCartContext();
+
+  const { data: product, isLoading } = useProductControllerFindProduct(+id!);
 
   if (isLoading) return <p>Loading...</p>;
-  if (!product) return <PageNotFound />;
+  if (!product || id === undefined) return <PageNotFound />;
 
   return (
     <>
       <h1>Product Page</h1>
-      <div className={style.ProductLi}>
+      <div className={style.productLi}>
         <Product item={product} />
       </div>
       <Input
@@ -50,7 +48,7 @@ const ProductPage = () => {
         Update amount
       </Button>
       <br></br>
-      <Button onClick={() => addToCart(product)}>Add to Cart</Button>
+      <Button onClick={() => addToCart(product.id)}>Add to Cart</Button>
       <Button onClick={() => removeFromCart(product.id)}>
         remove from Cart
       </Button>

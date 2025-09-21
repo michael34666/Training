@@ -1,17 +1,15 @@
 .HomeUl {
   padding: 2rem;
-  
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   margin-left: 12rem;
-  flex-wrap: wrap;
   justify-content: center;
   gap: 4rem;
 }
 
 .HomeLi{
   display: flex;
-  flex-direction: column;
+  flex-flow: column;
   align-items: center;
   width: 18rem;
   height: auto;
@@ -22,6 +20,7 @@
   background-color: #e9e1e1;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
+
 .leftSidebar {
   position: fixed;
   justify-content: flex-start;
@@ -33,11 +32,10 @@
   background-color: #d8e0e2; 
   overflow-x: hidden; 
   transition: 0.5s;
- gap:4rem;
+  gap:4rem;
   transform: translateX(100%); 
-   transform: translateX(0); 
+  transform: translateX(0); 
 }
-
 
 .rightSidebarOpen {
   transform: translateX(0); 
