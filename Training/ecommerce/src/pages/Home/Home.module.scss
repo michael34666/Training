@@ -1,23 +1,50 @@
-.HomePage {
-  margin: 0 auto;
+.HomeUl {
+  padding: 2rem;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
+  margin-left: 12rem;
   justify-content: center;
   gap: 4rem;
-  max-width: 1000px;
-  padding-top: 4rem;
-  font-family:'Assistent' , 'Arial', sans-serif;
 }
 
-.HomeLi {
+
+.HomeLi{
   display: flex;
-  flex-direction: column;
+  flex-flow: column;
   align-items: center;
-  width: 30%;
-  min-width: 250px;
+  width: 18rem;
   height: auto;
-  padding-top: 3rem;
+  padding: 2rem;
   margin: 1rem;
+  border: 0.125rem solid wheat;
+  border-radius: 0.8rem;
+  background-color: #e9e1e1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
+.leftSidebar {
+  position: fixed;
+  justify-content: flex-start;
+  margin-top: 3.80rem;
+  top: 0; 
+  left: 0; 
+  width: 250px; 
+  height: 100%; 
+  background-color: #d8e0e2; 
+  overflow-x: hidden; 
+  transition: 0.5s;
+  gap:4rem;
+  transform: translateX(100%); 
+  transform: translateX(0); 
+}
+
+.rightSidebarOpen {
+  transform: translateX(0); 
+}
+
+.inCart{
+  color:green;
+}
+.notInCart{
+   color:red;
+}

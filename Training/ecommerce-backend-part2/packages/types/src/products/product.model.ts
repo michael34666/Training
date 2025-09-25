@@ -24,9 +24,9 @@ export class IProduct {
   @ApiProperty({ type: String })
   imageUrl: string;
 
-  @ApiProperty({ enum: ['ACTIVE', 'DISABLED'] })
+  @ApiProperty({ enum: Status })
   productStatus: Status;
 
-  @ApiProperty({ type: [ICategory] })
+  @ApiProperty({ type: () => [ICategory] })
   categories: ICategory[];
 }

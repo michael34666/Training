@@ -1,7 +1,7 @@
 import { Outlet, Link } from "react-router-dom";
-import style from "./Layout.module.scss";
+import style from "./Navbar.module.scss";
 
-const Layout = () => {
+const Navbar = () => {
   return (
     <>
       <nav>
@@ -36,4 +36,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default Navbar;

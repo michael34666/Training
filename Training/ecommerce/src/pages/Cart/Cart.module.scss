@@ -1,17 +1,46 @@
 .cart{
   display:flex;
-  flex-wrap: wrap;
   justify-content: center;  
   gap:1.5rem;
   border-style: solid black;
-  margin-top:2.5rem;
+  border-radius: 1.6rem;
+  padding: 2rem;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
 }
 
 .cartItem{
   background-color: #e9e1e1;
   border-style: solid black;
   border-radius: 1.6rem;
-  padding: 2.5rem;
-  width: 15.625rem;
-  box-shadow: 0 0.4rem 0.5rem rgba(0, 0, 0, 1);
+  padding: 1rem;
+  width:8rem;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 18rem;
+  height: auto;
+  padding: 2rem;
+  margin: 1rem;
+  border: 0.125rem solid wheat;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
+
+.summeryCart{
+  position: fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  display: flex;
+  justify-content:space-evenly;
+  background-color: rgb(234, 239, 240);;
+  font-style: italic;
+  font-size: 0.7rem;
+  padding:  0.1rem;
+  font-weight: bold;
+}
+
+
+

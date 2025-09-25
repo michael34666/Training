@@ -1,73 +1,75 @@
 import { type FC, type JSX, type ReactNode, useState } from "react";
-import type { Product } from "../../utils/types/products";
-import { CartContext } from "./CartContext";
+import { CartContext, type CartProduct } from "./cartContext";
 
 export interface CartProviderProps {
   children: ReactNode;
 }
+const BIG_AMOUNT = 10000;
 
 export const CartProvider: FC<CartProviderProps> = ({
   children,
 }): JSX.Element => {
-  const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [cartItems, setCartItems] = useState<CartProduct[]>([]);
 
-  const addToCart = (product: Product, amount: number = 1) => {
-    if (amount < 0) {
+  const updateAmount = (productId: number, amount: number) => {
+    setCartItems((prevProducts) => {
+      const index = prevProducts.findIndex(
+        (productItem) => productItem.productId === productId
+      );
+      if (amount > BIG_AMOUNT) {
+        alert("Enter not that big amount of products");
+        return prevProducts;
+      }
+      if (index !== -1) {
+        const updatedProducts = [...prevProducts];
+        updatedProducts[index] = {
+          ...updatedProducts[index],
+          amount,
+        };
+        return updatedProducts;
+      } else {
+        const newProductInCart: CartProduct = {
+          productId,
+          amount,
+        };
+        return [...prevProducts, newProductInCart];
+      }
+    });
+  };
+
+  const addToCart = (productId: number, amount: number = 1) => {
+    if (amount <= 0) {
       alert("Enter a valid amount of product to add");
       return;
     }
-    setCartItems((prevItems: Product[]) => {
-      const existItem = prevItems.find(
-        (item: Product) => item.id === product.id
-      );
 
-      if (existItem) {
-        return prevItems.map((item: Product) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + amount }
-            : item
-        );
-      } else {
-        return [...prevItems, { ...product, quantity: amount }];
-      }
-    });
+    updateAmount(productId, amount);
   };
 
-  const removeFromCart = (itemId: number) => {
-    if (itemId) {
-      setCartItems((prevItems) =>
-        prevItems.filter((item: Product) => item.id !== itemId)
-      );
+
+
+  const removeFromCart = (productId: number) => {
+    const existProduct = cartItems.find(
+      (prevProducts) => prevProducts.productId === productId
+    );
+    if (!existProduct) {
+      alert("Product not in the cart");
     }
+    setCartItems((prevProductsOrders) =>
+      prevProductsOrders.filter(
+        (productsOrders) => productsOrders.productId !== productId
+      )
+    );
   };
 
-  const removeAmount = (itemToRemove: Product, amount: number) => {
-    if (amount < 0) {
-      alert("Please enter a positive number to remove.");
+  const changeAmount = (productId: number, amount: number) => {
+    if (amount <= 0) {
+      alert("Enter a valid amount of product to add");
       return;
     }
 
-    setCartItems((prevItems: Product[]) => {
-      const existItem = prevItems.find(
-        (item: Product) => itemToRemove.id === item.id
-      );
-
-      if (!existItem) {
-        alert("Item not found in the cart.");
-        return prevItems;
-      }
-
-      if (amount > existItem.quantity) {
-        alert("Please remove less than the available quantity.");
-        return prevItems;
-      }
-
-      return prevItems.map((items: Product) =>
-        items.id === itemToRemove.id
-          ? { ...items, quantity: items.quantity - amount }
-          : items
-      );
-    });
+    updateAmount(productId, amount);
+    
   };
 
   const clearCart = () => {
@@ -77,11 +79,12 @@ export const CartProvider: FC<CartProviderProps> = ({
   return (
     <CartContext.Provider
       value={{
+  
+        changeAmount,
         cartItems,
         addToCart,
         removeFromCart,
         clearCart,
-        removeAmount,
       }}
     >
       {children}

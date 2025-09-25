@@ -1,62 +1,121 @@
 import { useMemo } from "react";
-import { useCartContext } from "../../context/CartContext/CartContext.tsx";
-import { data } from "../../components/mockDataIphone.ts";
-import type { Product } from "../../utils/types/products.ts";
+import {
+  useCartContext,
+  type CartProduct,
+} from "../../context/CartContext/cartContext.tsx";
+import style from "../Cart/cart.module.scss";
+import type { IProduct } from "../../api/generated/model/iProduct.ts";
 import Button from "../../components/Button/Button.tsx";
-
-import Products from "../../components/Products.tsx";
+import Product from "../../components/Product/Product.tsx";
+import {
+  useOrderControllerAddNew,
+  useProductControllerGetAllProduct,
+} from "../../api/generated/generated.ts";
+import Input from "../../components/Input/Input.tsx";
+import type { CreateOrderDTO } from "../../api/generated/model/createOrderDTO.ts";
 
 const Cart = () => {
-  const { cartItems, addToCart, clearCart } = useCartContext();
+  const { cartItems, removeFromCart, clearCart, changeAmount } =
+    useCartContext();
 
-  const totalPriceCart = () => {
-    return cartItems.reduce(
-      (total: number, item: Product) => total + item.price * item.quantity,
-      0
-    );
+  const { data: products } = useProductControllerGetAllProduct();
+  const { mutateAsync: mutationFn } = useOrderControllerAddNew();
+
+  const uploadDate = new Date().toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
+  const productOrderDTO = useMemo(() => {
+    return cartItems.map((item) => ({
+      id: item.productId,
+      amount: item.amount,
+    }));
+  }, [cartItems]);
+
+  const orderDTO: CreateOrderDTO = useMemo(() => {
+    return {
+      uploadDate,
+      products: productOrderDTO,
+    };
+  }, [uploadDate, productOrderDTO]);
+
+  const addOrder = async () => {
+    const newOrder = await mutationFn({ data: orderDTO });
+    alert("order number is " + newOrder.id);
+    return newOrder;
   };
 
-  const calcTotalPrice = useMemo(() => totalPriceCart(), [cartItems]);
-  const countItems = () => {
-    return cartItems.reduce(
-      (total: number, item: Product) => total + item.quantity,
-      0
-    );
-  };
+  const cartItemsWithData = useMemo(() => {
+    if (!products) return [];
+    return cartItems.map((order: CartProduct) => {
+      const product = products.find((p: IProduct) => p.id === order.productId);
+      return { ...order, product };
+    });
+  }, [cartItems, products]);
 
-  const clacCountItems = useMemo(() => countItems(), [cartItems]);
+  const totalPrice = useMemo(() => {
+    return cartItemsWithData.reduce((total, item) => {
+      if (!item.product) return total;
+      return total + item.product.price * item.amount;
+    }, 0);
+  }, [cartItemsWithData]);
+
+  const totalCount = useMemo(() => {
+    return cartItemsWithData.reduce((total, item) => total + item.amount, 0);
+  }, [cartItemsWithData]);
 
   const submitOrder = () => {
-    alert("Your order submitted");
-    clearCart();
+    if (totalCount !== 0) {
+      if (addOrder() !== null) {
+        clearCart();
+        alert("Your order submitted");
+      }
+    } else {
+      alert("Cart is empty");
+    }
   };
 
   return (
-    <div>
+    <>
       <h1>Cart Page</h1>
+      <div className={style.cart}>
+        {cartItemsWithData.length > 0 ? (
+          <>
+            {cartItemsWithData.map((item) =>
+              item.product && item.amount > 0 ? (
+                <div className={style.cartItem}>
+                  <div key={item.productId}>
+                    <Product item={item.product} />
+                  </div>
+                  <Input
+                    type="number"
+                    value={item.amount}
+                    onChange={(e) =>
+                      changeAmount(item.productId, +e.target.value)
+                    }
+                    placeholder="Amount"
+                  />
 
-      {cartItems.filter((item) => item.quantity > 0).length > 0 ? (
-        <Products items={cartItems.filter((item) => item.quantity > 0)}>
-          <h2>have {clacCountItems} product in card</h2>
-          <h2>Total: {calcTotalPrice}$</h2>
-        </Products>
-      ) : (
-        <p>Your cart is empty</p>
-      )}
-
-
-      <div>
-        {data.map((item: Product) => (
-          <Button key={item.id} onClick={() => addToCart(item)}>
-            Add {item.name} to Cart
-          </Button>
-        ))}
+                  <Button onClick={() => removeFromCart(item.productId)}>
+                    Remove
+                  </Button>
+                </div>
+              ) : null
+            )}
+          </>
+        ) : (
+          <p>Your cart is empty</p>
+        )}
       </div>
-      <div></div>
+      <div className={style.summeryCart}>
+        <h2>You have {totalCount ? totalCount : 0} products in cart</h2>
 
-      <Button onClick={() => submitOrder()}> Submit Order </Button>
-      
-    </div>
+        <h2>Total: {totalPrice ? totalPrice : 0}$</h2>
+        <Button onClick={submitOrder}>Submit Order</Button>
+      </div>
+    </>
   );
 };
 

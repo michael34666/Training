@@ -52,9 +52,9 @@ export class OrderController {
   @ApiBody({ type: CreateOrderDTO })
   @ApiCreatedResponse({
     description: 'The order has been successfully created.',
-    type: IProductOrder,
+    type: IOrder,
   })
-  async addNew(@Body() newOrder: CreateOrderDTO): Promise<IProductOrder> {
+  async addNew(@Body() newOrder: CreateOrderDTO): Promise<IOrder> {
     return firstValueFrom(
       this.orderClient.send({ cmd: 'add_new_order' }, newOrder),
     );

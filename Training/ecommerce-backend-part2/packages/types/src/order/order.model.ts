@@ -8,6 +8,6 @@ export class IOrder {
   @ApiProperty({ type: String })
   uploadDate: string;
 
-  @ApiProperty({ type: [IProductOrder] })
+  @ApiProperty({ type: () => [IProductOrder] })
   productsOrder: IProductOrder[];
 }
