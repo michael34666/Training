@@ -1,13 +1,15 @@
 import { type FC, type JSX } from "react";
 import { Link } from "react-router-dom";
 import type { IProduct } from "../../api/generated/model/iProduct.ts";
+import style from "./Product.module.scss";
+import { useCartContext } from "../../context/CartContext/cartContext.tsx";
 
 export interface ProductProps {
   item: IProduct;
-  amount?: number;
 }
 
-const Product: FC<ProductProps> = ({ item, amount }): JSX.Element => {
+const Product: FC<ProductProps> = ({ item }): JSX.Element => {
+  const { cartItems } = useCartContext();
   return (
     <div>
       <Link to={`/products/${item.id}`}>
@@ -24,12 +26,18 @@ const Product: FC<ProductProps> = ({ item, amount }): JSX.Element => {
         Date:
         <br /> {item.uploadDate}
       </p>
-      <p>
+      <p className={style.productDescription}>
         Description:
         <br /> {item.productDescription}
       </p>
       <p>Price: {item.price}$</p>
-      {amount !== undefined && <p> Quantity: {amount}</p>}
+      {
+        <p>
+          {" "}
+          Quantity:{" "}
+          {cartItems.find((cart) => cart.productId == item.id)?.amount ?? 0}
+        </p>
+      }
 
       <p>
         {(item.categories ?? [])

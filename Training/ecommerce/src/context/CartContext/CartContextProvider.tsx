@@ -4,28 +4,32 @@ import { CartContext, type CartProduct } from "./cartContext";
 export interface CartProviderProps {
   children: ReactNode;
 }
+const BIG_AMOUNT = 10000;
 
 export const CartProvider: FC<CartProviderProps> = ({
   children,
 }): JSX.Element => {
   const [cartItems, setCartItems] = useState<CartProduct[]>([]);
-  const [amounts, setAmounts] = useState<Record<number, number>>({});
 
   const updateAmount = (productId: number, amount: number) => {
     setCartItems((prevProducts) => {
-      const existInCart = prevProducts.find(
+      const index = prevProducts.findIndex(
         (productItem) => productItem.productId === productId
       );
-
-      if (existInCart) {
-        return prevProducts.map((productItem) =>
-          productItem.productId === productId
-            ? { ...productItem, amount: amount }
-            : productItem
-        );
+      if (amount > BIG_AMOUNT) {
+        alert("Enter not that big amount of products");
+        return prevProducts;
+      }
+      if (index !== -1) {
+        const updatedProducts = [...prevProducts];
+        updatedProducts[index] = {
+          ...updatedProducts[index],
+          amount,
+        };
+        return updatedProducts;
       } else {
         const newProductInCart: CartProduct = {
-          productId: productId,
+          productId,
           amount,
         };
         return [...prevProducts, newProductInCart];
@@ -42,9 +46,7 @@ export const CartProvider: FC<CartProviderProps> = ({
     updateAmount(productId, amount);
   };
 
-  const handleAmountChange = (productId: number, value: number) => {
-    setAmounts((prev) => ({ ...prev, [productId]: value }));
-  };
+
 
   const removeFromCart = (productId: number) => {
     const existProduct = cartItems.find(
@@ -67,6 +69,7 @@ export const CartProvider: FC<CartProviderProps> = ({
     }
 
     updateAmount(productId, amount);
+    
   };
 
   const clearCart = () => {
@@ -76,8 +79,7 @@ export const CartProvider: FC<CartProviderProps> = ({
   return (
     <CartContext.Provider
       value={{
-        amounts,
-        handleAmountChange,
+  
         changeAmount,
         cartItems,
         addToCart,

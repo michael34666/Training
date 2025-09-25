@@ -18,40 +18,56 @@ const APPHome = () => {
   const { cartItems, addToCart } = useCartContext();
   const [items, setItems] = useState<IProduct[]>([]);
 
+  const findMaxPrice = () => {
+    if (products !== undefined) {
+      return Math.max(...products.map((product) => product.price));
+    }
+    return 0;
+  };
+
   useEffect(() => {
     if (products) {
       setItems(products);
     }
   }, [products]);
 
-  const inputSameFormat = (str: string) => str.trim().toLowerCase();
+  const inputNormalized = (str: string) => str.trim().toLowerCase();
+  const msg = "product Not found ";
 
   const filterItemsCategory = (filter: string) => {
     setSearchTerm(filter);
-    const normalizedFilter = inputSameFormat(filter);
+    const normalizedFilter = inputNormalized(filter);
     if (!normalizedFilter) {
       setItems(products ?? []);
       return;
     }
     const filtered = (products ?? []).filter((item) =>
       item.categories?.some((cat) =>
-        inputSameFormat(cat.categoryName).includes(normalizedFilter)
+        inputNormalized(cat.categoryName).includes(normalizedFilter)
       )
     );
+
     setItems(filtered);
+    if (filtered.length === 0) {
+      alert(msg);
+    }
   };
 
   const filterItemsName = (name: string) => {
     setProdName(name);
-    const normalizedName = inputSameFormat(name);
+    const normalizedName = inputNormalized(name);
     if (!normalizedName) {
       setItems(products ?? []);
       return;
     }
     const filtered = (products ?? []).filter((item) =>
-      inputSameFormat(item.productName).includes(normalizedName)
+      inputNormalized(item.productName).includes(normalizedName)
     );
+
     setItems(filtered);
+    if (filtered.length === 0) {
+      alert(msg);
+    }
   };
 
   const filterItemsPrice = (min: number, max: number) => {
@@ -59,17 +75,25 @@ const APPHome = () => {
       alert("Prices must be positive");
       return;
     }
+    if (max > findMaxPrice() && max !== Infinity) {
+      alert("The product costs more than the maximum product cost.");
+    }
+
     setMinPrice(min);
     setMaxPrice(max);
     const filtered = (products ?? []).filter(
       (item) => item.price >= min && item.price <= max
     );
+
     setItems(filtered);
+    if (filtered.length === 0) {
+      alert(msg);
+    }
   };
 
   const filterItemsDate = (date: string) => {
     setDate(date);
-    const normalizedDate = inputSameFormat(date);
+    const normalizedDate = inputNormalized(date);
     if (!normalizedDate) {
       setItems(products ?? []);
       return;
@@ -78,6 +102,9 @@ const APPHome = () => {
       item.uploadDate.includes(normalizedDate)
     );
     setItems(filtered);
+    if (filtered.length === 0) {
+      alert(msg);
+    }
   };
 
   const sortItemsPrice = () => {
@@ -93,7 +120,14 @@ const APPHome = () => {
     setItems(sorted);
   };
 
-  const showAllProd = () => setItems(products ?? []);
+  const resetAll = () => {
+    setItems(products ?? []);
+    setSearchTerm("");
+    setDate("");
+    setProdName("");
+    setMaxPrice(Infinity);
+    setMinPrice(-Infinity);
+  };
 
   if (isLoading) return <p>Loading products...</p>;
 
@@ -104,11 +138,19 @@ const APPHome = () => {
           {items.map((item) => (
             <li key={item.id} className={style.HomeLi}>
               <Product item={item} />
-              <Button onClick={() => addToCart(item.id)}>Add to Cart</Button>
+
               {cartItems.some((it) => it.productId === item.id) ? (
-                <p className={style.inCart}> Product already in cart</p>
+                <>
+                  <p className={style.inCart}> Product already in cart</p>
+                  <button disabled>Add to Cart</button>
+                </>
               ) : (
-                <p className={style.notInCart}> Product not in the cart </p>
+                <>
+                  <p className={style.notInCart}> Product not in the cart </p>
+                  <Button onClick={() => addToCart(item.id)}>
+                    Add to Cart
+                  </Button>
+                </>
               )}
             </li>
           ))}
@@ -133,6 +175,7 @@ const APPHome = () => {
               }}
               placeholder="Enter product name"
             />
+
             <br />
             <Input
               type="number"
@@ -159,13 +202,13 @@ const APPHome = () => {
               onChange={(e) => {
                 filterItemsDate(e.target.value);
               }}
-              placeholder="by product upload Date"
+              placeholder="by product upload date"
             />
             <h3>sort </h3>
             <Button onClick={sortItemsPrice}>Sort by Price</Button>
             <Button onClick={sortItemsDate}>Sort by Date</Button>
             <h3>show all product </h3>
-            <Button onClick={showAllProd}>Show All Products</Button>
+            <Button onClick={resetAll}>Reset all search</Button>
           </div>
         </div>
       </div>

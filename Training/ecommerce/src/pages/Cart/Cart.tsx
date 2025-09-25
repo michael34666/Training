@@ -15,37 +15,39 @@ import Input from "../../components/Input/Input.tsx";
 import type { CreateOrderDTO } from "../../api/generated/model/createOrderDTO.ts";
 
 const Cart = () => {
-  const {
-    amounts,
-    cartItems,
-    handleAmountChange,
-    removeFromCart,
-    clearCart,
-    changeAmount,
-  } = useCartContext();
-  const { data: products } = useProductControllerGetAllProduct();
-  const { mutate: mutationFn } = useOrderControllerAddNew();
+  const { cartItems, removeFromCart, clearCart, changeAmount } =
+    useCartContext();
 
-  const date = new Date();
-  const uploadDate = date.toLocaleDateString("en-US", {
+  const { data: products } = useProductControllerGetAllProduct();
+  const { mutateAsync: mutationFn } = useOrderControllerAddNew();
+
+  const uploadDate = new Date().toLocaleDateString("en-US", {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
   });
 
-  const poductOrderDTO = cartItems.map((item) => ({
-    id: item.productId,
-    amount: item.amount,
-  }));
+  const productOrderDTO = useMemo(() => {
+    return cartItems.map((item) => ({
+      id: item.productId,
+      amount: item.amount,
+    }));
+  }, [cartItems]);
 
-  const newOrder: CreateOrderDTO = { uploadDate, products: poductOrderDTO };
+  const orderDTO: CreateOrderDTO = useMemo(() => {
+    return {
+      uploadDate,
+      products: productOrderDTO,
+    };
+  }, [uploadDate, productOrderDTO]);
 
-  const addOrder = () => {
-    mutationFn({ data: newOrder });
-    console.log(newOrder);
+  const addOrder = async () => {
+    const newOrder = await mutationFn({ data: orderDTO });
+    alert("order number is " + newOrder.id);
+    return newOrder;
   };
 
-  const orderItems = useMemo(() => {
+  const cartItemsWithData = useMemo(() => {
     if (!products) return [];
     return cartItems.map((order: CartProduct) => {
       const product = products.find((p: IProduct) => p.id === order.productId);
@@ -54,21 +56,22 @@ const Cart = () => {
   }, [cartItems, products]);
 
   const totalPrice = useMemo(() => {
-    return orderItems.reduce((total, item) => {
+    return cartItemsWithData.reduce((total, item) => {
       if (!item.product) return total;
       return total + item.product.price * item.amount;
     }, 0);
-  }, [orderItems]);
+  }, [cartItemsWithData]);
 
   const totalCount = useMemo(() => {
-    return orderItems.reduce((total, item) => total + item.amount, 0);
-  }, [orderItems]);
+    return cartItemsWithData.reduce((total, item) => total + item.amount, 0);
+  }, [cartItemsWithData]);
 
   const submitOrder = () => {
     if (totalCount !== 0) {
-      alert("Your order submitted");
-      addOrder();
-      clearCart();
+      if (addOrder() !== null) {
+        clearCart();
+        alert("Your order submitted");
+      }
     } else {
       alert("Cart is empty");
     }
@@ -78,40 +81,28 @@ const Cart = () => {
     <>
       <h1>Cart Page</h1>
       <div className={style.cart}>
-        {orderItems.length > 0 ? (
+        {cartItemsWithData.length > 0 ? (
           <>
-            {orderItems.map((item) =>
+            {cartItemsWithData.map((item) =>
               item.product && item.amount > 0 ? (
                 <div className={style.cartItem}>
                   <div key={item.productId}>
-                    <Product item={item.product} amount={item.amount} />
+                    <Product item={item.product} />
                   </div>
                   <Input
                     type="number"
-                    value={amounts[item.productId]}
+                    value={item.amount}
                     onChange={(e) =>
-                      handleAmountChange(item.productId, +e.target.value)
+                      changeAmount(item.productId, +e.target.value)
                     }
                     placeholder="Amount"
                   />
-                  <Button
-                    onClick={() =>
-                      changeAmount(
-                        item.productId,
-                        amounts[item.productId] ? amounts[item.productId] : 0
-                      )
-                    }
-                  >
-                    Update amount
-                  </Button>
 
                   <Button onClick={() => removeFromCart(item.productId)}>
                     Remove
                   </Button>
                 </div>
-              ) : (
-                <p></p>
-              )
+              ) : null
             )}
           </>
         ) : (

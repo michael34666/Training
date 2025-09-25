@@ -543,7 +543,7 @@ export const orderControllerAddNew = (
 ) => {
       
       
-      return customInstance<IProductOrder>(
+      return customInstance<IOrder>(
       {url: `/orders`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: createOrderDTO, signal

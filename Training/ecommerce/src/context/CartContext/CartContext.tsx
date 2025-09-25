@@ -7,12 +7,10 @@ export interface CartProduct {
 
 export interface CartContextType {
   cartItems: CartProduct[];
-  amounts: Record<number, number>;
   addToCart: (productId: number, amount?: number) => void;
   removeFromCart: (productId: number) => void;
   clearCart: () => void;
   changeAmount: (productId: number, amount: number) => void;
-  handleAmountChange: (productId: number, value: number) => void;
 }
 
 export const CartContext = createContext<CartContextType | null>(null);
